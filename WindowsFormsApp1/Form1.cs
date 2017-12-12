@@ -21,13 +21,6 @@ namespace WindowsFormsApp1
         int posDestX = 0, posDestY = 0;
         bool feutrePosBas = false;
 
-        void PutPixel(Graphics g, int x, int y)
-        {
-            Bitmap bm = new Bitmap(1, 1);
-            bm.SetPixel(0, 0, Color.Red);
-            g.
-        }
-
         public Form1()
         {
             InitializeComponent();
@@ -128,7 +121,7 @@ namespace WindowsFormsApp1
 
             if(feutrePosBas == true)
             {
-                PutPixel(myGraphics, posXi, posXi);
+                //PutPixel(myGraphics, posXi, posXi);
             }
 
             robot.Position(posXi, posYi);

@@ -18,3 +18,13 @@ C:\Users\romai\Desktop\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsA
 C:\Users\romai\Desktop\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\romai\Desktop\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\romai\Desktop\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojResolveAssemblyReference.cache
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.Cache
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Work\Projet_p1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Work\Projet_p1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Work\Projet_p1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Work\Projet_p1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
