@@ -17,9 +17,43 @@ namespace WindowsFormsApp1
 
         int vitesse = 10;
 
-        int posXi = 0, posYi = 0;
+        //int posXi = 0, posYi = 0;
         int posDestX = 0, posDestY = 0;
         bool feutrePosBas = false;
+
+        /*void DrawCircle(PaintEventArgs e, int radius, int centerX, int centerY)
+        {
+            Graphics myGraphics = e.Graphics;
+            //myGraphics.Clear(Color.White);
+
+            for (double i = 0.0; i < 360.0; i += 0.1)
+            {
+                double angle = i * System.Math.PI / 180;
+                int x = (int)(centerX + radius * System.Math.Cos(angle));
+                int y = (int)(centerY + radius * System.Math.Sin(angle));
+
+                PutPixel(myGraphics, x, y, Color.Red);
+                //System.Threading.Thread.Sleep(5); // If you want to draw circle very slowly.
+            }
+            myGraphics.Dispose();
+        }*/
+
+        /*void DrawCross(PaintEventArgs e, int width, int topX, int topY)
+        {
+            Graphics myGraphics = e.Graphics;
+            //myGraphics.Clear(Color.White);
+
+            for (int i = 0; i <= width; i++)
+            {
+                PutPixel(myGraphics, topX + i, topY + i, Color.White);
+                System.Threading.Thread.Sleep(30);
+            }
+            for (int j = width; j >= 0; j--)
+            {
+                PutPixel(myGraphics, topX + j, topY + (width - j), Color.White);
+                System.Threading.Thread.Sleep(30);
+            }
+        }*/
 
         public Form1()
         {
@@ -28,7 +62,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-                robot = new Robot(pnlSurface, pnlAxeX, pnlAxeY);
+            robot = new Robot(pnlSurface, pnlAxeX, pnlAxeY);
         }
 
         private void btnLauchCommand_Click(object sender, EventArgs e)
@@ -80,51 +114,21 @@ namespace WindowsFormsApp1
             timerVitesse.Interval = vitesse;
         }
 
+        int centerX = 50, centerY = 50, radius = 30;
+
         private void timerVitesse_Tick(object sender, EventArgs e)
         {
-            
-            if(posDestX < robot.getCurrentPos()[0])
-            {
-                if (posDestX != posXi)
-                {
-                    posXi--;
-                }
-            }
-            else if(posDestX > robot.getCurrentPos()[0])
-            {
-                if (posDestX != posXi)
-                {
-                    posXi++;
-                }
-            }
+               // robot.Position(posDestX, posDestY, timerVitesse);
 
-
-            if (posDestY < robot.getCurrentPos()[1])
+            for (double i = 0.0; i < 360.0; i += 0.1)
             {
-                if (posDestY != posYi)
-                {
-                    posYi--;
-                }
-            }
-            else if (posDestY > robot.getCurrentPos()[1])
-            {
-                if (posDestY != posYi)
-                {
-                    posYi++;
-                }
-            }
+                double angle = i * System.Math.PI / 180;
+                int x = (int)(centerX + radius * System.Math.Cos(angle));
+                int y = (int)(centerY + radius * System.Math.Sin(angle));
 
-            if((posDestX == robot.getCurrentPos()[0]) && (posDestY == robot.getCurrentPos()[1]))
-            {
-                timerVitesse.Stop();
+                robot.Position(x, y, timerVitesse);
+                System.Threading.Thread.Sleep(2); // If you want to draw circle very slowly.
             }
-
-            if(feutrePosBas == true)
-            {
-                //PutPixel(myGraphics, posXi, posXi);
-            }
-
-            robot.Position(posXi, posYi);
         }
     }
 }

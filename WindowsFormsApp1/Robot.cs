@@ -13,6 +13,8 @@ namespace WindowsFormsApp1
         private Panel _pnlSurface;
         private Panel _pnlAxeX;
         private Panel _pnlAxeY;
+        private static int posXi;
+        private static int posYi;
 
         public Robot(Panel pnlSurface, Panel pnlAxeX, Panel pnlAxeY)
         {
@@ -27,10 +29,46 @@ namespace WindowsFormsApp1
             _pnlAxeY.Location = new Point(0, 0);
         }
 
-        public void Position(int x, int y)
+        public void Position(int posDestX, int posDestY, Timer timer)
         {
-            _pnlAxeY.Location = new Point(0, y);
-            _pnlAxeX.Location = new Point(x, _pnlAxeY.Bottom - ((_pnlAxeX.Height / 2) + (_pnlAxeY.Height /2)));     
+            if (posDestX < getCurrentPos()[0])
+            {
+                if (posDestX != posXi)
+                {
+                    posXi--;
+                }
+            }
+            else if (posDestX > getCurrentPos()[0])
+            {
+                if (posDestX != posXi)
+                {
+                    posXi++;
+                }
+            }
+
+
+            if (posDestY < getCurrentPos()[1])
+            {
+                if (posDestY != posYi)
+                {
+                    posYi--;
+                }
+            }
+            else if (posDestY > getCurrentPos()[1])
+            {
+                if (posDestY != posYi)
+                {
+                    posYi++;
+                }
+            }
+
+            if ((posDestX == getCurrentPos()[0]) && (posDestY == getCurrentPos()[1]))
+            {
+                timer.Stop();
+            }
+
+            _pnlAxeY.Location = new Point(0, posYi);
+            _pnlAxeX.Location = new Point(posXi, _pnlAxeY.Bottom - ((_pnlAxeX.Height / 2) + (_pnlAxeY.Height / 2)));
         }
 
         public int[] getCurrentPos()
