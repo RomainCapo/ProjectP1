@@ -23,12 +23,21 @@ namespace WindowsFormsApp1
             _pnlAxeY = pnlAxeY;
         }
 
+        /// <summary>
+        /// Place les bras du robot au point 0,0
+        /// </summary>
         public void RetourPositionDepart()
         {
             _pnlAxeX.Location = new Point(0, 0);
             _pnlAxeY.Location = new Point(0, 0);
         }
 
+        /// <summary>
+        /// Deplace les bras du robot à la position demandé
+        /// </summary>
+        /// <param name="posDestX">position de destination en X</param>
+        /// <param name="posDestY">position de destination en Y</param>
+        /// <param name="timer">timer de la forme principale</param>
         public void Position(int posDestX, int posDestY, Timer timer)
         {
             if (posDestX < getCurrentPos()[0])
@@ -71,6 +80,10 @@ namespace WindowsFormsApp1
             _pnlAxeX.Location = new Point(posXi, _pnlAxeY.Bottom - ((_pnlAxeX.Height / 2) + (_pnlAxeY.Height / 2)));
         }
 
+        /// <summary>
+        /// retorune la position actuelle des bras du robot
+        /// </summary>
+        /// <returns>un tableau de int contenant la position X et Y des bras du robot</returns>
         public int[] getCurrentPos()
         {
             int[] currentPos = new int[2];
