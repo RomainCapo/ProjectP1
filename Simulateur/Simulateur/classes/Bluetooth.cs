@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Windows.Forms;
+using Windows.Devices.Bluetooth;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace Simulateur.classes
 {
@@ -30,9 +34,47 @@ namespace Simulateur.classes
             return SendToRobot("G28<0x0A>");
         }
 
-        private void ConnectRobot()
+        private void Scan()
         {
-            
+            string[] requestedProperties = { "System.Devices.Aep.DeviceAddress", "System.Devices.Aep.IsConnected" };
+
+            DeviceWatcher deviceWatcher =
+                        DeviceInformation.CreateWatcher(
+                                BluetoothLEDevice.GetDeviceSelectorFromPairingState(false),
+                                requestedProperties,
+                                DeviceInformationKind.AssociationEndpoint);
+
+            // Register event handlers before starting the watcher.
+            // Added, Updated and Removed are required to get all nearby devices
+            deviceWatcher.Added += DeviceWatcher_Added;
+            deviceWatcher.Updated += DeviceWatcher_Updated;
+            deviceWatcher.Removed += DeviceWatcher_Removed;
+
+            // Start the watcher.
+            deviceWatcher.Start();
+        }
+
+        private async void ConnectDevice(DeviceInformation device)
+        {
+
+        }
+
+        private void DeviceWatcher_Added(DeviceWatcher x, DeviceInformation y)
+        {
+            if(y.Name == "Makeblock_LE")
+            {
+                ConnectDevice(y);
+            }
+        }
+
+        private void DeviceWatcher_Updated(DeviceWatcher x, DeviceInformationUpdate y)
+        {
+
+        }
+
+        private void DeviceWatcher_Removed(DeviceWatcher x, DeviceInformationUpdate y)
+        {
+
         }
 
         private bool SendToRobot(string data)
