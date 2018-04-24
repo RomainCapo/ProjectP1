@@ -1,0 +1,10 @@
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.exe.config
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csprojResolveAssemblyReference.cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.Form1.resources
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.Properties.Resources.resources
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.GenerateResource.Cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CoreCompileInputs.cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.pdb
