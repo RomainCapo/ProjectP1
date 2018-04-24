@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using Windows
 
 namespace Simulateur.classes
 {
