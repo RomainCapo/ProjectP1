@@ -1,16 +1,19 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.Windows.Forms;
-using Windows.Devices.Bluetooth;
-using Windows.Devices.Bluetooth.GenericAttributeProfile;
-using Windows.Devices.Enumeration;
+using InTheHand.Net;
+using InTheHand.Net.Bluetooth;
+using InTheHand.Net.Sockets;
 
 namespace Simulateur.classes
 {
     class Bluetooth
     {
+        bool inProgress = false, isConnected = false;
+        BluetoothClient client;
+
         public Bluetooth()
         {
-            ConnectRobot();
+            ConnectDevice();
             SendToRobot("M10<0x0A>");
         }
 
@@ -34,53 +37,79 @@ namespace Simulateur.classes
             return SendToRobot("G28<0x0A>");
         }
 
-        private void Scan()
-        {
-            string[] requestedProperties = { "System.Devices.Aep.DeviceAddress", "System.Devices.Aep.IsConnected" };
-
-            DeviceWatcher deviceWatcher =
-                        DeviceInformation.CreateWatcher(
-                                BluetoothLEDevice.GetDeviceSelectorFromPairingState(false),
-                                requestedProperties,
-                                DeviceInformationKind.AssociationEndpoint);
-
-            // Register event handlers before starting the watcher.
-            // Added, Updated and Removed are required to get all nearby devices
-            deviceWatcher.Added += DeviceWatcher_Added;
-            deviceWatcher.Updated += DeviceWatcher_Updated;
-            deviceWatcher.Removed += DeviceWatcher_Removed;
-
-            // Start the watcher.
-            deviceWatcher.Start();
-        }
-
-        private async void ConnectDevice(DeviceInformation device)
-        {
-
-        }
-
-        private void DeviceWatcher_Added(DeviceWatcher x, DeviceInformation y)
-        {
-            if(y.Name == "Makeblock_LE")
-            {
-                ConnectDevice(y);
-            }
-        }
-
-        private void DeviceWatcher_Updated(DeviceWatcher x, DeviceInformationUpdate y)
-        {
-
-        }
-
-        private void DeviceWatcher_Removed(DeviceWatcher x, DeviceInformationUpdate y)
-        {
-
-        }
-
         private bool SendToRobot(string data)
         { 
             //System.Threading.Thread.Sleep(100);
             return true;
+        }
+
+        private void ConnectDevice()
+        {
+            const string TARGETADDRESS = "Geronimo-Samsung";
+            const string TARGETPIN = "";
+
+            BluetoothDeviceInfo robot = Scan(TARGETADDRESS);
+            if(robot != null)
+            {
+                bool result = Connect(robot, TARGETPIN);
+
+                if (result)
+                {
+                    MessageBox.Show("Connexion au robot réussie !", "Connecté", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    isConnected = true;
+                }
+                else
+                {
+                    if (MessageBox.Show("Impossible de se connecter au robot !\nVoulez-vous recommencer ?", "Erreur", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    {
+                        ConnectDevice();
+                    }
+                }
+            }
+            else
+            {
+                if(MessageBox.Show("Impossible de trouver le robot !\nVoulez-vous recommencer ?", "Erreur", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    ConnectDevice();
+                }
+            }
+        }
+
+        private BluetoothDeviceInfo Scan(string TARGETADDRESS)
+        {
+            client = new BluetoothClient();
+            BluetoothDeviceInfo[] devices = client.DiscoverDevices(10, true, true, true, false);
+            foreach (BluetoothDeviceInfo device in devices)
+            {
+                if (device.DeviceName == TARGETADDRESS)
+                {
+                    return device;
+                }
+            }
+            return null;
+        }
+
+        private bool Connect(BluetoothDeviceInfo target, string PIN)
+        {
+            if(!client.Connected)
+            {
+                client = new BluetoothClient();
+            }
+
+            if (!BluetoothSecurity.PairRequest(target.DeviceAddress, PIN))
+            {
+                return false;
+            }
+
+            inProgress = true;
+            client.BeginConnect(target.DeviceAddress, target.InstalledServices[0], ConnectionResult, client);
+            while (inProgress) { }
+            return client.Connected;
+        }
+
+        private void ConnectionResult(IAsyncResult result)
+        {
+            inProgress = false;
         }
     }
 }
