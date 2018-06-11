@@ -70,16 +70,34 @@
     <Compile Include="classes\Robot.cs" />
     <Compile Include="classes\morpion\PlayTicTacToe.cs" />
     <Compile Include="classes\morpion\TicTacToe.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="formes\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="formes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formes\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formes\Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formes\MenuTicTacToe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formes\MenuTicTacToe.Designer.cs">
+      <DependentUpon>MenuTicTacToe.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="formes\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formes\Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formes\MenuTicTacToe.resx">
+      <DependentUpon>MenuTicTacToe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +107,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,6 +121,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icone.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\The-heart.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

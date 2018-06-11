@@ -76,7 +76,7 @@ namespace Simulateur.classes.maze
             form.Controls.Add(gbMaze);
         }
 
-        private void Generate(Object sender, EventArgs e)
+        public void Generate(Object sender, EventArgs e)
         {
             NumericUpDown numLength = gbMaze.Controls.Find("numLength", false).FirstOrDefault() as NumericUpDown;
             cellLength = Convert.ToInt32(numLength.Value);
@@ -86,7 +86,7 @@ namespace Simulateur.classes.maze
             
         }
 
-        private void Resolve(Object sender, EventArgs e)
+        public void Resolve(Object sender, EventArgs e)
         {
             Point[] Solution = maze.ResolveMaze();
 

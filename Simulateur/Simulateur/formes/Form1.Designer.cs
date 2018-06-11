@@ -33,9 +33,8 @@
             this.lblTailleRobotYText = new System.Windows.Forms.Label();
             this.lblTailleRobotX = new System.Windows.Forms.Label();
             this.tblTailleRobotX = new System.Windows.Forms.Label();
-            this.btnTicTacToe = new System.Windows.Forms.Button();
-            this.btnMaze = new System.Windows.Forms.Button();
             this.btnResetSheet = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.gbInformations.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +44,8 @@
             this.gbInformations.Controls.Add(this.lblTailleRobotYText);
             this.gbInformations.Controls.Add(this.lblTailleRobotX);
             this.gbInformations.Controls.Add(this.tblTailleRobotX);
+            this.gbInformations.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbInformations.ForeColor = System.Drawing.Color.Firebrick;
             this.gbInformations.Location = new System.Drawing.Point(12, 12);
             this.gbInformations.Name = "gbInformations";
             this.gbInformations.Size = new System.Drawing.Size(200, 265);
@@ -57,15 +58,17 @@
             this.lblTailleRobotY.AutoSize = true;
             this.lblTailleRobotY.Location = new System.Drawing.Point(6, 88);
             this.lblTailleRobotY.Name = "lblTailleRobotY";
-            this.lblTailleRobotY.Size = new System.Drawing.Size(0, 17);
+            this.lblTailleRobotY.Size = new System.Drawing.Size(0, 16);
             this.lblTailleRobotY.TabIndex = 3;
             // 
             // lblTailleRobotYText
             // 
             this.lblTailleRobotYText.AutoSize = true;
+            this.lblTailleRobotYText.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTailleRobotYText.ForeColor = System.Drawing.Color.Firebrick;
             this.lblTailleRobotYText.Location = new System.Drawing.Point(6, 71);
             this.lblTailleRobotYText.Name = "lblTailleRobotYText";
-            this.lblTailleRobotYText.Size = new System.Drawing.Size(138, 17);
+            this.lblTailleRobotYText.Size = new System.Drawing.Size(143, 16);
             this.lblTailleRobotYText.TabIndex = 2;
             this.lblTailleRobotYText.Text = "Taille robotXY en Y :";
             // 
@@ -74,56 +77,60 @@
             this.lblTailleRobotX.AutoSize = true;
             this.lblTailleRobotX.Location = new System.Drawing.Point(6, 43);
             this.lblTailleRobotX.Name = "lblTailleRobotX";
-            this.lblTailleRobotX.Size = new System.Drawing.Size(0, 17);
+            this.lblTailleRobotX.Size = new System.Drawing.Size(0, 16);
             this.lblTailleRobotX.TabIndex = 1;
             // 
             // tblTailleRobotX
             // 
             this.tblTailleRobotX.AutoSize = true;
+            this.tblTailleRobotX.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tblTailleRobotX.ForeColor = System.Drawing.Color.Firebrick;
             this.tblTailleRobotX.Location = new System.Drawing.Point(6, 26);
             this.tblTailleRobotX.Name = "tblTailleRobotX";
-            this.tblTailleRobotX.Size = new System.Drawing.Size(138, 17);
+            this.tblTailleRobotX.Size = new System.Drawing.Size(142, 16);
             this.tblTailleRobotX.TabIndex = 0;
             this.tblTailleRobotX.Text = "Taille robotXY en X :";
             // 
-            // btnTicTacToe
-            // 
-            this.btnTicTacToe.Location = new System.Drawing.Point(21, 284);
-            this.btnTicTacToe.Name = "btnTicTacToe";
-            this.btnTicTacToe.Size = new System.Drawing.Size(93, 33);
-            this.btnTicTacToe.TabIndex = 2;
-            this.btnTicTacToe.Text = "Morpion";
-            this.btnTicTacToe.UseVisualStyleBackColor = true;
-            this.btnTicTacToe.Click += new System.EventHandler(this.btnTicTacToe_Click);
-            // 
-            // btnMaze
-            // 
-            this.btnMaze.Location = new System.Drawing.Point(21, 323);
-            this.btnMaze.Name = "btnMaze";
-            this.btnMaze.Size = new System.Drawing.Size(93, 33);
-            this.btnMaze.TabIndex = 3;
-            this.btnMaze.Text = "Labyrinthe";
-            this.btnMaze.UseVisualStyleBackColor = true;
-            this.btnMaze.Click += new System.EventHandler(this.btnMaze_Click);
-            // 
             // btnResetSheet
             // 
-            this.btnResetSheet.Location = new System.Drawing.Point(21, 362);
+            this.btnResetSheet.BackColor = System.Drawing.Color.LightGray;
+            this.btnResetSheet.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnResetSheet.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.btnResetSheet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnResetSheet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnResetSheet.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetSheet.ForeColor = System.Drawing.Color.Firebrick;
+            this.btnResetSheet.Location = new System.Drawing.Point(12, 292);
             this.btnResetSheet.Name = "btnResetSheet";
             this.btnResetSheet.Size = new System.Drawing.Size(191, 33);
             this.btnResetSheet.TabIndex = 4;
             this.btnResetSheet.Text = "Changement de feuille";
-            this.btnResetSheet.UseVisualStyleBackColor = true;
+            this.btnResetSheet.UseVisualStyleBackColor = false;
             this.btnResetSheet.Click += new System.EventHandler(this.btnResetSheet_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.LightGray;
+            this.btnExit.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btnExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.ForeColor = System.Drawing.Color.Firebrick;
+            this.btnExit.Location = new System.Drawing.Point(709, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(24, 24);
+            this.btnExit.TabIndex = 5;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 558);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnResetSheet);
-            this.Controls.Add(this.btnMaze);
-            this.Controls.Add(this.btnTicTacToe);
             this.Controls.Add(this.gbInformations);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
@@ -143,9 +150,8 @@
         private System.Windows.Forms.Label lblTailleRobotYText;
         private System.Windows.Forms.Label lblTailleRobotX;
         private System.Windows.Forms.Label tblTailleRobotX;
-        private System.Windows.Forms.Button btnTicTacToe;
-        private System.Windows.Forms.Button btnMaze;
         private System.Windows.Forms.Button btnResetSheet;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 
