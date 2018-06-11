@@ -45,6 +45,7 @@ namespace Simulateur
 
         private void Reset()
         {
+            robotXY.RemoveDrawing();
             if (ticTacToeGame != null)
             {
                 ticTacToeGame.Remove();
