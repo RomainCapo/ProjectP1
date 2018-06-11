@@ -62,16 +62,6 @@ namespace Simulateur
             //Environment.Exit(Environment.ExitCode);
         }
 
-        private void btnTicTacToe_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnMaze_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Reset()
         {
             robotXY.RemoveDrawing();
@@ -89,10 +79,7 @@ namespace Simulateur
 
         private void btnResetSheet_Click(object sender, EventArgs e)
         {
-            Reset();
-            //MenuTicTacToe mttt = new MenuTicTacToe();
-            this.Close();
-            
+            robotXY.RemoveDrawing();
         }
 
         private void button1_Click(object sender, EventArgs e)
