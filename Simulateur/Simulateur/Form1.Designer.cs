@@ -29,66 +29,169 @@
         private void InitializeComponent()
         {
             this.gbInformations = new System.Windows.Forms.GroupBox();
-            this.lblTailleRobotY = new System.Windows.Forms.Label();
-            this.lblTailleRobotYText = new System.Windows.Forms.Label();
-            this.lblTailleRobotX = new System.Windows.Forms.Label();
-            this.tblTailleRobotX = new System.Windows.Forms.Label();
+            this.lblSizeState = new System.Windows.Forms.Label();
+            this.btnAppliquer = new System.Windows.Forms.Button();
+            this.lblMmY = new System.Windows.Forms.Label();
+            this.lblMmX = new System.Windows.Forms.Label();
+            this.lblY = new System.Windows.Forms.Label();
+            this.numY = new System.Windows.Forms.NumericUpDown();
+            this.lblX = new System.Windows.Forms.Label();
+            this.numX = new System.Windows.Forms.NumericUpDown();
+            this.lblBluetooth = new System.Windows.Forms.Label();
+            this.lblEtiquetteBluetooth = new System.Windows.Forms.Label();
             this.btnTicTacToe = new System.Windows.Forms.Button();
             this.btnMaze = new System.Windows.Forms.Button();
-            this.btnResetSheet = new System.Windows.Forms.Button();
+            this.btnCursorUp = new System.Windows.Forms.Button();
+            this.btnCursorDown = new System.Windows.Forms.Button();
+            this.cbxUseBluetooth = new System.Windows.Forms.CheckBox();
+            this.gbGames = new System.Windows.Forms.GroupBox();
             this.gbInformations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
+            this.gbGames.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbInformations
             // 
-            this.gbInformations.Controls.Add(this.lblTailleRobotY);
-            this.gbInformations.Controls.Add(this.lblTailleRobotYText);
-            this.gbInformations.Controls.Add(this.lblTailleRobotX);
-            this.gbInformations.Controls.Add(this.tblTailleRobotX);
+            this.gbInformations.Controls.Add(this.cbxUseBluetooth);
+            this.gbInformations.Controls.Add(this.btnCursorDown);
+            this.gbInformations.Controls.Add(this.lblSizeState);
+            this.gbInformations.Controls.Add(this.btnCursorUp);
+            this.gbInformations.Controls.Add(this.btnAppliquer);
+            this.gbInformations.Controls.Add(this.lblMmY);
+            this.gbInformations.Controls.Add(this.lblMmX);
+            this.gbInformations.Controls.Add(this.lblY);
+            this.gbInformations.Controls.Add(this.numY);
+            this.gbInformations.Controls.Add(this.lblX);
+            this.gbInformations.Controls.Add(this.numX);
+            this.gbInformations.Controls.Add(this.lblBluetooth);
+            this.gbInformations.Controls.Add(this.lblEtiquetteBluetooth);
             this.gbInformations.Location = new System.Drawing.Point(12, 12);
             this.gbInformations.Name = "gbInformations";
-            this.gbInformations.Size = new System.Drawing.Size(200, 265);
+            this.gbInformations.Size = new System.Drawing.Size(200, 297);
             this.gbInformations.TabIndex = 1;
             this.gbInformations.TabStop = false;
             this.gbInformations.Text = "Informations";
             // 
-            // lblTailleRobotY
+            // lblSizeState
             // 
-            this.lblTailleRobotY.AutoSize = true;
-            this.lblTailleRobotY.Location = new System.Drawing.Point(6, 88);
-            this.lblTailleRobotY.Name = "lblTailleRobotY";
-            this.lblTailleRobotY.Size = new System.Drawing.Size(0, 17);
-            this.lblTailleRobotY.TabIndex = 3;
+            this.lblSizeState.AutoSize = true;
+            this.lblSizeState.Location = new System.Drawing.Point(113, 174);
+            this.lblSizeState.Name = "lblSizeState";
+            this.lblSizeState.Size = new System.Drawing.Size(0, 17);
+            this.lblSizeState.TabIndex = 13;
             // 
-            // lblTailleRobotYText
+            // btnAppliquer
             // 
-            this.lblTailleRobotYText.AutoSize = true;
-            this.lblTailleRobotYText.Location = new System.Drawing.Point(6, 71);
-            this.lblTailleRobotYText.Name = "lblTailleRobotYText";
-            this.lblTailleRobotYText.Size = new System.Drawing.Size(138, 17);
-            this.lblTailleRobotYText.TabIndex = 2;
-            this.lblTailleRobotYText.Text = "Taille robotXY en Y :";
+            this.btnAppliquer.Location = new System.Drawing.Point(12, 168);
+            this.btnAppliquer.Name = "btnAppliquer";
+            this.btnAppliquer.Size = new System.Drawing.Size(94, 24);
+            this.btnAppliquer.TabIndex = 12;
+            this.btnAppliquer.Text = "Appliquer";
+            this.btnAppliquer.UseVisualStyleBackColor = true;
+            this.btnAppliquer.Click += new System.EventHandler(this.btnAppliquer_Click);
             // 
-            // lblTailleRobotX
+            // lblMmY
             // 
-            this.lblTailleRobotX.AutoSize = true;
-            this.lblTailleRobotX.Location = new System.Drawing.Point(6, 43);
-            this.lblTailleRobotX.Name = "lblTailleRobotX";
-            this.lblTailleRobotX.Size = new System.Drawing.Size(0, 17);
-            this.lblTailleRobotX.TabIndex = 1;
+            this.lblMmY.AutoSize = true;
+            this.lblMmY.Location = new System.Drawing.Point(143, 138);
+            this.lblMmY.Name = "lblMmY";
+            this.lblMmY.Size = new System.Drawing.Size(30, 17);
+            this.lblMmY.TabIndex = 11;
+            this.lblMmY.Text = "mm";
             // 
-            // tblTailleRobotX
+            // lblMmX
             // 
-            this.tblTailleRobotX.AutoSize = true;
-            this.tblTailleRobotX.Location = new System.Drawing.Point(6, 26);
-            this.tblTailleRobotX.Name = "tblTailleRobotX";
-            this.tblTailleRobotX.Size = new System.Drawing.Size(138, 17);
-            this.tblTailleRobotX.TabIndex = 0;
-            this.tblTailleRobotX.Text = "Taille robotXY en X :";
+            this.lblMmX.AutoSize = true;
+            this.lblMmX.Location = new System.Drawing.Point(143, 105);
+            this.lblMmX.Name = "lblMmX";
+            this.lblMmX.Size = new System.Drawing.Size(30, 17);
+            this.lblMmX.TabIndex = 10;
+            this.lblMmX.Text = "mm";
+            // 
+            // lblY
+            // 
+            this.lblY.AutoSize = true;
+            this.lblY.Location = new System.Drawing.Point(9, 138);
+            this.lblY.Name = "lblY";
+            this.lblY.Size = new System.Drawing.Size(63, 17);
+            this.lblY.TabIndex = 9;
+            this.lblY.Text = "Taille Y :";
+            // 
+            // numY
+            // 
+            this.numY.Location = new System.Drawing.Point(78, 136);
+            this.numY.Maximum = new decimal(new int[] {
+            388,
+            0,
+            0,
+            0});
+            this.numY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numY.Name = "numY";
+            this.numY.Size = new System.Drawing.Size(59, 22);
+            this.numY.TabIndex = 8;
+            this.numY.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // lblX
+            // 
+            this.lblX.AutoSize = true;
+            this.lblX.Location = new System.Drawing.Point(9, 105);
+            this.lblX.Name = "lblX";
+            this.lblX.Size = new System.Drawing.Size(63, 17);
+            this.lblX.TabIndex = 7;
+            this.lblX.Text = "Taille X :";
+            // 
+            // numX
+            // 
+            this.numX.Location = new System.Drawing.Point(78, 103);
+            this.numX.Maximum = new decimal(new int[] {
+            320,
+            0,
+            0,
+            0});
+            this.numX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numX.Name = "numX";
+            this.numX.Size = new System.Drawing.Size(59, 22);
+            this.numX.TabIndex = 6;
+            this.numX.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // lblBluetooth
+            // 
+            this.lblBluetooth.AutoSize = true;
+            this.lblBluetooth.Location = new System.Drawing.Point(9, 39);
+            this.lblBluetooth.Name = "lblBluetooth";
+            this.lblBluetooth.Size = new System.Drawing.Size(97, 17);
+            this.lblBluetooth.TabIndex = 5;
+            this.lblBluetooth.Text = "Non-connecté";
+            // 
+            // lblEtiquetteBluetooth
+            // 
+            this.lblEtiquetteBluetooth.AutoSize = true;
+            this.lblEtiquetteBluetooth.Location = new System.Drawing.Point(9, 22);
+            this.lblEtiquetteBluetooth.Name = "lblEtiquetteBluetooth";
+            this.lblEtiquetteBluetooth.Size = new System.Drawing.Size(120, 17);
+            this.lblEtiquetteBluetooth.TabIndex = 4;
+            this.lblEtiquetteBluetooth.Text = "Status Bluetooth :";
             // 
             // btnTicTacToe
             // 
-            this.btnTicTacToe.Location = new System.Drawing.Point(21, 284);
+            this.btnTicTacToe.Location = new System.Drawing.Point(6, 21);
             this.btnTicTacToe.Name = "btnTicTacToe";
             this.btnTicTacToe.Size = new System.Drawing.Size(93, 33);
             this.btnTicTacToe.TabIndex = 2;
@@ -98,7 +201,7 @@
             // 
             // btnMaze
             // 
-            this.btnMaze.Location = new System.Drawing.Point(21, 323);
+            this.btnMaze.Location = new System.Drawing.Point(6, 60);
             this.btnMaze.Name = "btnMaze";
             this.btnMaze.Size = new System.Drawing.Size(93, 33);
             this.btnMaze.TabIndex = 3;
@@ -106,24 +209,55 @@
             this.btnMaze.UseVisualStyleBackColor = true;
             this.btnMaze.Click += new System.EventHandler(this.btnMaze_Click);
             // 
-            // btnResetSheet
+            // btnCursorUp
             // 
-            this.btnResetSheet.Location = new System.Drawing.Point(21, 362);
-            this.btnResetSheet.Name = "btnResetSheet";
-            this.btnResetSheet.Size = new System.Drawing.Size(191, 33);
-            this.btnResetSheet.TabIndex = 4;
-            this.btnResetSheet.Text = "Changement de feuille";
-            this.btnResetSheet.UseVisualStyleBackColor = true;
-            this.btnResetSheet.Click += new System.EventHandler(this.btnResetSheet_Click);
+            this.btnCursorUp.Location = new System.Drawing.Point(12, 209);
+            this.btnCursorUp.Name = "btnCursorUp";
+            this.btnCursorUp.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorUp.TabIndex = 4;
+            this.btnCursorUp.Text = "Curseur haut";
+            this.btnCursorUp.UseVisualStyleBackColor = true;
+            this.btnCursorUp.Click += new System.EventHandler(this.btnCursorUp_Click);
+            // 
+            // btnCursorDown
+            // 
+            this.btnCursorDown.Location = new System.Drawing.Point(12, 248);
+            this.btnCursorDown.Name = "btnCursorDown";
+            this.btnCursorDown.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorDown.TabIndex = 5;
+            this.btnCursorDown.Text = "Curseur bas";
+            this.btnCursorDown.UseVisualStyleBackColor = true;
+            this.btnCursorDown.Click += new System.EventHandler(this.btnCursorDown_Click);
+            // 
+            // cbxUseBluetooth
+            // 
+            this.cbxUseBluetooth.AutoSize = true;
+            this.cbxUseBluetooth.Checked = true;
+            this.cbxUseBluetooth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxUseBluetooth.Location = new System.Drawing.Point(12, 69);
+            this.cbxUseBluetooth.Name = "cbxUseBluetooth";
+            this.cbxUseBluetooth.Size = new System.Drawing.Size(137, 21);
+            this.cbxUseBluetooth.TabIndex = 14;
+            this.cbxUseBluetooth.Text = "Utiliser Bluetooth";
+            this.cbxUseBluetooth.UseVisualStyleBackColor = true;
+            // 
+            // gbGames
+            // 
+            this.gbGames.Controls.Add(this.btnTicTacToe);
+            this.gbGames.Controls.Add(this.btnMaze);
+            this.gbGames.Location = new System.Drawing.Point(12, 315);
+            this.gbGames.Name = "gbGames";
+            this.gbGames.Size = new System.Drawing.Size(200, 103);
+            this.gbGames.TabIndex = 4;
+            this.gbGames.TabStop = false;
+            this.gbGames.Text = "Jeux";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 558);
-            this.Controls.Add(this.btnResetSheet);
-            this.Controls.Add(this.btnMaze);
-            this.Controls.Add(this.btnTicTacToe);
+            this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
@@ -133,19 +267,31 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbInformations.ResumeLayout(false);
             this.gbInformations.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numX)).EndInit();
+            this.gbGames.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.GroupBox gbInformations;
-        private System.Windows.Forms.Label lblTailleRobotY;
-        private System.Windows.Forms.Label lblTailleRobotYText;
-        private System.Windows.Forms.Label lblTailleRobotX;
-        private System.Windows.Forms.Label tblTailleRobotX;
         private System.Windows.Forms.Button btnTicTacToe;
         private System.Windows.Forms.Button btnMaze;
-        private System.Windows.Forms.Button btnResetSheet;
+        private System.Windows.Forms.Label lblEtiquetteBluetooth;
+        private System.Windows.Forms.Label lblBluetooth;
+        private System.Windows.Forms.Label lblY;
+        private System.Windows.Forms.NumericUpDown numY;
+        private System.Windows.Forms.Label lblX;
+        private System.Windows.Forms.NumericUpDown numX;
+        private System.Windows.Forms.Button btnAppliquer;
+        private System.Windows.Forms.Label lblMmY;
+        private System.Windows.Forms.Label lblMmX;
+        private System.Windows.Forms.Label lblSizeState;
+        private System.Windows.Forms.Button btnCursorUp;
+        private System.Windows.Forms.Button btnCursorDown;
+        private System.Windows.Forms.CheckBox cbxUseBluetooth;
+        private System.Windows.Forms.GroupBox gbGames;
     }
 }
 

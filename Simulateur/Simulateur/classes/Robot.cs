@@ -14,8 +14,8 @@ namespace Simulateur.classes
     class Robot
     {
         Bluetooth bluetooth;
-        const double TAILLEX = 320;
-        const double TAILLEY = 388;
+        readonly double TAILLEX;
+        readonly double TAILLEY;
         const int BORDERSTARTX = 200;
         double[] position = new double[2];
         RadioButton cursor;
@@ -25,11 +25,14 @@ namespace Simulateur.classes
         Form1 form;
 
 
-        public Robot(Form1 _form)
+        public Robot(Form1 _form, int _SizeX, int _SizeY)
         {
-            bluetooth = new Bluetooth();
+            bluetooth = new Bluetooth(_form);
             bCursorUp = true;
             form = _form;
+            TAILLEX = _SizeX;
+            TAILLEY = _SizeY;
+
             formGraphics = form.CreateGraphics();
             tempSheet = new Bitmap(form.Width, form.Height);
             position[0] = -1;

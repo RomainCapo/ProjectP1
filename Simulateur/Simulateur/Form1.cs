@@ -14,16 +14,13 @@ namespace Simulateur
         }
 
         Robot robotXY;
-        Bluetooth bluetooth;
-        const int LARGEURROBOT = 320;
-        const int HAUTEURROBOT = 388;
+        int iSizeX = 200, iSizeY = 200;
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            robotXY = new Robot(this);
-            bluetooth = new Bluetooth();
+            robotXY = new Robot(this, iSizeX, iSizeY);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -34,13 +31,13 @@ namespace Simulateur
         private void btnTicTacToe_Click(object sender, EventArgs e)
         {
             Reset();
-            ticTacToeGame = new PlayTicTacToe(this, robotXY, LARGEURROBOT, HAUTEURROBOT);
+            ticTacToeGame = new PlayTicTacToe(this, robotXY, iSizeX, iSizeY);
         }
 
         private void btnMaze_Click(object sender, EventArgs e)
         {
             Reset();
-            mazeGame = new PlayMaze(this, robotXY, LARGEURROBOT, HAUTEURROBOT);
+            mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
         }
 
         private void Reset()
@@ -55,11 +52,34 @@ namespace Simulateur
                 mazeGame.Remove();
                 mazeGame = null;
             }
+
+            robotXY.RemoveDrawing();
         }
 
-        private void btnResetSheet_Click(object sender, EventArgs e)
+        private void btnCursorUp_Click(object sender, EventArgs e)
         {
-            robotXY.RemoveDrawing();
+            robotXY.PenUp();
+        }
+
+        private void btnCursorDown_Click(object sender, EventArgs e)
+        {
+            robotXY.PenDown();
+        }
+
+        private void btnAppliquer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iSizeX = Convert.ToInt32(numX.Value);
+                iSizeY = Convert.ToInt32(numY.Value);
+                lblSizeState.Text = "Appliqué !";
+            }
+            catch
+            {
+                numX.Value = 200;
+                numY.Value = 200;
+                lblSizeState.Text = "Erreur ...";
+            }
         }
     }
 }

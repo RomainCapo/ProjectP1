@@ -16,7 +16,7 @@ namespace Simulateur.classes.morpion
         TicTacToe ticTacToe;
         Minmax ia;
         readonly double LENGTH;
-        const int MARGIN = 20;
+        readonly double MARGIN;
 
         public PlayTicTacToe(Form1 _form,  Robot _robot, double X, double Y)
         {
@@ -35,6 +35,8 @@ namespace Simulateur.classes.morpion
             {
                 LENGTH = Y;
             }
+
+            MARGIN = LENGTH / 3 * 0.1;
 
             DrawGrid();
         }
@@ -84,6 +86,7 @@ namespace Simulateur.classes.morpion
         {
             try
             {
+                robotXY.PenUp();
                 robotXY.MoveCursor(LENGTH / 3, 0);
                 robotXY.PenDown();
                 robotXY.MoveCursor(LENGTH / 3, LENGTH);
@@ -157,10 +160,11 @@ namespace Simulateur.classes.morpion
 
                 robotXY.MoveCursor(centerX + rayon * Math.Cos(0), centerY + rayon * Math.Sin(0));
                 robotXY.PenDown();
-                for(int angle = 10; angle <= 360; angle += 10)
+                for(int angle = 10; angle <= 360; angle += 20)
                 {
                     robotXY.MoveCursor(centerX + rayon * Math.Cos(convert * angle), centerY + rayon * Math.Sin(convert * angle));
                 }
+                robotXY.MoveCursor(centerX + rayon * Math.Cos(0), centerY + rayon * Math.Sin(0));
                 robotXY.PenUp();
                 robotXY.ResetPosition();
                 return true;

@@ -1,115 +1,107 @@
-﻿using System;
-using System.Windows.Forms;
-using InTheHand.Net;
+﻿using InTheHand.Net;
 using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
+using System;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Simulateur.classes
 {
     class Bluetooth
     {
-        bool inProgress = false, isConnected = false;
-        BluetoothClient client;
+        Form1 form;
+        Label state;
+        BluetoothClient localClient;
 
-        public Bluetooth()
+        public Bluetooth(Form1 _form)
         {
-            ConnectDevice();
-            SendToRobot("M10<0x0A>");
+            form = _form;
+            state = form.Controls.Find("lblBluetooth", true)[0] as Label;
+
+            ConnectRobot();
         }
 
         public bool SendNextCoord(double X, double Y)
         {
-            return SendToRobot("G1 X" + X + " Y" + Y + "<0x0A>");
+            return SendToRobot("G1 X" + X + " Y" + Y + "\n");
         }
 
         public bool SendPenDown()
         {
-            return SendToRobot("M1 90<0x0A>");
+            return SendToRobot("M1 160\n");
         }
 
         public bool SendPenUp()
         {
-            return SendToRobot("M1 160<0x0A>");
+            return SendToRobot("M1 90\n");
         }
 
         public bool SendResetPosition()
         {
-            return SendToRobot("G28<0x0A>");
+            return SendToRobot("G28\n");
+        }
+
+        private void ConnectRobot()
+        {
+            localClient = new BluetoothClient();
+            BluetoothDeviceInfo target = new BluetoothDeviceInfo(BluetoothAddress.Parse("000B10700286")); 
+
+            Pair(target);
+            Connect(target);
+        }
+
+        private void Pair(BluetoothDeviceInfo targetDevice)
+        {
+            if (!(targetDevice.Authenticated))
+            { 
+                state.Text = "Pairage ...";
+                if (!(BluetoothSecurity.PairRequest(targetDevice.DeviceAddress, "")))
+                {
+                    Application.Exit();
+                }
+            }
+        }
+
+        private void Connect(BluetoothDeviceInfo targetDevice)
+        {
+            state.Text = "Connexion ...";
+            if (targetDevice.Authenticated && !(localClient.Connected))
+            {
+                localClient.Connect(targetDevice.DeviceAddress, BluetoothService.SerialPort);
+                state.Text = "Connecté !";
+
+                SendToRobot("M10\n");
+                SendPenUp();
+                SendResetPosition();
+                SendPenUp();
+            }
         }
 
         private bool SendToRobot(string data)
-        { 
-            //System.Threading.Thread.Sleep(100);
+        {
+            CheckBox temp = (CheckBox)form.Controls.Find("cbxUseBluetooth", true)[0];
+
+            if (temp.Checked)
+            {
+                Stream stream = localClient.GetStream();
+
+                byte[] DATA = Encoding.ASCII.GetBytes(data);
+
+                stream.Write(DATA, 0, DATA.Length);
+                stream.Flush();
+
+                byte[] receive = new byte[1024];
+                string readMessage = "";
+                do
+                {
+                    stream.Read(receive, 0, receive.Length);
+                    readMessage += Encoding.ASCII.GetString(receive);
+                }
+                while (!(readMessage.Contains("OK")));
+            }
+           
             return true;
-        }
-
-        private void ConnectDevice()
-        {
-            const string TARGETADDRESS = "Geronimo-Samsung";
-            const string TARGETPIN = "";
-
-            BluetoothDeviceInfo robot = Scan(TARGETADDRESS);
-            if(robot != null)
-            {
-                bool result = Connect(robot, TARGETPIN);
-
-                if (result)
-                {
-                    MessageBox.Show("Connexion au robot réussie !", "Connecté", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    isConnected = true;
-                }
-                else
-                {
-                    if (MessageBox.Show("Impossible de se connecter au robot !\nVoulez-vous recommencer ?", "Erreur", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    {
-                        ConnectDevice();
-                    }
-                }
-            }
-            else
-            {
-                if(MessageBox.Show("Impossible de trouver le robot !\nVoulez-vous recommencer ?", "Erreur", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    ConnectDevice();
-                }
-            }
-        }
-
-        private BluetoothDeviceInfo Scan(string TARGETADDRESS)
-        {
-            client = new BluetoothClient();
-            BluetoothDeviceInfo[] devices = client.DiscoverDevices(10, true, true, true, false);
-            foreach (BluetoothDeviceInfo device in devices)
-            {
-                if (device.DeviceName == TARGETADDRESS)
-                {
-                    return device;
-                }
-            }
-            return null;
-        }
-
-        private bool Connect(BluetoothDeviceInfo target, string PIN)
-        {
-            if(!client.Connected)
-            {
-                client = new BluetoothClient();
-            }
-
-            if (!BluetoothSecurity.PairRequest(target.DeviceAddress, PIN))
-            {
-                return false;
-            }
-
-            inProgress = true;
-            client.BeginConnect(target.DeviceAddress, target.InstalledServices[0], ConnectionResult, client);
-            while (inProgress) { }
-            return client.Connected;
-        }
-
-        private void ConnectionResult(IAsyncResult result)
-        {
-            inProgress = false;
         }
     }
 }

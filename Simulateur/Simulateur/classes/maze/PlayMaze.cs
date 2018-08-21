@@ -12,9 +12,10 @@ namespace Simulateur.classes.maze
         Form1 form;
         Robot robotXY;
         readonly double MAXLENGTH;
-        int cellLength;
+        int iCellPerLine;
         GroupBox gbMaze;
         Maze maze;
+        int iCellSize;
 
         public PlayMaze(Form1 _form, Robot _robot, double _width, double _height)
         {
@@ -71,6 +72,7 @@ namespace Simulateur.classes.maze
             btnResolve.Left = 9;
             btnResolve.Top = 66;
             btnResolve.Click += new EventHandler(Resolve);
+            btnResolve.Enabled = false;
             gbMaze.Controls.Add(btnResolve);
 
             form.Controls.Add(gbMaze);
@@ -78,88 +80,65 @@ namespace Simulateur.classes.maze
 
         private void Generate(Object sender, EventArgs e)
         {
-            NumericUpDown numLength = gbMaze.Controls.Find("numLength", false).FirstOrDefault() as NumericUpDown;
-            cellLength = Convert.ToInt32(numLength.Value);
-            maze = new Maze(cellLength);
+            robotXY.RemoveDrawing();
+            NumericUpDown numLength = gbMaze.Controls.Find("numLength", false).First() as NumericUpDown;
+            iCellPerLine = Convert.ToInt32(numLength.Value);
+            iCellSize = Convert.ToInt32(MAXLENGTH / iCellPerLine);
+            maze = new Maze(iCellPerLine);
 
             DrawMaze(maze.GetMaze());
-            
+            Button btnResolve = gbMaze.Controls.Find("btnResolve", false).First() as Button;
+            btnResolve.Enabled = true;
+
+
         }
 
         private void Resolve(Object sender, EventArgs e)
         {
             Point[] Solution = maze.ResolveMaze();
 
-            robotXY.MoveCursor(cellLength / 2, 0);
+            robotXY.MoveCursor(iCellSize / 2, 0);
             robotXY.PenDown();
             for(int compteur = Solution.Length - 1; compteur >= 0; compteur --)
             {
                 Point p = Solution[compteur];
-                robotXY.MoveCursor(cellLength * p.X + (cellLength / 2), cellLength * p.Y + (cellLength / 2));
+                robotXY.MoveCursor(iCellSize * p.X + (iCellSize / 2), iCellSize * p.Y + (iCellSize / 2));
             }
-            robotXY.MoveCursor(cellLength * Solution[0].X + (cellLength / 2), cellLength * (Solution[0].Y + 1));
+            robotXY.MoveCursor(iCellSize * Solution[0].X + (iCellSize / 2), iCellSize * (Solution[0].Y + 1));
             robotXY.PenUp();
             robotXY.ResetPosition();
         }
 
         private void DrawMaze(Cell[,] cells)
         {
-            int cellNb = Convert.ToInt32(Math.Sqrt(cells.Length));
-            cellLength = Convert.ToInt32(MAXLENGTH / cellNb);
-
-            bool bEnd = false;
-
-            robotXY.ResetPosition();
-            for (int x = 0; x < cellNb; x++)
-            {
-                while(!(bEnd))
-                {
-                    if(x + 1 == cellNb)
-                    {
-                        bEnd = true;
-                    }
-                    else if(cells[x, 0].IsWallTop() != cells[x + 1, 0].IsWallTop())
-                    {
-                        bEnd = true;
-                    }
-                    else
-                    {
-                        x++;
-                    }
-                }
-
-                if(cells[x, 0].IsWallTop())
-                {
-                    robotXY.PenDown();
-                }
-                else
-                {
-                    robotXY.PenUp();
-                }
-
-                robotXY.MoveCursor(cellLength * (x + 1), 0);
-                bEnd = false;
-            }
+            robotXY.MoveCursor(iCellSize, 0);
+            robotXY.PenDown();
+            robotXY.MoveCursor(MAXLENGTH, 0);
             robotXY.PenUp();
-
-            for(int y = 0; y < cellNb; y++)
+            for(int y = 0; y < iCellPerLine; y++)
             {
-                robotXY.MoveCursor(0, (y + 1) * cellLength);
-                for (int x = 0; x < cellNb - 1; x++)
+                robotXY.MoveCursor(0, (y + 1) * iCellSize);
+                for (int x = 0; x < iCellPerLine; x++)
                 {
-                    while (!(bEnd))
+                    bool bIsWall = cells[x, y].IsWallBottom();
+
+                    bool bLine = true;
+                    while (bLine)
                     {
-                        if (x + 1 == cellNb)
+                        if (x < iCellPerLine - 1)
                         {
-                            bEnd = true;
-                        }
-                        else if (cells[x, y].IsWallBottom() != cells[x + 1, y].IsWallBottom())
-                        {
-                            bEnd = true;
+                            if (cells[x + 1, y].IsWallBottom() == bIsWall)
+                            {
+                                x++;
+                            }
+                            else
+                            {
+                                bLine = false;
+                            }
                         }
                         else
                         {
-                            x++;
+                            bLine = false;
                         }
                     }
 
@@ -167,87 +146,57 @@ namespace Simulateur.classes.maze
                     {
                         robotXY.PenDown();
                     }
-                    else
-                    {
-                        robotXY.PenUp();
-                    }
-
-                    robotXY.MoveCursor(cellLength * (x + 1), cellLength * (y + 1));
-                    bEnd = false;
-                }
-                robotXY.PenUp();
-            }
-
-            robotXY.ResetPosition();
-            robotXY.PenDown();
-            for (int y = 0; y < cellNb; y++)
-            {
-                while (!(bEnd))
-                {
-                    if (y + 1 == cellNb)
-                    {
-                        bEnd = true;
-                    }
-                    else if (cells[0, y].IsWallLeft() != cells[0, y + 1].IsWallLeft())
-                    {
-                        bEnd = true;
-                    }
-                    else
-                    {
-                        y++;
-                    }
-                }
-
-                if (cells[0, y].IsWallLeft())
-                {
-                    robotXY.PenDown();
-                }
-                else
-                {
+                    robotXY.MoveCursor((x + 1) * iCellSize, (y + 1) * iCellSize);
                     robotXY.PenUp();
                 }
-
-                robotXY.MoveCursor(0, cellLength * (y + 1));
-                bEnd = false;
             }
+            
+            robotXY.MoveCursor(0, 0);
+            robotXY.PenDown();
+            robotXY.MoveCursor(0, MAXLENGTH);
             robotXY.PenUp();
-
-            for (int x = 0; x < cellNb; x++)
+            for (int x = 0; x < iCellPerLine; x++)
             {
-                robotXY.MoveCursor((x + 1) * cellLength, 0);
-                robotXY.PenDown();
-                for (int y = 0; y < cellNb; y++)
+                robotXY.MoveCursor((x + 1) * iCellSize, 0);
+                for (int y = 0; y < iCellPerLine - 1; y++)
                 {
-                    while (!(bEnd))
+                    bool bIsWall = cells[x, y].IsWallRight();
+
+                    bool bLine = true;
+                    while(bLine)
                     {
-                        if (y + 1 == cellNb)
+                        if(y < iCellPerLine - 1)
                         {
-                            bEnd = true;
-                        }
-                        else if (cells[x, y].IsWallRight() != cells[x, y + 1].IsWallRight())
-                        {
-                            bEnd = true;
+                            if(cells[x, y + 1].IsWallRight() == bIsWall)
+                            {
+                                y++;
+                            }
+                            else
+                            {
+                                bLine = false;
+                            }
                         }
                         else
                         {
-                            y++;
+                            bLine = false;
                         }
                     }
 
-                    if (cells[x, y].IsWallRight())
+                    /*while (cells[x, y + 1].IsWallRight() == bIsWall && y + 1 < iCellPerLine - 1)
+                    {
+                        y++;
+                    }*/
+
+                    if(bIsWall)
                     {
                         robotXY.PenDown();
                     }
-                    else
-                    {
-                        robotXY.PenUp();
-                    }
 
-                    robotXY.MoveCursor(cellLength * (x + 1), cellLength * (y + 1));
-                    bEnd = false;
+                    robotXY.MoveCursor((x + 1) * iCellSize, (y + 1) * iCellSize);
+                    robotXY.PenUp();
                 }
-                robotXY.PenUp();
             }
+
             robotXY.ResetPosition();
         }
     }
