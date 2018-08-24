@@ -188,12 +188,7 @@ namespace Simulateur.classes.dames
 
         private void MoveButton(int iFromX, int iFromY, int iToX, int iToY)
         {
-            pieces[iFromX, iFromY].Left = BORDERSTARTX + 13 + iToX * iCellSize;
-            pieces[iFromX, iFromY].Top = iGridSize + 13 - (iToY + 1) * iCellSize;
-            pieces[iToX, iToY] = pieces[iFromX, iFromY];
-            pieces[iFromX, iFromY] = null;
 
- 
         }
 
         public void Remove()
