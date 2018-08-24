@@ -19,11 +19,12 @@ namespace Simulateur
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
         PlayDames damesGame;
+        DetectionImage di;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-            DetectionImage di = new DetectionImage(this);
+              di = new DetectionImage(this);
         }
 
         private void btnTicTacToe_Click(object sender, EventArgs e)
@@ -73,6 +74,11 @@ namespace Simulateur
         {
             Reset();
             damesGame = new PlayDames(this, robotXY, iSizeX, iSizeY);
+        }
+
+        private void btnPrintScreen_Click(object sender, EventArgs e)
+        {
+            di.PrintScreen();
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)

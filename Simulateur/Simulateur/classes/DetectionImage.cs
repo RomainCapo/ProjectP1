@@ -46,7 +46,7 @@ namespace Simulateur.classes
             capture.Retrieve(frame, 0);
             fluxImageBox.Image = frame;
         }
-        public int[,] PerformShapeDetection()
+        public void PerformShapeDetection()
         {
             //Load the image from file and resize it for display
             Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test1.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
@@ -166,17 +166,17 @@ namespace Simulateur.classes
             #endregion
 
             #region draw lines
-            lines = findCross(lines);
+            //lines = findCross(lines);
 
             foreach (LineSegment2D line in lines)
             {
                 CvInvoke.Line(detctionImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
             }
-            int[,] round = returnBoardRound(boxList[3], circles);
+            /*int[,] round = returnBoardRound(boxList[3], circles);
             int[,] cross = returnBoardCross(boxList[3],lines);
-            int[,] board = returnBoard(cross, round);
+            int[,] board = returnBoard(cross, round);*/
 
-            labelInfoDectionImage.Text = "";
+            /*labelInfoDectionImage.Text = "";
            for(int i = 0; i <= 2; i++)
             {
                 for(int j = 2; j >= 0; j--)
@@ -197,9 +197,8 @@ namespace Simulateur.classes
                 }
                 labelInfoDectionImage.Text += "\n";
 
-            }
+            }*/
 
-            return board;
 
             #endregion
 
@@ -210,6 +209,11 @@ namespace Simulateur.classes
             Bitmap bmp = new Bitmap(width, height);
             originalImageBox.DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
             bmp.Save("fes.jpeg", ImageFormat.Jpeg);*/
+        }
+
+        public void PrintScreen()
+        {
+            originalImageBox.Image = fluxImageBox.Image;
         }
 
         private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)

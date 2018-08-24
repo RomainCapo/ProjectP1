@@ -56,6 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fluxImageBox = new Emgu.CV.UI.ImageBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnPrintScreen = new System.Windows.Forms.Button();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -298,6 +299,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnPrintScreen);
             this.groupBox1.Controls.Add(this.labelInfoDectionImage);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -367,6 +369,16 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Flux en directe";
             // 
+            // btnPrintScreen
+            // 
+            this.btnPrintScreen.Location = new System.Drawing.Point(268, 933);
+            this.btnPrintScreen.Name = "btnPrintScreen";
+            this.btnPrintScreen.Size = new System.Drawing.Size(227, 48);
+            this.btnPrintScreen.TabIndex = 7;
+            this.btnPrintScreen.Text = "Print Screen";
+            this.btnPrintScreen.UseVisualStyleBackColor = true;
+            this.btnPrintScreen.Click += new System.EventHandler(this.btnPrintScreen_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -422,6 +434,7 @@
         private System.Windows.Forms.Label label3;
         private Emgu.CV.UI.ImageBox fluxImageBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnPrintScreen;
     }
 }
 
