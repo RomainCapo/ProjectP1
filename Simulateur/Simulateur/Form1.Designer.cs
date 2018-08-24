@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gbInformations = new System.Windows.Forms.GroupBox();
             this.cbxUseBluetooth = new System.Windows.Forms.CheckBox();
             this.btnCursorDown = new System.Windows.Forms.Button();
@@ -46,10 +47,14 @@
             this.btnMaze = new System.Windows.Forms.Button();
             this.gbGames = new System.Windows.Forms.GroupBox();
             this.btnDames = new System.Windows.Forms.Button();
+            this.originalImageBox = new Emgu.CV.UI.ImageBox();
+            this.detectionImageBox = new Emgu.CV.UI.ImageBox();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
             this.gbGames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.originalImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // gbInformations
@@ -264,11 +269,31 @@
             this.btnDames.UseVisualStyleBackColor = true;
             this.btnDames.Click += new System.EventHandler(this.btnDames_Click);
             // 
+            // originalImageBox
+            // 
+            this.originalImageBox.BackColor = System.Drawing.SystemColors.Control;
+            this.originalImageBox.Location = new System.Drawing.Point(1256, 12);
+            this.originalImageBox.Name = "originalImageBox";
+            this.originalImageBox.Size = new System.Drawing.Size(510, 357);
+            this.originalImageBox.TabIndex = 2;
+            this.originalImageBox.TabStop = false;
+            // 
+            // detectionImageBox
+            // 
+            this.detectionImageBox.BackColor = System.Drawing.SystemColors.Control;
+            this.detectionImageBox.Location = new System.Drawing.Point(1256, 414);
+            this.detectionImageBox.Name = "detectionImageBox";
+            this.detectionImageBox.Size = new System.Drawing.Size(510, 357);
+            this.detectionImageBox.TabIndex = 5;
+            this.detectionImageBox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(745, 558);
+            this.ClientSize = new System.Drawing.Size(1778, 558);
+            this.Controls.Add(this.detectionImageBox);
+            this.Controls.Add(this.originalImageBox);
             this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -281,6 +306,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).EndInit();
             this.gbGames.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.originalImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -304,6 +331,8 @@
         private System.Windows.Forms.CheckBox cbxUseBluetooth;
         private System.Windows.Forms.GroupBox gbGames;
         private System.Windows.Forms.Button btnDames;
+        private Emgu.CV.UI.ImageBox originalImageBox;
+        private Emgu.CV.UI.ImageBox detectionImageBox;
     }
 }
 

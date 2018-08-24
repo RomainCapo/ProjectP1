@@ -23,6 +23,7 @@ namespace Simulateur
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
+            DetectionImage di = new DetectionImage(this);
         }
 
         private void btnTicTacToe_Click(object sender, EventArgs e)

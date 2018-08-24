@@ -11,19 +11,27 @@ using Emgu.CV.Structure;
 using System.Diagnostics;
 using Emgu.CV.Util;
 using System.Linq;
-
-
+using Emgu.CV.UI;
 
 namespace Simulateur.classes
 {
     class DetectionImage
     {
+        ImageBox originalImageBox;
+        ImageBox detectionImageBox;
+
+        public DetectionImage(Form1 form)
+        {
+            originalImageBox = form.Controls.Find("originalImageBox", true).First() as ImageBox;
+            detectionImageBox = form.Controls.Find("detectionImageBox", true).First() as ImageBox;
+
+            PerformShapeDetection();
+        }
+
         public void PerformShapeDetection()
         {
             //Load the image from file and resize it for display
-            Image<Bgr, Byte> img =
-                new Image<Bgr, byte>("test.png")
-                .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
 
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
@@ -119,42 +127,36 @@ namespace Simulateur.classes
             originalImageBox.Image = img;
 
             #region draw triangles and rectangles
-            Mat triangleRectangleImage = new Mat(img.Size, DepthType.Cv8U, 3);
-            triangleRectangleImage.SetTo(new MCvScalar(0));
+
+            Mat detctionImage = new Mat(img.Size, DepthType.Cv8U, 3);
+            detctionImage.SetTo(new MCvScalar(0));
 
             foreach (RotatedRect box in boxList)
             {
-                CvInvoke.Polylines(triangleRectangleImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
+                CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
             }
 
-            //int[,] round = returnBoardRound(boxList[3], circles);
+            
             #endregion
 
             #region draw circles
-            Mat circleImage = new Mat(img.Size, DepthType.Cv8U, 3);
-            circleImage.SetTo(new MCvScalar(0));
+          
             foreach (CircleF circle in circles)
-                CvInvoke.Circle(circleImage, Point.Round(circle.Center), (int)circle.Radius, new Bgr(Color.Brown).MCvScalar, 2);
+                CvInvoke.Circle(detctionImage, Point.Round(circle.Center), (int)circle.Radius, new Bgr(Color.Brown).MCvScalar, 2);
 
-            circleImageBox.Image = circleImage;
+            detectionImageBox.Image = detctionImage;
 
             #endregion
 
             #region draw lines
-            Mat lineImage = new Mat(img.Size, DepthType.Cv8U, 3);
-            lineImage.SetTo(new MCvScalar(0));
-
             lines = findCross(lines);
-            //int[,] cross = returnBoardCross(boxList[3],lines);
-
-            int color1, color2, color3;
 
             foreach (LineSegment2D line in lines)
             {
-                CvInvoke.Line(circleImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
+                CvInvoke.Line(detctionImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
             }
-
-
+            //int[,] round = returnBoardRound(boxList[3], circles);
+            //int[,] cross = returnBoardCross(boxList[3],lines);
             //int[,] board = returnBoard(cross, round);
 
             #endregion
