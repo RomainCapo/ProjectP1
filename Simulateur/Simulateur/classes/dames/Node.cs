@@ -6,21 +6,19 @@ namespace Simulateur.classes.dames
 {
     class Node
     {
-        Point pDestination;
-        Point pTarget;
+        Point pPosition;
         List<Node> Children;
 
-        public Node(Point _destination, Point _target)
+        public Node(Point _position)
         {
             Children = new List<Node>();
 
-            pDestination = _destination;
-            pTarget = _target;
+            pPosition = _position;
         }
 
-        public void AddChild(Point _destination, Point _target)
+        public void AddChild(Node Child)
         {
-            Children.Add(new Node(_destination, _target));
+            Children.Add(Child);
         }
 
         public List<Node> GetChildren()
@@ -28,43 +26,9 @@ namespace Simulateur.classes.dames
             return Children;
         }
 
-        public List<Stack<Node>> GetBestPath()
+        public Point GetPosition()
         {
-            Stack<Node> actualSeries = new Stack<Node>();
-            List<Stack<Node>> bestSeries = new List<Stack<Node>>();
-
-            actualSeries.Push(this);
-            int iMaxDepth = 0;
-            int iDepth = 0;
-
-            List<Node> children = GetChildren();
-            while (GetChildren().Count != 0)
-            {
-                while (children.Count != 0)
-                {
-                    children = actualSeries.Last().GetChildren();
-                    actualSeries.Push(children.First());
-                    iDepth++;
-                }
-
-                if (iDepth > iMaxDepth)
-                {
-                    bestSeries = new List<Stack<Node>>();
-                }
-                if (iDepth >= iMaxDepth)
-                {
-                    bestSeries.Add(actualSeries);
-                    iMaxDepth = iDepth;
-                }
-
-                Node temp = actualSeries.Last();
-                actualSeries.Pop();
-                actualSeries.Last().GetChildren().Remove(temp);
-                children = actualSeries.Last().GetChildren();
-                iDepth--;
-            }
-
-            return bestSeries;
+            return pPosition;
         }
     }
 }

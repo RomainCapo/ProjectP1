@@ -165,11 +165,22 @@ namespace Simulateur.classes.dames
             temp = gbDames.Controls.Find("numToY", true)[0] as NumericUpDown;
             int ToY = Convert.ToInt32(temp.Value);
 
+
+
             if((ToX + ToY) % 2 == 0)
             {
                 if (pieces[FromX, FromY] != null && pieces[ToX, ToY] == null)
                 {
-                    MoveButton(FromX, FromY, ToX, ToY);
+                    List<Node> possibleMoves = dames.GetWays();
+                    List<Node> MovesLeft = possibleMoves;
+                    do
+                    {
+                        foreach(Node move in MovesLeft)
+                        {
+
+                        }
+                    }
+                    while(MovesLeft.Count != 0);
                 }
             }
         }
