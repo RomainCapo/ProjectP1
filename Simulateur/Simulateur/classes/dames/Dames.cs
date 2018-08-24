@@ -37,7 +37,7 @@ namespace Simulateur.classes.dames
             }
         }
 
-        public List<Stack<Node>>[,] GetWays(bool isWhite)
+        /*public List<Stack<Node>>[,] GetWays(bool isWhite)
         {
             bool bCanEat = false;
             PossibilityForest ways = new PossibilityForest();
@@ -67,9 +67,9 @@ namespace Simulateur.classes.dames
                         }
                     }
                 }
-            }
+            }*/
 
-            private List<Point> RegularEatPossibilities(int _x, int _y)
+            /*private List<Point> RegularEatPossibilities(int _x, int _y)
             {
                 List<Point> 
 
@@ -92,7 +92,7 @@ namespace Simulateur.classes.dames
             {
                 
             }
-        }
+        }*/
 
         public void MovePiece(int _fromX, int _fromY, int _toX, int _toY)
         {

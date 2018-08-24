@@ -1,0 +1,350 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using System.Diagnostics;
+using Emgu.CV.Util;
+using System.Linq;
+
+
+
+namespace Simulateur.classes
+{
+    class DetectionImage
+    {
+        public void PerformShapeDetection()
+        {
+            //Load the image from file and resize it for display
+            Image<Bgr, Byte> img =
+                new Image<Bgr, byte>("test.png")
+                .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+
+            //Convert the image to grayscale and filter out the noise
+            UMat uimage = new UMat();
+            CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
+
+            //use image pyr to remove noise
+            UMat pyrDown = new UMat();
+            CvInvoke.PyrDown(uimage, pyrDown);
+            CvInvoke.PyrUp(pyrDown, uimage);
+
+
+            #region circle detection
+            Stopwatch watch = Stopwatch.StartNew();
+            double cannyThreshold = 180.0;//180 -> def
+            double circleAccumulatorThreshold = 90;//120->def, 80 -> OK
+            CircleF[] circles = CvInvoke.HoughCircles(uimage, HoughType.Gradient, 2.0, 20.0, cannyThreshold, circleAccumulatorThreshold, 5);
+
+            watch.Stop();
+            #endregion
+
+            #region Canny and edge detection
+            watch.Reset(); watch.Start();
+            double cannyThresholdLinking = 120.0;
+            UMat cannyEdges = new UMat();
+            CvInvoke.Canny(uimage, cannyEdges, cannyThreshold, cannyThresholdLinking);
+
+            LineSegment2D[] lines = CvInvoke.HoughLinesP(
+                cannyEdges,
+                1, //Distance resolution in pixel-related units 1
+                Math.PI / 45.0, //Angle resolution measured in radians.
+                20, //threshold 20
+                35, //min Line width 30
+                10); //gap between lines 10
+
+            watch.Stop();
+            #endregion
+
+            #region Find triangles and rectangles
+            watch.Reset(); watch.Start();
+            List<Triangle2DF> triangleList = new List<Triangle2DF>();
+            List<RotatedRect> boxList = new List<RotatedRect>(); //a box is a rotated rectangle
+
+            using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
+            {
+                CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
+                int count = contours.Size;
+                for (int i = 0; i < count; i++)
+                {
+                    using (VectorOfPoint contour = contours[i])
+                    using (VectorOfPoint approxContour = new VectorOfPoint())
+                    {
+                        CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
+                        if (CvInvoke.ContourArea(approxContour, false) > 250) //only consider contours with area greater than 250
+                        {
+                            if (approxContour.Size == 3) //The contour has 3 vertices, it is a triangle
+                            {
+                                Point[] pts = approxContour.ToArray();
+                                triangleList.Add(new Triangle2DF(
+                                    pts[0],
+                                    pts[1],
+                                    pts[2]
+                                    ));
+                            }
+                            else if (approxContour.Size == 4) //The contour has 4 vertices.
+                            {
+                                #region determine if all the angles in the contour are within [80, 100] degree
+                                bool isRectangle = true;
+                                Point[] pts = approxContour.ToArray();
+                                LineSegment2D[] edges = PointCollection.PolyLine(pts, true);
+
+                                for (int j = 0; j < edges.Length; j++)
+                                {
+                                    double angle = Math.Abs(
+                                        edges[(j + 1) % edges.Length].GetExteriorAngleDegree(edges[j]));
+                                    if (angle < 80 || angle > 100)
+                                    {
+                                        isRectangle = false;
+                                        break;
+                                    }
+                                }
+                                #endregion
+
+                                if (isRectangle) boxList.Add(CvInvoke.MinAreaRect(approxContour));
+                            }
+                        }
+                    }
+                }
+            }
+
+            watch.Stop();
+            #endregion
+
+            originalImageBox.Image = img;
+
+            #region draw triangles and rectangles
+            Mat triangleRectangleImage = new Mat(img.Size, DepthType.Cv8U, 3);
+            triangleRectangleImage.SetTo(new MCvScalar(0));
+
+            foreach (RotatedRect box in boxList)
+            {
+                CvInvoke.Polylines(triangleRectangleImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
+            }
+
+            //int[,] round = returnBoardRound(boxList[3], circles);
+            #endregion
+
+            #region draw circles
+            Mat circleImage = new Mat(img.Size, DepthType.Cv8U, 3);
+            circleImage.SetTo(new MCvScalar(0));
+            foreach (CircleF circle in circles)
+                CvInvoke.Circle(circleImage, Point.Round(circle.Center), (int)circle.Radius, new Bgr(Color.Brown).MCvScalar, 2);
+
+            circleImageBox.Image = circleImage;
+
+            #endregion
+
+            #region draw lines
+            Mat lineImage = new Mat(img.Size, DepthType.Cv8U, 3);
+            lineImage.SetTo(new MCvScalar(0));
+
+            lines = findCross(lines);
+            //int[,] cross = returnBoardCross(boxList[3],lines);
+
+            int color1, color2, color3;
+
+            foreach (LineSegment2D line in lines)
+            {
+                CvInvoke.Line(circleImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
+            }
+
+
+            //int[,] board = returnBoard(cross, round);
+
+            #endregion
+        }
+
+        private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)
+        {
+            int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
+
+            float boardEdge = rect.Size.Width;
+
+            float boardX0 = rect.Center.X - (boardEdge / 2) - boardEdge;
+            float boardY0 = rect.Center.Y - (boardEdge / 2) - boardEdge;
+
+            int posX = -1;
+            int posY = -1;
+
+            for (int i = 0; i < circles.Length; i++)
+            {
+                //Y
+                if (circles[i].Center.Y > boardY0 && circles[i].Center.Y < (boardY0 + boardEdge))
+                {
+                    posY = 2;
+                }
+
+                if ((circles[i].Center.Y > boardY0 + boardEdge && circles[i].Center.Y < boardY0 + (2 * boardEdge)))
+                {
+                    posY = 1;
+                }
+
+                if ((circles[i].Center.Y > boardY0 + (2 * boardEdge) && circles[i].Center.Y < boardY0 + (3 * boardEdge)))
+                {
+                    posY = 0;
+                }
+
+                //X
+                if (circles[i].Center.X > boardX0 && circles[i].Center.X < (boardX0 + boardEdge))
+                {
+                    posX = 0;
+                }
+
+                if ((circles[i].Center.X > boardX0 + boardEdge && circles[i].Center.X < boardX0 + (2 * boardEdge)))
+                {
+                    posX = 1;
+                }
+
+                if ((circles[i].Center.X > boardX0 + (2 * boardEdge) && circles[i].Center.X < boardX0 + (3 * boardEdge)))
+                {
+                    posX = 2;
+                }
+                boardConfig[posX, posY] = 2;
+            }
+            return boardConfig;
+        }
+
+        private LineSegment2D[] findCross(LineSegment2D[] lines)
+        {
+            List<LineSegment2D> listLines = new List<LineSegment2D>();
+            //List<double> gradients = new List<double>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                double gradient = calcGradient(lines[i].P1, lines[i].P2);
+                //gradients.Add(gradient);
+                if (gradient >= 0.5 && gradient <= 1.0)
+                {
+                    listLines.Add(lines[i]);
+                }
+            }
+
+
+            LineSegment2D[] array = listLines.ToArray();
+            return array;
+        }
+
+        private int[,] returnBoard(int[,] cross, int[,] round)
+        {
+            int[,] board = new int[3, 3];
+
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    int isCross = cross[i, j];
+                    int isRound = round[i, j];
+
+                    if (isCross != 0 && isRound == 0)
+                    {
+                        board[i, j] = 1;
+                    }
+                    else if (isRound != 0 && isCross == 0)
+                    {
+                        board[i, j] = 2;
+                    }
+                    else
+                    {
+                        board[i, j] = 0;
+                    }
+                }
+            }
+
+            return board;
+        }
+
+        private int[,] returnBoardCross(RotatedRect rect, LineSegment2D[] lines)
+        {
+            int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
+
+            float boardEdge = rect.Size.Width;
+
+            float boardX0 = rect.Center.X - (boardEdge / 2) - boardEdge;
+            float boardY0 = rect.Center.Y - (boardEdge / 2) - boardEdge;
+
+            int posX = -1;
+            int posY = -1;
+
+            List<int[]> posCross = new List<int[]>();
+            //Dictionary<int[], int> posCross = new Dictionary<int[], int>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Point centerLine = calcCenterLine(lines[i]);
+                //Y
+                if (centerLine.Y > boardY0 && centerLine.Y < (boardY0 + boardEdge))
+                {
+                    posY = 2;
+                }
+
+                if ((centerLine.Y > boardY0 + boardEdge && centerLine.Y < boardY0 + (2 * boardEdge)))
+                {
+                    posY = 1;
+                }
+
+                if ((centerLine.Y > boardY0 + (2 * boardEdge) && centerLine.Y < boardY0 + (3 * boardEdge)))
+                {
+                    posY = 0;
+                }
+
+                //X
+                if (centerLine.X > boardX0 && centerLine.X < (boardX0 + boardEdge))
+                {
+                    posX = 0;
+                }
+
+                if ((centerLine.X > boardX0 + boardEdge && centerLine.X < boardX0 + (2 * boardEdge)))
+                {
+                    posX = 1;
+                }
+
+                if ((centerLine.X > boardX0 + (2 * boardEdge) && centerLine.X < boardX0 + (3 * boardEdge)))
+                {
+                    posX = 2;
+                }
+
+                posCross.Add(new int[] { posX, posY });
+
+                List<int[]> temp = new List<int[]>();
+                foreach (int[] tab in posCross)
+                {
+                    if (!(temp.Contains(tab)))
+                    {
+                        temp.Add(tab);
+                    }
+                }
+                posCross = temp;
+
+                boardConfig[posCross[i][0], posCross[i][1]] = 1;
+            }
+
+            return boardConfig;
+        }
+
+        private double calcGradient(Point p1, Point p2)
+        {
+            if ((p2.X - p1.X) != 0)
+            {
+                return (Convert.ToDouble(p2.Y) - p1.Y) / (p2.X - p1.X);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private Point calcCenterLine(LineSegment2D line)
+        {
+            int X = Convert.ToInt32(0.5 * (line.P2.X + line.P1.X));
+            int Y = Convert.ToInt32(0.5 * (line.P2.Y + line.P1.Y));
+
+            return new Point(X, Y);
+        }
+    }
+}

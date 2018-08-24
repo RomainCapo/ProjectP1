@@ -193,12 +193,7 @@ namespace Simulateur.classes.dames
             pieces[iToX, iToY] = pieces[iFromX, iFromY];
             pieces[iFromX, iFromY] = null;
 
-            Point temp = dames.MovePiece(iFromX, iFromY, iToX, iToY);
-            if (temp != null)
-            {
-                form.Controls.Remove(pieces[temp.X, temp.Y]);
-                pieces[temp.X, temp.Y] = null;
-            }
+ 
         }
 
         public void Remove()
