@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Emgu.CV.Util;
 using System.Linq;
 using Emgu.CV.UI;
+using System.Drawing.Imaging;
 
 namespace Simulateur.classes
 {
@@ -19,18 +20,33 @@ namespace Simulateur.classes
     {
         ImageBox originalImageBox;
         ImageBox detectionImageBox;
+        ImageBox fluxImageBox;
         Label labelInfoDectionImage;
+
+        VideoCapture capture;
+        Mat frame;
 
         public DetectionImage(Form1 form)
         {
             originalImageBox = form.Controls.Find("originalImageBox", true).First() as ImageBox;
             detectionImageBox = form.Controls.Find("detectionImageBox", true).First() as ImageBox;
             labelInfoDectionImage = form.Controls.Find("labelInfoDectionImage", true).First() as Label;
+            fluxImageBox = form.Controls.Find("fluxImageBox", true).First() as ImageBox;
+
+            capture = new VideoCapture();
+            capture.ImageGrabbed += ProcessFrame;
+            frame = new Mat();
+            capture.Start();
 
             PerformShapeDetection();
         }
 
-        public void PerformShapeDetection()
+        private void ProcessFrame(object sender, EventArgs arg)
+        {
+            capture.Retrieve(frame, 0);
+            fluxImageBox.Image = frame;
+        }
+        public int[,] PerformShapeDetection()
         {
             //Load the image from file and resize it for display
             Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test1.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
@@ -183,7 +199,17 @@ namespace Simulateur.classes
 
             }
 
+            return board;
+
             #endregion
+
+
+            /*int width = originalImageBox.Width;
+            int height = originalImageBox.Height;
+
+            Bitmap bmp = new Bitmap(width, height);
+            originalImageBox.DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
+            bmp.Save("fes.jpeg", ImageFormat.Jpeg);*/
         }
 
         private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)

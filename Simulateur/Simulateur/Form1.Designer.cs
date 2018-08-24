@@ -50,10 +50,12 @@
             this.originalImageBox = new Emgu.CV.UI.ImageBox();
             this.detectionImageBox = new Emgu.CV.UI.ImageBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.labelInfoDectionImage = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.fluxImageBox = new Emgu.CV.UI.ImageBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -61,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.originalImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fluxImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // gbInformations
@@ -278,7 +281,7 @@
             // originalImageBox
             // 
             this.originalImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.originalImageBox.Location = new System.Drawing.Point(34, 61);
+            this.originalImageBox.Location = new System.Drawing.Point(19, 360);
             this.originalImageBox.Name = "originalImageBox";
             this.originalImageBox.Size = new System.Drawing.Size(510, 263);
             this.originalImageBox.TabIndex = 2;
@@ -287,7 +290,7 @@
             // detectionImageBox
             // 
             this.detectionImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.detectionImageBox.Location = new System.Drawing.Point(34, 384);
+            this.detectionImageBox.Location = new System.Drawing.Point(19, 655);
             this.detectionImageBox.Name = "detectionImageBox";
             this.detectionImageBox.Size = new System.Drawing.Size(510, 263);
             this.detectionImageBox.TabIndex = 5;
@@ -296,59 +299,79 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.labelInfoDectionImage);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.fluxImageBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.originalImageBox);
             this.groupBox1.Controls.Add(this.detectionImageBox);
             this.groupBox1.Location = new System.Drawing.Point(1376, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(572, 910);
+            this.groupBox1.Size = new System.Drawing.Size(572, 1026);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detection Image";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Image recu";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 351);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 17);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Detection des formes";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 678);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Donnée percue";
-            // 
             // labelInfoDectionImage
             // 
             this.labelInfoDectionImage.AutoSize = true;
-            this.labelInfoDectionImage.Location = new System.Drawing.Point(40, 709);
+            this.labelInfoDectionImage.Location = new System.Drawing.Point(22, 964);
             this.labelInfoDectionImage.Name = "labelInfoDectionImage";
             this.labelInfoDectionImage.Size = new System.Drawing.Size(46, 17);
             this.labelInfoDectionImage.TabIndex = 9;
             this.labelInfoDectionImage.Text = "label4";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 933);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 17);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Donnée percue";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 635);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Detection des formes";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 340);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Image recu";
+            // 
+            // fluxImageBox
+            // 
+            this.fluxImageBox.Location = new System.Drawing.Point(19, 59);
+            this.fluxImageBox.Name = "fluxImageBox";
+            this.fluxImageBox.Size = new System.Drawing.Size(510, 263);
+            this.fluxImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fluxImageBox.TabIndex = 2;
+            this.fluxImageBox.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 17);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Flux en directe";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1892, 922);
+            this.ClientSize = new System.Drawing.Size(1892, 1092);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
@@ -366,6 +389,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fluxImageBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -396,6 +420,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelInfoDectionImage;
         private System.Windows.Forms.Label label3;
+        private Emgu.CV.UI.ImageBox fluxImageBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 
