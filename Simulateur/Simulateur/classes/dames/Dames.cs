@@ -39,59 +39,12 @@ namespace Simulateur.classes.dames
 
         public List<Stack<Node>>[,] GetWays(bool isWhite)
         {
-            bool bCanEat = false;
-            PossibilityForest ways = new PossibilityForest();
+            return null;
+        }
 
-            for(int y = 0; y < 10; y++)
-            {
-                for(int x = 0; x < 10; x++)
-                {
-                    if (board[x, y] != null)
-                    {
-                        Pion piece = board[x, y];
-
-                        if (piece.GetColor() == isWhite)
-                        {
-                            if (piece.GetState())
-                            {
-
-                            }
-                            else
-                            {
-                                List<Point> EatPossibilities
-                                if()
-                                {
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            private List<Point> RegularEatPossibilities(int _x, int _y)
-            {
-                List<Point> 
-
-                for(int y = -1; y <= 1; y += 2)
-                {
-                    for(int x = -1; x <= 1; x += 2)
-                    {
-                        if(_x + x >= 0 && _x + x < 10 && _y + y >= 0 && _y + y < 10 && 2 * _x + x >= 0 && 2 * _x + x < 10 && 2 * _y + y >= 0 && 2 * _y + y < 10)
-                        {
-                            if()
-                            {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach(Pion piece in board)
-            {
-                
-            }
+        private List<Point> RegularEatPossibilities(int _x, int _y)
+        {
+            return null;
         }
 
         public void MovePiece(int _fromX, int _fromY, int _toX, int _toY)
