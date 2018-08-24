@@ -19,11 +19,13 @@ namespace Simulateur.classes
     {
         ImageBox originalImageBox;
         ImageBox detectionImageBox;
+        Label labelInfoDectionImage;
 
         public DetectionImage(Form1 form)
         {
             originalImageBox = form.Controls.Find("originalImageBox", true).First() as ImageBox;
             detectionImageBox = form.Controls.Find("detectionImageBox", true).First() as ImageBox;
+            labelInfoDectionImage = form.Controls.Find("labelInfoDectionImage", true).First() as Label;
 
             PerformShapeDetection();
         }
@@ -31,7 +33,7 @@ namespace Simulateur.classes
         public void PerformShapeDetection()
         {
             //Load the image from file and resize it for display
-            Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test1.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
 
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
@@ -136,7 +138,6 @@ namespace Simulateur.classes
                 CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
             }
 
-            
             #endregion
 
             #region draw circles
@@ -155,9 +156,32 @@ namespace Simulateur.classes
             {
                 CvInvoke.Line(detctionImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
             }
-            //int[,] round = returnBoardRound(boxList[3], circles);
-            //int[,] cross = returnBoardCross(boxList[3],lines);
-            //int[,] board = returnBoard(cross, round);
+            int[,] round = returnBoardRound(boxList[3], circles);
+            int[,] cross = returnBoardCross(boxList[3],lines);
+            int[,] board = returnBoard(cross, round);
+
+            labelInfoDectionImage.Text = "";
+           for(int i = 0; i <= 2; i++)
+            {
+                for(int j = 2; j >= 0; j--)
+                {
+                    switch(board[i, j])
+                    {
+                        case 0:
+                            labelInfoDectionImage.Text += "   |";
+                            break;
+                        case 1:
+                            labelInfoDectionImage.Text += "X|";
+                            break;
+
+                        case 2:
+                            labelInfoDectionImage.Text += "O|";
+                            break;
+                    }
+                }
+                labelInfoDectionImage.Text += "\n";
+
+            }
 
             #endregion
         }
@@ -274,7 +298,6 @@ namespace Simulateur.classes
             int posY = -1;
 
             List<int[]> posCross = new List<int[]>();
-            //Dictionary<int[], int> posCross = new Dictionary<int[], int>();
 
             for (int i = 0; i < lines.Length; i++)
             {
