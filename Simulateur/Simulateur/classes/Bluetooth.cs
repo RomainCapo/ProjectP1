@@ -24,17 +24,36 @@ namespace Simulateur.classes
 
         public bool SendNextCoord(double X, double Y)
         {
-            return SendToRobot("G1 X" + X + " Y" + Y + "\n");
+            return SendToRobot("G1 X" + X + ".00 Y" + Y + ".00 A0 F0 \n");
         }
 
         public bool SendPenDown()
         {
-            return SendToRobot("M1 160\n");
+            System.Threading.Thread.Sleep(100);
+            if (SendToRobot("M1 160\n"))
+            {
+                System.Threading.Thread.Sleep(100);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public bool SendPenUp()
         {
-            return SendToRobot("M1 90\n");
+            System.Threading.Thread.Sleep(100);
+            if (SendToRobot("M1 90\n"))
+            {
+                System.Threading.Thread.Sleep(100);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool SendResetPosition()
@@ -68,9 +87,30 @@ namespace Simulateur.classes
             state.Text = "Connexion ...";
             if (targetDevice.Authenticated && !(localClient.Connected))
             {
-                localClient.Connect(targetDevice.DeviceAddress, BluetoothService.SerialPort);
+                bool bIsConnected = false;
+                do
+                {
+                    try
+                    {
+                        localClient.Connect(targetDevice.DeviceAddress, BluetoothService.SerialPort);
+                        bIsConnected = true;
+                    }
+                    catch
+                    {
+                        if (MessageBox.Show("Impossible de se connecter au robot... Voulez-vous ressayer ?", "Erreur connexion", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                        {
+                            bIsConnected = true;
+                            CheckBox temp = form.Controls.Find("cbxUseBluetooth", true)[0] as CheckBox;
+                            temp.Enabled = false;
+                            temp.Checked = false;
+                        }
+                    }
+                }
+                while (!(bIsConnected));
+
                 state.Text = "Connecté !";
 
+                //SendToRobot("M4 0\n");
                 SendToRobot("M10\n");
                 SendPenUp();
                 SendResetPosition();

@@ -59,6 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\Bluetooth.cs" />
+    <Compile Include="classes\dames\Dames.cs" />
+    <Compile Include="classes\dames\Node.cs" />
+    <Compile Include="classes\dames\Pion.cs" />
+    <Compile Include="classes\dames\PlayDames.cs" />
+    <Compile Include="classes\dames\PossibilityForest.cs" />
     <Compile Include="classes\maze\Cell.cs" />
     <Compile Include="classes\maze\Maze.cs" />
     <Compile Include="classes\maze\PlayMaze.cs" />

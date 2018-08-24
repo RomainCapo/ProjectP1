@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.gbInformations = new System.Windows.Forms.GroupBox();
+            this.cbxUseBluetooth = new System.Windows.Forms.CheckBox();
+            this.btnCursorDown = new System.Windows.Forms.Button();
             this.lblSizeState = new System.Windows.Forms.Label();
+            this.btnCursorUp = new System.Windows.Forms.Button();
             this.btnAppliquer = new System.Windows.Forms.Button();
             this.lblMmY = new System.Windows.Forms.Label();
             this.lblMmX = new System.Windows.Forms.Label();
@@ -41,10 +44,8 @@
             this.lblEtiquetteBluetooth = new System.Windows.Forms.Label();
             this.btnTicTacToe = new System.Windows.Forms.Button();
             this.btnMaze = new System.Windows.Forms.Button();
-            this.btnCursorUp = new System.Windows.Forms.Button();
-            this.btnCursorDown = new System.Windows.Forms.Button();
-            this.cbxUseBluetooth = new System.Windows.Forms.CheckBox();
             this.gbGames = new System.Windows.Forms.GroupBox();
+            this.btnDames = new System.Windows.Forms.Button();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -73,6 +74,28 @@
             this.gbInformations.TabStop = false;
             this.gbInformations.Text = "Informations";
             // 
+            // cbxUseBluetooth
+            // 
+            this.cbxUseBluetooth.AutoSize = true;
+            this.cbxUseBluetooth.Checked = true;
+            this.cbxUseBluetooth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxUseBluetooth.Location = new System.Drawing.Point(12, 69);
+            this.cbxUseBluetooth.Name = "cbxUseBluetooth";
+            this.cbxUseBluetooth.Size = new System.Drawing.Size(137, 21);
+            this.cbxUseBluetooth.TabIndex = 14;
+            this.cbxUseBluetooth.Text = "Utiliser Bluetooth";
+            this.cbxUseBluetooth.UseVisualStyleBackColor = true;
+            // 
+            // btnCursorDown
+            // 
+            this.btnCursorDown.Location = new System.Drawing.Point(12, 248);
+            this.btnCursorDown.Name = "btnCursorDown";
+            this.btnCursorDown.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorDown.TabIndex = 5;
+            this.btnCursorDown.Text = "Curseur bas";
+            this.btnCursorDown.UseVisualStyleBackColor = true;
+            this.btnCursorDown.Click += new System.EventHandler(this.btnCursorDown_Click);
+            // 
             // lblSizeState
             // 
             this.lblSizeState.AutoSize = true;
@@ -80,6 +103,16 @@
             this.lblSizeState.Name = "lblSizeState";
             this.lblSizeState.Size = new System.Drawing.Size(0, 17);
             this.lblSizeState.TabIndex = 13;
+            // 
+            // btnCursorUp
+            // 
+            this.btnCursorUp.Location = new System.Drawing.Point(12, 209);
+            this.btnCursorUp.Name = "btnCursorUp";
+            this.btnCursorUp.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorUp.TabIndex = 4;
+            this.btnCursorUp.Text = "Curseur haut";
+            this.btnCursorUp.UseVisualStyleBackColor = true;
+            this.btnCursorUp.Click += new System.EventHandler(this.btnCursorUp_Click);
             // 
             // btnAppliquer
             // 
@@ -209,48 +242,27 @@
             this.btnMaze.UseVisualStyleBackColor = true;
             this.btnMaze.Click += new System.EventHandler(this.btnMaze_Click);
             // 
-            // btnCursorUp
-            // 
-            this.btnCursorUp.Location = new System.Drawing.Point(12, 209);
-            this.btnCursorUp.Name = "btnCursorUp";
-            this.btnCursorUp.Size = new System.Drawing.Size(112, 33);
-            this.btnCursorUp.TabIndex = 4;
-            this.btnCursorUp.Text = "Curseur haut";
-            this.btnCursorUp.UseVisualStyleBackColor = true;
-            this.btnCursorUp.Click += new System.EventHandler(this.btnCursorUp_Click);
-            // 
-            // btnCursorDown
-            // 
-            this.btnCursorDown.Location = new System.Drawing.Point(12, 248);
-            this.btnCursorDown.Name = "btnCursorDown";
-            this.btnCursorDown.Size = new System.Drawing.Size(112, 33);
-            this.btnCursorDown.TabIndex = 5;
-            this.btnCursorDown.Text = "Curseur bas";
-            this.btnCursorDown.UseVisualStyleBackColor = true;
-            this.btnCursorDown.Click += new System.EventHandler(this.btnCursorDown_Click);
-            // 
-            // cbxUseBluetooth
-            // 
-            this.cbxUseBluetooth.AutoSize = true;
-            this.cbxUseBluetooth.Checked = true;
-            this.cbxUseBluetooth.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxUseBluetooth.Location = new System.Drawing.Point(12, 69);
-            this.cbxUseBluetooth.Name = "cbxUseBluetooth";
-            this.cbxUseBluetooth.Size = new System.Drawing.Size(137, 21);
-            this.cbxUseBluetooth.TabIndex = 14;
-            this.cbxUseBluetooth.Text = "Utiliser Bluetooth";
-            this.cbxUseBluetooth.UseVisualStyleBackColor = true;
-            // 
             // gbGames
             // 
+            this.gbGames.Controls.Add(this.btnDames);
             this.gbGames.Controls.Add(this.btnTicTacToe);
             this.gbGames.Controls.Add(this.btnMaze);
             this.gbGames.Location = new System.Drawing.Point(12, 315);
             this.gbGames.Name = "gbGames";
-            this.gbGames.Size = new System.Drawing.Size(200, 103);
+            this.gbGames.Size = new System.Drawing.Size(200, 140);
             this.gbGames.TabIndex = 4;
             this.gbGames.TabStop = false;
             this.gbGames.Text = "Jeux";
+            // 
+            // btnDames
+            // 
+            this.btnDames.Location = new System.Drawing.Point(6, 99);
+            this.btnDames.Name = "btnDames";
+            this.btnDames.Size = new System.Drawing.Size(93, 33);
+            this.btnDames.TabIndex = 4;
+            this.btnDames.Text = "Dames";
+            this.btnDames.UseVisualStyleBackColor = true;
+            this.btnDames.Click += new System.EventHandler(this.btnDames_Click);
             // 
             // Form1
             // 
@@ -263,7 +275,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbInformations.ResumeLayout(false);
             this.gbInformations.PerformLayout();
@@ -292,6 +303,7 @@
         private System.Windows.Forms.Button btnCursorDown;
         private System.Windows.Forms.CheckBox cbxUseBluetooth;
         private System.Windows.Forms.GroupBox gbGames;
+        private System.Windows.Forms.Button btnDames;
     }
 }
 
