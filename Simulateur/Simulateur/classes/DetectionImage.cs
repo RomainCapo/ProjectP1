@@ -18,6 +18,7 @@ namespace Simulateur.classes
 {
     class DetectionImage
     {
+        //déclaration des variables et objet
         ImageBox originalImageBox;
         ImageBox detectionImageBox;
         ImageBox fluxImageBox;
@@ -28,11 +29,13 @@ namespace Simulateur.classes
 
         public DetectionImage(Form1 form)
         {
+            //récupération des composants WinForm
             originalImageBox = form.Controls.Find("originalImageBox", true).First() as ImageBox;
             detectionImageBox = form.Controls.Find("detectionImageBox", true).First() as ImageBox;
             labelInfoDectionImage = form.Controls.Find("labelInfoDectionImage", true).First() as Label;
             fluxImageBox = form.Controls.Find("fluxImageBox", true).First() as ImageBox;
 
+            //initialisation des objets
             capture = new VideoCapture();
             capture.ImageGrabbed += ProcessFrame;
             frame = new Mat();
@@ -42,6 +45,11 @@ namespace Simulateur.classes
             PerformShapeDetection(imag);
         }
 
+        /// <summary>
+        /// Fonction EmguCV permettant de récupérer le flux de la caméra
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="arg"></param>
         private void ProcessFrame(object sender, EventArgs arg)
         {
             capture.Retrieve(frame, 0);
@@ -52,9 +60,6 @@ namespace Simulateur.classes
 
         public void PerformShapeDetection(IImage img)
         {
-            //Load the image from file and resize it for display
-            
-
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
             CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
@@ -221,6 +226,12 @@ namespace Simulateur.classes
             PerformShapeDetection(originalImageBox.Image);
         }
 
+        /// <summary>
+        /// retourne un tab 2 dimension contenant la position des ronds sur la grille du morpion
+        /// </summary>
+        /// <param name="rect">rectangle du millieux de la grille du morpion</param>
+        /// <param name="circles">tablau contenant les ronds</param>
+        /// <returns>un tableau 2d représentant la grille du morpion</returns>
         private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)
         {
             int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
@@ -240,7 +251,7 @@ namespace Simulateur.classes
                 {
                     posY = 2;
                 }
-
+  
                 if ((circles[i].Center.Y > boardY0 + boardEdge && circles[i].Center.Y < boardY0 + (2 * boardEdge)))
                 {
                     posY = 1;
@@ -266,11 +277,20 @@ namespace Simulateur.classes
                 {
                     posX = 2;
                 }
-                boardConfig[posX, posY] = 2;
+
+                if(posX != -1 || posY != -1)
+                {
+                    boardConfig[posX, posY] = 2;
+                }
             }
             return boardConfig;
         }
 
+        /// <summary>
+        /// Filtre les lignes du tableau passé en paramétre pour retourner uniquement les croix
+        /// </summary>
+        /// <param name="lines">tableau contenant toutes les lignes détectés</param>
+        /// <returns>un tableau contenant les croix</returns>
         private LineSegment2D[] findCross(LineSegment2D[] lines)
         {
             List<LineSegment2D> listLines = new List<LineSegment2D>();
@@ -291,6 +311,12 @@ namespace Simulateur.classes
             return array;
         }
 
+        /// <summary>
+        /// retourne le plateau final du morpion
+        /// </summary>
+        /// <param name="cross">tableau contenant la position des croix</param>
+        /// <param name="round">tableau contenant la position des ronds</param>
+        /// <returns>un tab 2d représentans l'etat du jeu</returns>
         private int[,] returnBoard(int[,] cross, int[,] round)
         {
             int[,] board = new int[3, 3];
@@ -320,6 +346,12 @@ namespace Simulateur.classes
             return board;
         }
 
+        /// <summary>
+        /// retourne un tab 2 dimension contenant la position des croix sur la grille du morpion
+        /// </summary>
+        /// <param name="rect">rectangle du millieux de la grille du morpion</param>
+        /// <param name="lines">tablau contenant les lignes formants les croix</param>
+        /// <returns>un tableau 2d représentant la grille du morpion</returns>
         private int[,] returnBoardCross(RotatedRect rect, LineSegment2D[] lines)
         {
             int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
@@ -387,6 +419,12 @@ namespace Simulateur.classes
             return boardConfig;
         }
 
+        /// <summary>
+        /// Calcule la pente de la droite passant par les 2 points passé en parametre
+        /// </summary>
+        /// <param name="p1">1er point</param>
+        /// <param name="p2">2eme point</param>
+        /// <returns>la pente de la droite</returns>
         private double calcGradient(Point p1, Point p2)
         {
             if ((p2.X - p1.X) != 0)
@@ -399,6 +437,11 @@ namespace Simulateur.classes
             }
         }
 
+        /// <summary>
+        /// Calcule les coordonnées du centre d'une ligne
+        /// </summary>
+        /// <param name="line">un objet ligne</param>
+        /// <returns>la corrdonnée du centre de la ligne</returns>
         private Point calcCenterLine(LineSegment2D line)
         {
             int X = Convert.ToInt32(0.5 * (line.P2.X + line.P1.X));
