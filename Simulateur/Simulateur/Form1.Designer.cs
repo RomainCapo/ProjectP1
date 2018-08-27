@@ -50,13 +50,13 @@
             this.originalImageBox = new Emgu.CV.UI.ImageBox();
             this.detectionImageBox = new Emgu.CV.UI.ImageBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnPrintScreen = new System.Windows.Forms.Button();
             this.labelInfoDectionImage = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.fluxImageBox = new Emgu.CV.UI.ImageBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnPrintScreen = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -315,14 +315,33 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detection Image";
             // 
+            // btnPrintScreen
+            // 
+            this.btnPrintScreen.Location = new System.Drawing.Point(268, 933);
+            this.btnPrintScreen.Name = "btnPrintScreen";
+            this.btnPrintScreen.Size = new System.Drawing.Size(227, 48);
+            this.btnPrintScreen.TabIndex = 7;
+            this.btnPrintScreen.Text = "Print Screen";
+            this.btnPrintScreen.UseVisualStyleBackColor = true;
+            this.btnPrintScreen.Click += new System.EventHandler(this.btnPrintScreen_Click);
+            // 
             // labelInfoDectionImage
             // 
             this.labelInfoDectionImage.AutoSize = true;
             this.labelInfoDectionImage.Location = new System.Drawing.Point(22, 964);
             this.labelInfoDectionImage.Name = "labelInfoDectionImage";
-            this.labelInfoDectionImage.Size = new System.Drawing.Size(46, 17);
+            this.labelInfoDectionImage.Size = new System.Drawing.Size(16, 17);
             this.labelInfoDectionImage.TabIndex = 9;
-            this.labelInfoDectionImage.Text = "label4";
+            this.labelInfoDectionImage.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 17);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Flux en directe";
             // 
             // label3
             // 
@@ -342,15 +361,6 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Detection des formes";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 340);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Image recu";
-            // 
             // fluxImageBox
             // 
             this.fluxImageBox.Location = new System.Drawing.Point(19, 59);
@@ -360,30 +370,20 @@
             this.fluxImageBox.TabIndex = 2;
             this.fluxImageBox.TabStop = false;
             // 
-            // label4
+            // label1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 17);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Flux en directe";
-            // 
-            // btnPrintScreen
-            // 
-            this.btnPrintScreen.Location = new System.Drawing.Point(268, 933);
-            this.btnPrintScreen.Name = "btnPrintScreen";
-            this.btnPrintScreen.Size = new System.Drawing.Size(227, 48);
-            this.btnPrintScreen.TabIndex = 7;
-            this.btnPrintScreen.Text = "Print Screen";
-            this.btnPrintScreen.UseVisualStyleBackColor = true;
-            this.btnPrintScreen.Click += new System.EventHandler(this.btnPrintScreen_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 340);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Image recu";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1892, 1092);
+            this.ClientSize = new System.Drawing.Size(1892, 1084);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);

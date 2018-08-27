@@ -38,7 +38,8 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
 
-            PerformShapeDetection();
+            Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test1.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            PerformShapeDetection(imag);
         }
 
         private void ProcessFrame(object sender, EventArgs arg)
@@ -46,10 +47,13 @@ namespace Simulateur.classes
             capture.Retrieve(frame, 0);
             fluxImageBox.Image = frame;
         }
-        public void PerformShapeDetection()
+
+
+
+        public void PerformShapeDetection(IImage img)
         {
             //Load the image from file and resize it for display
-            Image<Bgr, Byte> img = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test1.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            
 
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
@@ -214,6 +218,7 @@ namespace Simulateur.classes
         public void PrintScreen()
         {
             originalImageBox.Image = fluxImageBox.Image;
+            PerformShapeDetection(originalImageBox.Image);
         }
 
         private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)
