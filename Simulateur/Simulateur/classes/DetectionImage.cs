@@ -41,7 +41,7 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
 
-            Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
             PerformShapeDetection(imag);
         }
 
@@ -160,6 +160,8 @@ namespace Simulateur.classes
             Mat detctionImage = new Mat(img.Size, DepthType.Cv8U, 3);
             detctionImage.SetTo(new MCvScalar(0));
 
+            boxList = filterSquare(boxList);
+
             foreach (RotatedRect box in boxList)
             {
                 CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
@@ -168,7 +170,7 @@ namespace Simulateur.classes
             #endregion
 
             #region draw circles
-          
+
             foreach (CircleF circle in circles)
                 CvInvoke.Circle(detctionImage, Point.Round(circle.Center), (int)circle.Radius, new Bgr(Color.Brown).MCvScalar, 2);
 
@@ -193,16 +195,49 @@ namespace Simulateur.classes
                 CvInvoke.Line(detctionImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
             }            
             
-            //int[,] round = returnBoardRound(boxList[3], circles);
-            int[,] cross = returnBoardCross(boxList[3],lines);
-            //int[,] board = returnBoard(cross, round);
 
-            /*labelInfoDectionImage.Text = "";
-           for(int i = 0; i <= 2; i++)
+
+            int[,] round = returnBoardRound(boxList[0], circles);
+            int[,] cross = returnBoardCross(boxList[0],lines);
+            int[,] board = returnBoard(cross, round);
+
+            drawBoard(board);
+
+            #endregion
+        }
+
+        /// <summary>
+        /// filtre tout les carrés détecté par le programme en ne gardant que les carrés parralélle à l'axe X
+        /// </summary>
+        /// <param name="rects">tableau de tout les rectangle détecté</param>
+        /// <returns>tableau des rectangles filtrés</returns>
+        private List<RotatedRect> filterSquare(List<RotatedRect> rects)
+        {
+            List<RotatedRect> tmp = new List<RotatedRect>();
+
+            foreach(RotatedRect rect in rects)
             {
-                for(int j = 2; j >= 0; j--)
+                if((rect.Angle > -10.0f && rect.Angle < 10.0f) || (rect.Angle < -80.0f && rect.Angle > -100.0f))
                 {
-                    switch(board[i, j])
+                    tmp.Add(rect);
+                }
+            }
+
+            return tmp;
+        }
+
+        /// <summary>
+        /// dessine le plateau de jeu
+        /// </summary>
+        /// <param name="board">le plateau de jeu</param>
+        private void drawBoard(int[,] board)
+        {
+            labelInfoDectionImage.Text = "";
+            for (int i = 2; i >= 0; i--)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    switch (board[j, i])
                     {
                         case 0:
                             labelInfoDectionImage.Text += "   |";
@@ -218,16 +253,13 @@ namespace Simulateur.classes
                 }
                 labelInfoDectionImage.Text += "\n";
 
-            }*/
-
-
-            #endregion
+            }
         }
 
         public void PrintScreen()
         {
-            /*originalImageBox.Image = fluxImageBox.Image;
-            PerformShapeDetection(originalImageBox.Image);*/
+            originalImageBox.Image = fluxImageBox.Image;
+            //PerformShapeDetection(originalImageBox.Image);
         }
 
         /// <summary>
@@ -285,7 +317,7 @@ namespace Simulateur.classes
                     posY = 0;
                 }
 
-                if (posX != -1 || posY != -1)
+                if (posX != -1 && posY != -1)
                 {
                     boardConfig[posX, posY] = 2;
                 }
@@ -376,6 +408,8 @@ namespace Simulateur.classes
             for (int i = 0; i < lines.Length; i++)
             {
                 Point centerLine = calcCenterLine(lines[i]);
+                posX = -1;
+                posY = -1;
 
                 //X
                 if (centerLine.X > boardX0 && centerLine.X < (boardX0 + boardEdge))
@@ -409,24 +443,11 @@ namespace Simulateur.classes
                     posY = 0;
                 }
 
-                posCross.Add(new int[] { posX, posY });
-
-                /*List<int[]> temp = new List<int[]>();
-                foreach (int[] tab in posCross)
+                if(posX != -1 && posY != -1)
                 {
-                    if (!(temp.Contains(tab)))
-                    {
-                        temp.Add(tab);
-                    }
+                    boardConfig[posX, posY] = 1;
                 }
-                posCross = temp;
 
-                boardConfig[posCross[i][0], posCross[i][1]] = 1;*/
-            }
-
-            foreach(int[] tab in posCross)
-            {
-                boardConfig[tab[0], tab[1]] = 1;
             }
 
             return boardConfig;
