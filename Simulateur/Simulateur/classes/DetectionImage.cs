@@ -193,10 +193,11 @@ namespace Simulateur.classes
             foreach (LineSegment2D line in lines)
             {
                 CvInvoke.Line(detctionImage, line.P1, line.P2, new Bgr(Color.Yellow).MCvScalar, 2);
-            }            
-            
+            }
 
-            if(boxList.Count != 0)
+            #endregion
+
+            if (boxList.Count != 0)
             {
                 int[,] round = returnBoardRound(boxList[0], circles);
                 int[,] cross = returnBoardCross(boxList[0], lines);
@@ -204,8 +205,6 @@ namespace Simulateur.classes
 
                 drawBoard(board);
             }
-
-            #endregion
         }
 
         /// <summary>
@@ -265,6 +264,61 @@ namespace Simulateur.classes
         }
 
         /// <summary>
+        /// permet de detecter les ronds du jeu des dames sur un plateau
+        /// </summary>
+        /// <param name="rect">le 1er rectangle en haut a gauche du plateau</param>
+        /// <param name="circles">tableau contenant les cercles détécté</param>
+        /// <returns>un tab 2d indiquant l'etat du plateau des dames</returns>
+        private int[,] returnBoardDames(RotatedRect rect, CircleF[] circles)
+        {
+            int[,] boardConfig = new int[10, 10]; 
+
+            for(int i = 0;i <=10; i++)
+            {
+                for(int j = 0; j <= 10; j++)
+                {
+                    boardConfig[i, j] = 0;
+                }
+            }
+
+            float boardEdge = rect.Size.Width;
+
+            float boardX0 = rect.Center.X - (2 * rect.Size.Width);
+            float boardY0 = rect.Center.Y - (2 * rect.Size.Height);
+
+            int posX = -1;
+            int posY = -1;
+
+            for(int i = 0; i <= circles.Length;i++ )
+            {
+                posX = -1;
+                posY = -1;
+
+                for(int j = 0; j <= 9; j++)
+                {
+                    //X
+                    if(circles[i].Center.X > boardX0 + (j * boardEdge) && circles[i].Center.X < boardX0 +  ((1 +j) * boardEdge))
+                    {
+                        posX = j;
+                    }
+
+                    //Y
+                    if (circles[i].Center.Y > boardY0 + (j * boardEdge) && circles[i].Center.Y < boardY0 + ((1 + j) * boardEdge))
+                    {
+                        posY = 9 - j;
+                    }
+                }
+
+                if(posX != -1 && posY != -1)
+                {
+                    boardConfig[posX, posY] = 1;
+                }
+            }
+
+            return boardConfig;
+        }
+
+        /// <summary>
         /// retourne un tab 2 dimension contenant la position des ronds sur la grille du morpion
         /// </summary>
         /// <param name="rect">rectangle du millieux de la grille du morpion</param>
@@ -288,7 +342,7 @@ namespace Simulateur.classes
                 posY = -1;        
 
                 //X
-                if (circles[i].Center.X > boardX0 && circles[i].Center.X < (boardX0 + boardEdge))
+                if (circles[i].Center.X > boardX0 && circles[i].Center.X < boardX0 + boardEdge)
                 {
                     posX = 0;
                 }
