@@ -179,7 +179,7 @@ namespace Simulateur.classes
             #endregion
 
             #region draw lines
-            lines = findCross(lines);
+            lines = filterCross(lines);
 
             /////////////
             List<Point> test = new List<Point>();
@@ -196,12 +196,14 @@ namespace Simulateur.classes
             }            
             
 
+            if(boxList.Count != 0)
+            {
+                int[,] round = returnBoardRound(boxList[0], circles);
+                int[,] cross = returnBoardCross(boxList[0], lines);
+                int[,] board = returnBoard(cross, round);
 
-            int[,] round = returnBoardRound(boxList[0], circles);
-            int[,] cross = returnBoardCross(boxList[0],lines);
-            int[,] board = returnBoard(cross, round);
-
-            drawBoard(board);
+                drawBoard(board);
+            }
 
             #endregion
         }
@@ -259,7 +261,7 @@ namespace Simulateur.classes
         public void PrintScreen()
         {
             originalImageBox.Image = fluxImageBox.Image;
-            //PerformShapeDetection(originalImageBox.Image);
+            PerformShapeDetection(originalImageBox.Image);
         }
 
         /// <summary>
@@ -330,7 +332,7 @@ namespace Simulateur.classes
         /// </summary>
         /// <param name="lines">tableau contenant toutes les lignes détectés</param>
         /// <returns>un tableau contenant les croix</returns>
-        private LineSegment2D[] findCross(LineSegment2D[] lines)
+        private LineSegment2D[] filterCross(LineSegment2D[] lines)
         {
             List<LineSegment2D> listLines = new List<LineSegment2D>();
             //List<double> gradients = new List<double>();
