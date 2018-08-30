@@ -27,6 +27,8 @@ namespace Simulateur.classes
         VideoCapture capture;
         Mat frame;
 
+        int[,] board;
+
         public DetectionImage(Form1 form)
         {
             //récupération des composants WinForm
@@ -40,6 +42,7 @@ namespace Simulateur.classes
             capture.ImageGrabbed += ProcessFrame;
             frame = new Mat();
             capture.Start();
+            board = new int[3, 3];
 
             Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
             PerformShapeDetection(imag);
@@ -60,7 +63,7 @@ namespace Simulateur.classes
         /// Méthode permettant la détection des carré, croix et ronds sur une image
         /// </summary>
         /// <param name="img">objet image de emguCV</param>
-        public void PerformShapeDetection(IImage img)
+        public int[,] PerformShapeDetection(IImage img)
         {
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
@@ -75,7 +78,7 @@ namespace Simulateur.classes
             #region circle detection
             Stopwatch watch = Stopwatch.StartNew();
             double cannyThreshold = 180.0;//180 -> def
-            double circleAccumulatorThreshold = 90;//120->def, 80 -> OK
+            double circleAccumulatorThreshold = 120;//120->def, 80 -> OK
             CircleF[] circles = CvInvoke.HoughCircles(uimage, HoughType.Gradient, 2.0, 20.0, cannyThreshold, circleAccumulatorThreshold, 5);
 
             watch.Stop();
@@ -199,12 +202,53 @@ namespace Simulateur.classes
 
             if (boxList.Count != 0)
             {
-                int[,] round = returnBoardRound(boxList[0], circles);
-                int[,] cross = returnBoardCross(boxList[0], lines);
-                int[,] board = returnBoard(cross, round);
+                int[,] round = BoardRound(boxList[0], circles);
+                int[,] cross = BoardCross(boxList[0], lines);
+                board = BoardComplete(cross, round);
 
-                drawBoard(board);
+                drawBoard(cross);
             }
+            //int[,] dames = returnBoardDames(boxList[0], circles);
+
+            return board;
+        }
+
+        /// <summary>
+        /// permet de prendre une capture avec la caméra et retourne la position de la croix qui a changé
+        /// </summary>
+        /// <returns>un objet point contenant la position de la croix qui a changé</returns>
+        public Point PrintScreen()
+        {
+            originalImageBox.Image = fluxImageBox.Image;
+            int[,] tmp = PerformShapeDetection(originalImageBox.Image);
+
+            //Point test = getChangeBoard(tmp);
+
+            return getChangeBoard(tmp);
+        }
+
+        /// <summary>
+        /// test si le tableau analysé est identique, si c'est le cas il ne se passe rien sinon on retourne la coordonnée qui a changé 
+        /// </summary>
+        /// <param name="tmp">le nouveaux tableau</param>
+        /// <returns>un objet point contenant la position du point qui a changé</returns>
+        private Point getChangeBoard(int[,] tmp)
+        {
+            int[,] board = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 2 } }; ;
+            tmp = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 0 } }; ;
+
+            for(int i = 0; i <= 2; i++)
+            {
+                for(int j = 0; j <=2; j++)
+                {
+                    if(board[i,j] != tmp[i,j])
+                    {
+                        board = tmp;
+                        return new Point(i, j);
+                    }
+                }
+            }
+           return Point.Empty;
         }
 
         /// <summary>
@@ -257,19 +301,13 @@ namespace Simulateur.classes
             }
         }
 
-        public void PrintScreen()
-        {
-            originalImageBox.Image = fluxImageBox.Image;
-            PerformShapeDetection(originalImageBox.Image);
-        }
-
         /// <summary>
         /// permet de detecter les ronds du jeu des dames sur un plateau
         /// </summary>
         /// <param name="rect">le 1er rectangle en haut a gauche du plateau</param>
         /// <param name="circles">tableau contenant les cercles détécté</param>
         /// <returns>un tab 2d indiquant l'etat du plateau des dames</returns>
-        private int[,] returnBoardDames(RotatedRect rect, CircleF[] circles)
+        private int[,] BoardDames(RotatedRect rect, CircleF[] circles)
         {
             int[,] boardConfig = new int[10, 10]; 
 
@@ -324,7 +362,7 @@ namespace Simulateur.classes
         /// <param name="rect">rectangle du millieux de la grille du morpion</param>
         /// <param name="circles">tablau contenant les ronds</param>
         /// <returns>un tableau 2d représentant la grille du morpion</returns>
-        private int[,] returnBoardRound(RotatedRect rect, CircleF[] circles)
+        private int[,] BoardRound(RotatedRect rect, CircleF[] circles)
         {
             int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
 
@@ -412,7 +450,7 @@ namespace Simulateur.classes
         /// <param name="cross">tableau contenant la position des croix</param>
         /// <param name="round">tableau contenant la position des ronds</param>
         /// <returns>un tab 2d représentans l'etat du jeu</returns>
-        private int[,] returnBoard(int[,] cross, int[,] round)
+        private int[,] BoardComplete(int[,] cross, int[,] round)
         {
             int[,] board = new int[3, 3];
 
@@ -447,7 +485,7 @@ namespace Simulateur.classes
         /// <param name="rect">rectangle du millieux de la grille du morpion</param>
         /// <param name="lines">tablau contenant les lignes formants les croix</param>
         /// <returns>un tableau 2d représentant la grille du morpion</returns>
-        private int[,] returnBoardCross(RotatedRect rect, LineSegment2D[] lines)
+        private int[,] BoardCross(RotatedRect rect, LineSegment2D[] lines)
         {
             int[,] boardConfig = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }; ;
 

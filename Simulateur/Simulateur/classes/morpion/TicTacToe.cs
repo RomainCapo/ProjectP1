@@ -10,9 +10,12 @@ namespace Simulateur.classes.morpion
     class TicTacToe
     {
         int[,] tblGrid = new int[3, 3];
+        DetectionImage di;
 
-        public TicTacToe()
+        public TicTacToe(DetectionImage _di)
         {
+            di = _di;
+
             for(int y = 0; y < 3; y++)
             {
                 for(int x = 0; x < 3; x++)
@@ -27,9 +30,9 @@ namespace Simulateur.classes.morpion
             return tblGrid;
         }
 
-        public void PlaceCross(Point pCell)
+        public Point PlaceCross()
         {
-            tblGrid[pCell.X, pCell.Y] = 1;
+            return di.PrintScreen();
         }
 
         public void PlaceCicle(Point pCell)

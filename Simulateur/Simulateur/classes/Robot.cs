@@ -24,6 +24,9 @@ namespace Simulateur.classes
         Bitmap tempSheet;
         Form1 form;
 
+        const int OFFSETX = 80;
+        const int OFFSETY = 0;
+
 
         public Robot(Form1 _form, int _SizeX, int _SizeY)
         {
@@ -46,26 +49,27 @@ namespace Simulateur.classes
             ResetPosition();
         }
 
-        public bool MoveCursor(double X, double Y)
+        public bool Move(double _x, double _y)
+        {
+            MoveCursor(new Point((int) _x, (int) _y));
+            return bluetooth.SendNextCoord(_x + OFFSETX, _y + OFFSETY);
+        }
+        public bool MoveCursor(Point _destination)
         {
             try
             {
-                bluetooth.SendNextCoord(X, Y);
-
-                X = Math.Round(X, 2);
-                Y = Math.Round(Y, 2);
-                if (X < 0.00 || X > TAILLEX || Y < 0.00 || Y > TAILLEY)
+                if (_destination.X < 0 || _destination.X > TAILLEX || _destination.Y < 0 || _destination.Y > TAILLEY)
                 {
                     return false;
                 }
-                if(position[0] == X && position[1] == Y)
+                if(position[0] == _destination.X && position[1] == _destination.Y)
                 {
                     return true;
                 }
 
                 double[] StartPosition = new double[2] { position[0], position[1] };
-                position[0] = X;
-                position[1] = Y;
+                position[0] = _destination.X;
+                position[1] = _destination.Y;
 
                 cursor.Invoke(new MethodInvoker(delegate { cursor.Left = BORDERSTARTX + Convert.ToInt32(position[0]); cursor.Top = Convert.ToInt32(TAILLEY - position[1]); }));
 
@@ -122,7 +126,8 @@ namespace Simulateur.classes
 
         public bool ResetPosition()
         {
-            return MoveCursor(0.00, 0.00);
+            MoveCursor(new Point(0, 0));
+            return bluetooth.SendResetPosition();
         }
 
         public bool RemoveDrawing()
