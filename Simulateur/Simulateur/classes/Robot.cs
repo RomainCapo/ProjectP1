@@ -52,6 +52,7 @@ namespace Simulateur.classes
         public bool Move(double _x, double _y)
         {
             MoveCursor(new Point((int) _x, (int) _y));
+
             return bluetooth.SendNextCoord(_x + OFFSETX, _y + OFFSETY);
         }
         public bool MoveCursor(Point _destination)
@@ -143,6 +144,12 @@ namespace Simulateur.classes
             {
                 return false;
             }
+        }
+
+        public bool SwitchBluetooth(bool state)
+        {
+            bluetooth.EnableBluetooth(state);
+            return true;
         }
     }
 }

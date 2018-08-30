@@ -43,12 +43,11 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
             board = new int[3, 3];
-<<<<<<< HEAD
-=======
 
-            //Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\vincent.moulin1\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-            //PerformShapeDetection(imag);
->>>>>>> 230237df109363c8ba49f95c4622730691d40f68
+           Image<Bgr, Byte> img =
+                   new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\alouf.png")
+                   .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            PerformShapeDetection(img);
         }
 
         /// <summary>
@@ -77,12 +76,10 @@ namespace Simulateur.classes
             CvInvoke.PyrDown(uimage, pyrDown);
             CvInvoke.PyrUp(pyrDown, uimage);
 
-            //crop image
-
             #region circle detection
             Stopwatch watch = Stopwatch.StartNew();
             double cannyThreshold = 180.0;//180 -> def
-            double circleAccumulatorThreshold = 120;//120->def, 80 -> OK
+            double circleAccumulatorThreshold = 95;//120->def, 80 -> OK
             CircleF[] circles = CvInvoke.HoughCircles(uimage, HoughType.Gradient, 2.0, 20.0, cannyThreshold, circleAccumulatorThreshold, 5);
 
             watch.Stop();
@@ -98,7 +95,7 @@ namespace Simulateur.classes
                 cannyEdges,
                 1, //Distance resolution in pixel-related units 1
                 Math.PI / 45.0, //Angle resolution measured in radians.
-                100, //threshold 20
+                20, //threshold 20
                 20, //min Line width 30
                 10); //gap between lines 10
 
@@ -160,28 +157,7 @@ namespace Simulateur.classes
             watch.Stop();
             #endregion
 
-<<<<<<< HEAD
-            Bitmap bmp = img.Bitmap;
-            bmp = bmp.Clone(new Rectangle(300, 300, 100, 100), bmp.PixelFormat);
-
-            Image<Bgr, Byte> tmp = new Image<Bgr, Byte>(bmp);
-
-            originalImageBox.Image = tmp;
-=======
-            // Modifié ////////////////
-
-            Bitmap bmp = img.Bitmap;
-            Rectangle selection = new Rectangle(250, 150, 200, 200);
-
-            Bitmap cropBmp = bmp.Clone(selection, bmp.PixelFormat);
-            Image<Bgr, Byte> myImage = new Image<Bgr, Byte>(cropBmp); 
-
-            ///////////////////////////
-
-           
-
-            originalImageBox.Image = myImage;
->>>>>>> 230237df109363c8ba49f95c4622730691d40f68
+            originalImageBox.Image = img;
 
             #region draw triangles and rectangles
 
@@ -189,11 +165,13 @@ namespace Simulateur.classes
             detctionImage.SetTo(new MCvScalar(0));
 
             boxList = filterSquare(boxList);
+            RotatedRect box = new RotatedRect(new PointF(210, 210), new SizeF(110, 110), 0);
+            CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
 
-            foreach (RotatedRect box in boxList)
+            /*foreach (RotatedRect box in boxList)
             {
                 CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
-            }
+            }*/
 
             #endregion
 
@@ -225,17 +203,22 @@ namespace Simulateur.classes
 
             #endregion
 
-            if (boxList.Count != 0)
+            //int[,] round = BoardRound(box, circles);
+            int[,] cross = BoardCross(box, lines);
+            //board = BoardComplete(cross, round);
+            drawBoard(cross);
+
+            /*if (boxList.Count != 0)
             {
                 int[,] round = BoardRound(boxList[0], circles);
                 int[,] cross = BoardCross(boxList[0], lines);
                 board = BoardComplete(cross, round);
 
                 drawBoard(cross);
-            }
+            }*/
             //int[,] dames = returnBoardDames(boxList[0], circles);
 
-            return board;
+            return cross;
         }
 
         /// <summary>
@@ -244,11 +227,18 @@ namespace Simulateur.classes
         /// <returns>un objet point contenant la position de la croix qui a changé</returns>
         public Point PrintScreen()
         {
-            originalImageBox.Image = fluxImageBox.Image;
-            int[,] tmp = PerformShapeDetection(originalImageBox.Image);
+            //crop image
+            IImage img = fluxImageBox.Image;
+            Bitmap bmp = img.Bitmap;
+            bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
+            bmp = bmp.Clone(new Rectangle(240, 140, 170, 170), bmp.PixelFormat);
+            img = new Image<Bgr, Byte>(bmp).Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+
+            originalImageBox.Image = img;
+
+            int[,] tmp = PerformShapeDetection(img);
 
             Point test = getChangeBoard(tmp);
-
             return getChangeBoard(tmp);
         }
 
@@ -259,9 +249,6 @@ namespace Simulateur.classes
         /// <returns>un objet point contenant la position du point qui a changé</returns>
         private Point getChangeBoard(int[,] tmp)
         {
-            int[,] board = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 2 } }; ;
-            tmp = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 0 } }; ;
-
             for(int i = 0; i <= 2; i++)
             {
                 for(int j = 0; j <=2; j++)

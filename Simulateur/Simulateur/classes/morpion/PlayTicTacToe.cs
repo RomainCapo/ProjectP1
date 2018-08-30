@@ -174,7 +174,8 @@ namespace Simulateur.classes.morpion
             {
                 Point pCell = ticTacToe.PlaceCross();
 
-                /*robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * pCell.Y + MARGIN);
+                robotXY.SwitchBluetooth(false);
+                robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * pCell.Y + MARGIN);
                 robotXY.PenDown();
                 robotXY.Move(LENGTH / 3 * (pCell.X + 1) - MARGIN, LENGTH / 3 * (pCell.Y + 1) - MARGIN);
                 robotXY.PenUp();
@@ -184,8 +185,8 @@ namespace Simulateur.classes.morpion
                 robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * (pCell.Y + 1) - MARGIN);
                 robotXY.PenUp();
 
-                robotXY.ResetPosition();*/
-
+                robotXY.ResetPosition();
+                robotXY.SwitchBluetooth(true);
                 return true;
             }
             catch
