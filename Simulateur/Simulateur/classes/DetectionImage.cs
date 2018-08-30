@@ -43,9 +43,6 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
             board = new int[3, 3];
-
-            Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-            PerformShapeDetection(imag);
         }
 
         /// <summary>
@@ -74,6 +71,7 @@ namespace Simulateur.classes
             CvInvoke.PyrDown(uimage, pyrDown);
             CvInvoke.PyrUp(pyrDown, uimage);
 
+            //crop image
 
             #region circle detection
             Stopwatch watch = Stopwatch.StartNew();
@@ -94,8 +92,8 @@ namespace Simulateur.classes
                 cannyEdges,
                 1, //Distance resolution in pixel-related units 1
                 Math.PI / 45.0, //Angle resolution measured in radians.
-                20, //threshold 20
-                35, //min Line width 30
+                100, //threshold 20
+                20, //min Line width 30
                 10); //gap between lines 10
 
             watch.Stop();
@@ -156,7 +154,12 @@ namespace Simulateur.classes
             watch.Stop();
             #endregion
 
-            originalImageBox.Image = img;
+            Bitmap bmp = img.Bitmap;
+            bmp = bmp.Clone(new Rectangle(300, 300, 100, 100), bmp.PixelFormat);
+
+            Image<Bgr, Byte> tmp = new Image<Bgr, Byte>(bmp);
+
+            originalImageBox.Image = tmp;
 
             #region draw triangles and rectangles
 
@@ -222,7 +225,7 @@ namespace Simulateur.classes
             originalImageBox.Image = fluxImageBox.Image;
             int[,] tmp = PerformShapeDetection(originalImageBox.Image);
 
-            //Point test = getChangeBoard(tmp);
+            Point test = getChangeBoard(tmp);
 
             return getChangeBoard(tmp);
         }
