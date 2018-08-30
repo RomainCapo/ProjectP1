@@ -58,7 +58,9 @@ namespace Simulateur.classes
 
         public bool SendResetPosition()
         {
-            return SendToRobot("G28\n");
+            SendPenUp();
+            return SendNextCoord(0, 0);
+            //return SendToRobot("G28\n");
         }
 
         private void ConnectRobot()
@@ -93,6 +95,7 @@ namespace Simulateur.classes
                     try
                     {
                         localClient.Connect(targetDevice.DeviceAddress, BluetoothService.SerialPort);
+                        state.Text = "Connecté !";
                         bIsConnected = true;
                     }
                     catch
@@ -101,20 +104,16 @@ namespace Simulateur.classes
                         {
                             bIsConnected = true;
                             CheckBox temp = form.Controls.Find("cbxUseBluetooth", true)[0] as CheckBox;
+                            state.Text = "Non-connecté !";
                             temp.Enabled = false;
                             temp.Checked = false;
                         }
                     }
                 }
                 while (!(bIsConnected));
-
-                state.Text = "Connecté !";
-
-                //SendToRobot("M4 0\n");
+                
                 SendToRobot("M10\n");
-                SendPenUp();
                 SendResetPosition();
-                SendPenUp();
             }
         }
 

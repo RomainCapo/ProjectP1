@@ -24,13 +24,13 @@ namespace Simulateur
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-              di = new DetectionImage(this);
+            di = new DetectionImage(this);
         }
 
         private void btnTicTacToe_Click(object sender, EventArgs e)
         {
             Reset();
-            ticTacToeGame = new PlayTicTacToe(this, robotXY, iSizeX, iSizeY);
+            ticTacToeGame = new PlayTicTacToe(this, robotXY, di, iSizeX, iSizeY);
         }
 
         private void btnMaze_Click(object sender, EventArgs e)

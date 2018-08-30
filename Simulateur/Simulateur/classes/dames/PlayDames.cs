@@ -48,17 +48,17 @@ namespace Simulateur.classes.dames
         {
             for(int compteur = 0; compteur <= CELLNUMBER; compteur++)
             {
-                robotXY.MoveCursor(0, compteur * iCellSize);
+                robotXY.Move(0, compteur * iCellSize);
                 robotXY.PenDown();
-                robotXY.MoveCursor(iGridSize, compteur * iCellSize);
+                robotXY.Move(iGridSize, compteur * iCellSize);
                 robotXY.PenUp();
             }
 
             for (int compteur = 0; compteur <= CELLNUMBER; compteur++)
             {
-                robotXY.MoveCursor(compteur * iCellSize, 0);
+                robotXY.Move(compteur * iCellSize, 0);
                 robotXY.PenDown();
-                robotXY.MoveCursor(compteur * iCellSize, iGridSize);
+                robotXY.Move(compteur * iCellSize, iGridSize);
                 robotXY.PenUp();
             }
 
@@ -176,9 +176,9 @@ namespace Simulateur.classes.dames
 
         private void MovePiece(Robot robotXY, int iFromX, int iFromY, int iToX, int iToY)
         {
-            robotXY.MoveCursor(iFromX * iCellSize, iFromY * iCellSize);
+            robotXY.Move(iFromX * iCellSize, iFromY * iCellSize);
             robotXY.PenDown();
-            robotXY.MoveCursor(iToX * iCellSize, iToY * iCellSize);
+            robotXY.Move(iToX * iCellSize, iToY * iCellSize);
 
             MoveButton(iFromX, iFromY, iToX, iToY);
 

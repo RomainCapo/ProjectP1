@@ -97,27 +97,27 @@ namespace Simulateur.classes.maze
         {
             Point[] Solution = maze.ResolveMaze();
 
-            robotXY.MoveCursor(iCellSize / 2, 0);
+            robotXY.Move(iCellSize / 2, 0);
             robotXY.PenDown();
             for(int compteur = Solution.Length - 1; compteur >= 0; compteur --)
             {
                 Point p = Solution[compteur];
-                robotXY.MoveCursor(iCellSize * p.X + (iCellSize / 2), iCellSize * p.Y + (iCellSize / 2));
+                robotXY.Move(iCellSize * p.X + (iCellSize / 2), iCellSize * p.Y + (iCellSize / 2));
             }
-            robotXY.MoveCursor(iCellSize * Solution[0].X + (iCellSize / 2), iCellSize * (Solution[0].Y + 1));
+            robotXY.Move(iCellSize * Solution[0].X + (iCellSize / 2), iCellSize * (Solution[0].Y + 1));
             robotXY.PenUp();
             robotXY.ResetPosition();
         }
 
         private void DrawMaze(Cell[,] cells)
         {
-            robotXY.MoveCursor(iCellSize, 0);
+            robotXY.Move(iCellSize, 0);
             robotXY.PenDown();
-            robotXY.MoveCursor(MAXLENGTH, 0);
+            robotXY.Move(MAXLENGTH, 0);
             robotXY.PenUp();
             for(int y = 0; y < iCellPerLine; y++)
             {
-                robotXY.MoveCursor(0, (y + 1) * iCellSize);
+                robotXY.Move(0, (y + 1) * iCellSize);
                 for (int x = 0; x < iCellPerLine; x++)
                 {
                     bool bIsWall = cells[x, y].IsWallBottom();
@@ -146,18 +146,18 @@ namespace Simulateur.classes.maze
                     {
                         robotXY.PenDown();
                     }
-                    robotXY.MoveCursor((x + 1) * iCellSize, (y + 1) * iCellSize);
+                    robotXY.Move((x + 1) * iCellSize, (y + 1) * iCellSize);
                     robotXY.PenUp();
                 }
             }
             
-            robotXY.MoveCursor(0, 0);
+            robotXY.Move(0, 0);
             robotXY.PenDown();
-            robotXY.MoveCursor(0, MAXLENGTH);
+            robotXY.Move(0, MAXLENGTH);
             robotXY.PenUp();
             for (int x = 0; x < iCellPerLine; x++)
             {
-                robotXY.MoveCursor((x + 1) * iCellSize, 0);
+                robotXY.Move((x + 1) * iCellSize, 0);
                 for (int y = 0; y < iCellPerLine - 1; y++)
                 {
                     bool bIsWall = cells[x, y].IsWallRight();
@@ -192,7 +192,7 @@ namespace Simulateur.classes.maze
                         robotXY.PenDown();
                     }
 
-                    robotXY.MoveCursor((x + 1) * iCellSize, (y + 1) * iCellSize);
+                    robotXY.Move((x + 1) * iCellSize, (y + 1) * iCellSize);
                     robotXY.PenUp();
                 }
             }
