@@ -41,8 +41,8 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
 
-            Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-            PerformShapeDetection(imag);
+            //Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\vincent.moulin1\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+            //PerformShapeDetection(imag);
         }
 
         /// <summary>
@@ -153,7 +153,19 @@ namespace Simulateur.classes
             watch.Stop();
             #endregion
 
-            originalImageBox.Image = img;
+            // Modifié ////////////////
+
+            Bitmap bmp = img.Bitmap;
+            Rectangle selection = new Rectangle(250, 150, 200, 200);
+
+            Bitmap cropBmp = bmp.Clone(selection, bmp.PixelFormat);
+            Image<Bgr, Byte> myImage = new Image<Bgr, Byte>(cropBmp); 
+
+            ///////////////////////////
+
+           
+
+            originalImageBox.Image = myImage;
 
             #region draw triangles and rectangles
 
