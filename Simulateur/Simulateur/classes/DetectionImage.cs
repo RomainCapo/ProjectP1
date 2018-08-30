@@ -95,9 +95,9 @@ namespace Simulateur.classes
                 cannyEdges,
                 1, //Distance resolution in pixel-related units 1
                 Math.PI / 45.0, //Angle resolution measured in radians.
-                20, //threshold 20
-                20, //min Line width 30
-                10); //gap between lines 10
+                10, //threshold 20
+                10, //min Line width 30
+                5); //gap between lines 10
 
             watch.Stop();
             #endregion
@@ -237,8 +237,7 @@ namespace Simulateur.classes
             originalImageBox.Image = img;
 
             int[,] tmp = PerformShapeDetection(img);
-
-            Point test = getChangeBoard(tmp);
+            
             return getChangeBoard(tmp);
         }
 

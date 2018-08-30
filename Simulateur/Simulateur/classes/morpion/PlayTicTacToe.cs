@@ -119,23 +119,25 @@ namespace Simulateur.classes.morpion
 
         private void Play(Object sender, EventArgs e)
         {
-            DrawCross();
-            if (ticTacToe.CheckGrid() == 0)
+            if(DrawCross())
             {
-                DrawCircle(ia.Play(ticTacToe.getGrid()));
+                if (ticTacToe.CheckGrid() == 0)
+                {
+                    DrawCircle(ia.Play(ticTacToe.getGrid()));
 
-                if (ticTacToe.CheckGrid() != 0)
-                {
-                    MessageBox.Show("Partie terminée");
-                    Remove();
+                    if (ticTacToe.CheckGrid() != 0)
+                    {
+                        MessageBox.Show("Partie terminée");
+                        Remove();
+                    }
                 }
-            }
-            else
-            {
-                if (ticTacToe.CheckGrid() != 0)
+                else
                 {
-                    MessageBox.Show("Partie terminée");
-                    Remove();
+                    if (ticTacToe.CheckGrid() != 0)
+                    {
+                        MessageBox.Show("Partie terminée");
+                        Remove();
+                    }
                 }
             }
         }
@@ -170,10 +172,10 @@ namespace Simulateur.classes.morpion
 
         private bool DrawCross()
         {
-            try
-            {
-                Point pCell = ticTacToe.PlaceCross();
+            Point pCell = ticTacToe.PlaceCross();
 
+            if (pCell != Point.Empty)
+            {
                 robotXY.SwitchBluetooth(false);
                 robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * pCell.Y + MARGIN);
                 robotXY.PenDown();
@@ -189,10 +191,7 @@ namespace Simulateur.classes.morpion
                 robotXY.SwitchBluetooth(true);
                 return true;
             }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }
