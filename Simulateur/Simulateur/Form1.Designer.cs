@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.fluxImageBox = new Emgu.CV.UI.ImageBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.timerUpdateScreen = new System.Windows.Forms.Timer(this.components);
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -379,6 +380,10 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Image recu";
             // 
+            // timerUpdateScreen
+            // 
+            this.timerUpdateScreen.Interval = 1000;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -435,6 +440,7 @@
         private Emgu.CV.UI.ImageBox fluxImageBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnPrintScreen;
+        private System.Windows.Forms.Timer timerUpdateScreen;
     }
 }
 

@@ -58,16 +58,20 @@ namespace Simulateur.classes.morpion
             gbTicTacToe.Top = 400;
             gbTicTacToe.Left = 5;
             gbTicTacToe.Width = 150;
+            gbTicTacToe.Height = 60;
 
             Button btnVerifier = new Button();
             btnVerifier.Left = 5;
-            btnVerifier.Top = 5;
+            btnVerifier.Top = 15;
+            btnVerifier.Height = 33;
+            btnVerifier.Width = 93;
+            btnVerifier.Text = "Detection croix";
             btnVerifier.Click += new EventHandler(DrawCross);
             gbTicTacToe.Controls.Add(btnVerifier);
 
-            /*timerScreenShot = new Timer();
+            timerScreenShot = new Timer();
             timerScreenShot.Tick += new EventHandler(DrawCross);
-            timerScreenShot.Interval = 1000;*/
+            timerScreenShot.Interval = 1000;
 
             form.Controls.Add(gbTicTacToe);
         }
@@ -118,7 +122,7 @@ namespace Simulateur.classes.morpion
                     if (ticTacToe.CheckGrid() != 0)
                     {
                         MessageBox.Show("Partie terminée");
-                        timerScreenShot.Stop();
+                        //timerScreenShot.Stop();
                         Remove();
                     }
                 }
@@ -127,7 +131,7 @@ namespace Simulateur.classes.morpion
                     if (ticTacToe.CheckGrid() != 0)
                     {
                         MessageBox.Show("Partie terminée");
-                        timerScreenShot.Stop();
+                        //timerScreenShot.Stop();
                         Remove();
                     }
                 }
@@ -165,6 +169,7 @@ namespace Simulateur.classes.morpion
         private void DrawCross(Object sender, EventArgs e)
         {
             Point pCell = ticTacToe.PlaceCross();
+            //Application.DoEvents();
 
             if (pCell != Point.Empty)
             {

@@ -45,7 +45,7 @@ namespace Simulateur.classes
             board = new int[3, 3];
 
            Image<Bgr, Byte> img =
-                   new Image<Bgr, byte>(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\alouf.png")
+                   new Image<Bgr, byte>(@"..\..\alouf.png")
                    .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
             PerformShapeDetection(img);
         }
