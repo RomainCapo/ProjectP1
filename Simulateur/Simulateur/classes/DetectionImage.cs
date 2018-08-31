@@ -208,16 +208,6 @@ namespace Simulateur.classes
             //board = BoardComplete(cross, round);
             drawBoard(cross);
 
-            /*if (boxList.Count != 0)
-            {
-                int[,] round = BoardRound(boxList[0], circles);
-                int[,] cross = BoardCross(boxList[0], lines);
-                board = BoardComplete(cross, round);
-
-                drawBoard(cross);
-            }*/
-            //int[,] dames = returnBoardDames(boxList[0], circles);
-
             return cross;
         }
 
@@ -255,30 +245,7 @@ namespace Simulateur.classes
             int[,] tmp = PerformShapeDetection(img);
         }
 
-        /// <summary>
-        /// test si le tableau analysé est identique, si c'est le cas il ne se passe rien sinon on retourne la coordonnée qui a changé 
-        /// </summary>
-        /// <param name="tmp">le nouveaux tableau</param>
-        /// <returns>un objet point contenant la position du point qui a changé</returns>
-        /*private Point getChangeBoard(int[,] tmp)
-        {
-            if((nbCross(tmp) - nbCross(board)) == 1)
-            {
-                for (int i = 0; i <= 2; i++)
-                {
-                    for (int j = 0; j <= 2; j++)
-                    {
-                        if (board[i, j] != tmp[i, j])
-                        {
-                            board = tmp;
-                            return new Point(i, j);
-                        }
-                    }
-                }
-            }          
-           return Point.Empty;
-        }*/
-
+        
         private int[,] correctCircle(int[,] circle, int[,] cross)
         {
             int[,] board = new int[3, 3];
@@ -292,14 +259,22 @@ namespace Simulateur.classes
 
                     if(isRound == 2 && isCross == 1)
                     {
-
+                        board[i, j] = 1;
                     }
+
+                   
                 }
             }
 
             return board;
         }
 
+        /// <summary>
+        /// test si le tableau analysé est identique, si c'est le cas retourne un point vide sinon on retourne la coordonnée qui a changé 
+        /// </summary>
+        /// <param name="_currentBoard">tableau 2d du plateau actuel</param>
+        /// <param name="_detectedBoard">tableau 2d du plateau detecté </param>
+        /// <returns>un objet point de la coordonée qui a changé, sinon retourne un point vide</returns>
         private Point getChangeBoard(int[,] _currentBoard, int[,] _detectedBoard)
         {
             int iCompteur = 0;
@@ -324,6 +299,11 @@ namespace Simulateur.classes
             return Point.Empty;
         }
 
+        /// <summary>
+        /// compte le nombre de croix dans un tableau 2d
+        /// </summary>
+        /// <param name="array">tableau 2 dimension</param>
+        /// <returns>retourne le nombre de croix repéréré</returns>
         private int nbCross(int[,] array)
         {
             int cmpt = 0;
