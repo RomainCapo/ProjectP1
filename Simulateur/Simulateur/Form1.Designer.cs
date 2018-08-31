@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.gbInformations = new System.Windows.Forms.GroupBox();
             this.cbxUseBluetooth = new System.Windows.Forms.CheckBox();
             this.btnCursorDown = new System.Windows.Forms.Button();
@@ -83,9 +84,11 @@
             this.gbInformations.Controls.Add(this.numX);
             this.gbInformations.Controls.Add(this.lblBluetooth);
             this.gbInformations.Controls.Add(this.lblEtiquetteBluetooth);
-            this.gbInformations.Location = new System.Drawing.Point(12, 12);
+            this.gbInformations.Location = new System.Drawing.Point(14, 15);
+            this.gbInformations.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbInformations.Name = "gbInformations";
-            this.gbInformations.Size = new System.Drawing.Size(200, 297);
+            this.gbInformations.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbInformations.Size = new System.Drawing.Size(225, 371);
             this.gbInformations.TabIndex = 1;
             this.gbInformations.TabStop = false;
             this.gbInformations.Text = "Informations";
@@ -95,18 +98,20 @@
             this.cbxUseBluetooth.AutoSize = true;
             this.cbxUseBluetooth.Checked = true;
             this.cbxUseBluetooth.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxUseBluetooth.Location = new System.Drawing.Point(12, 69);
+            this.cbxUseBluetooth.Location = new System.Drawing.Point(14, 86);
+            this.cbxUseBluetooth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbxUseBluetooth.Name = "cbxUseBluetooth";
-            this.cbxUseBluetooth.Size = new System.Drawing.Size(137, 21);
+            this.cbxUseBluetooth.Size = new System.Drawing.Size(156, 24);
             this.cbxUseBluetooth.TabIndex = 14;
             this.cbxUseBluetooth.Text = "Utiliser Bluetooth";
             this.cbxUseBluetooth.UseVisualStyleBackColor = true;
             // 
             // btnCursorDown
             // 
-            this.btnCursorDown.Location = new System.Drawing.Point(12, 248);
+            this.btnCursorDown.Location = new System.Drawing.Point(14, 310);
+            this.btnCursorDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCursorDown.Name = "btnCursorDown";
-            this.btnCursorDown.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorDown.Size = new System.Drawing.Size(126, 41);
             this.btnCursorDown.TabIndex = 5;
             this.btnCursorDown.Text = "Curseur bas";
             this.btnCursorDown.UseVisualStyleBackColor = true;
@@ -115,16 +120,17 @@
             // lblSizeState
             // 
             this.lblSizeState.AutoSize = true;
-            this.lblSizeState.Location = new System.Drawing.Point(113, 174);
+            this.lblSizeState.Location = new System.Drawing.Point(127, 218);
             this.lblSizeState.Name = "lblSizeState";
-            this.lblSizeState.Size = new System.Drawing.Size(0, 17);
+            this.lblSizeState.Size = new System.Drawing.Size(0, 20);
             this.lblSizeState.TabIndex = 13;
             // 
             // btnCursorUp
             // 
-            this.btnCursorUp.Location = new System.Drawing.Point(12, 209);
+            this.btnCursorUp.Location = new System.Drawing.Point(14, 261);
+            this.btnCursorUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCursorUp.Name = "btnCursorUp";
-            this.btnCursorUp.Size = new System.Drawing.Size(112, 33);
+            this.btnCursorUp.Size = new System.Drawing.Size(126, 41);
             this.btnCursorUp.TabIndex = 4;
             this.btnCursorUp.Text = "Curseur haut";
             this.btnCursorUp.UseVisualStyleBackColor = true;
@@ -132,9 +138,10 @@
             // 
             // btnAppliquer
             // 
-            this.btnAppliquer.Location = new System.Drawing.Point(12, 168);
+            this.btnAppliquer.Location = new System.Drawing.Point(14, 210);
+            this.btnAppliquer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAppliquer.Name = "btnAppliquer";
-            this.btnAppliquer.Size = new System.Drawing.Size(94, 24);
+            this.btnAppliquer.Size = new System.Drawing.Size(106, 30);
             this.btnAppliquer.TabIndex = 12;
             this.btnAppliquer.Text = "Appliquer";
             this.btnAppliquer.UseVisualStyleBackColor = true;
@@ -143,33 +150,34 @@
             // lblMmY
             // 
             this.lblMmY.AutoSize = true;
-            this.lblMmY.Location = new System.Drawing.Point(143, 138);
+            this.lblMmY.Location = new System.Drawing.Point(161, 172);
             this.lblMmY.Name = "lblMmY";
-            this.lblMmY.Size = new System.Drawing.Size(30, 17);
+            this.lblMmY.Size = new System.Drawing.Size(35, 20);
             this.lblMmY.TabIndex = 11;
             this.lblMmY.Text = "mm";
             // 
             // lblMmX
             // 
             this.lblMmX.AutoSize = true;
-            this.lblMmX.Location = new System.Drawing.Point(143, 105);
+            this.lblMmX.Location = new System.Drawing.Point(161, 131);
             this.lblMmX.Name = "lblMmX";
-            this.lblMmX.Size = new System.Drawing.Size(30, 17);
+            this.lblMmX.Size = new System.Drawing.Size(35, 20);
             this.lblMmX.TabIndex = 10;
             this.lblMmX.Text = "mm";
             // 
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(9, 138);
+            this.lblY.Location = new System.Drawing.Point(10, 172);
             this.lblY.Name = "lblY";
-            this.lblY.Size = new System.Drawing.Size(63, 17);
+            this.lblY.Size = new System.Drawing.Size(68, 20);
             this.lblY.TabIndex = 9;
             this.lblY.Text = "Taille Y :";
             // 
             // numY
             // 
-            this.numY.Location = new System.Drawing.Point(78, 136);
+            this.numY.Location = new System.Drawing.Point(88, 170);
+            this.numY.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numY.Maximum = new decimal(new int[] {
             388,
             0,
@@ -181,7 +189,7 @@
             0,
             0});
             this.numY.Name = "numY";
-            this.numY.Size = new System.Drawing.Size(59, 22);
+            this.numY.Size = new System.Drawing.Size(66, 26);
             this.numY.TabIndex = 8;
             this.numY.Value = new decimal(new int[] {
             200,
@@ -192,15 +200,16 @@
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(9, 105);
+            this.lblX.Location = new System.Drawing.Point(10, 131);
             this.lblX.Name = "lblX";
-            this.lblX.Size = new System.Drawing.Size(63, 17);
+            this.lblX.Size = new System.Drawing.Size(68, 20);
             this.lblX.TabIndex = 7;
             this.lblX.Text = "Taille X :";
             // 
             // numX
             // 
-            this.numX.Location = new System.Drawing.Point(78, 103);
+            this.numX.Location = new System.Drawing.Point(88, 129);
+            this.numX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numX.Maximum = new decimal(new int[] {
             320,
             0,
@@ -212,7 +221,7 @@
             0,
             0});
             this.numX.Name = "numX";
-            this.numX.Size = new System.Drawing.Size(59, 22);
+            this.numX.Size = new System.Drawing.Size(66, 26);
             this.numX.TabIndex = 6;
             this.numX.Value = new decimal(new int[] {
             200,
@@ -223,26 +232,27 @@
             // lblBluetooth
             // 
             this.lblBluetooth.AutoSize = true;
-            this.lblBluetooth.Location = new System.Drawing.Point(9, 39);
+            this.lblBluetooth.Location = new System.Drawing.Point(10, 49);
             this.lblBluetooth.Name = "lblBluetooth";
-            this.lblBluetooth.Size = new System.Drawing.Size(97, 17);
+            this.lblBluetooth.Size = new System.Drawing.Size(109, 20);
             this.lblBluetooth.TabIndex = 5;
             this.lblBluetooth.Text = "Non-connecté";
             // 
             // lblEtiquetteBluetooth
             // 
             this.lblEtiquetteBluetooth.AutoSize = true;
-            this.lblEtiquetteBluetooth.Location = new System.Drawing.Point(9, 22);
+            this.lblEtiquetteBluetooth.Location = new System.Drawing.Point(10, 28);
             this.lblEtiquetteBluetooth.Name = "lblEtiquetteBluetooth";
-            this.lblEtiquetteBluetooth.Size = new System.Drawing.Size(120, 17);
+            this.lblEtiquetteBluetooth.Size = new System.Drawing.Size(137, 20);
             this.lblEtiquetteBluetooth.TabIndex = 4;
             this.lblEtiquetteBluetooth.Text = "Status Bluetooth :";
             // 
             // btnTicTacToe
             // 
-            this.btnTicTacToe.Location = new System.Drawing.Point(6, 21);
+            this.btnTicTacToe.Location = new System.Drawing.Point(7, 26);
+            this.btnTicTacToe.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTicTacToe.Name = "btnTicTacToe";
-            this.btnTicTacToe.Size = new System.Drawing.Size(93, 33);
+            this.btnTicTacToe.Size = new System.Drawing.Size(105, 41);
             this.btnTicTacToe.TabIndex = 2;
             this.btnTicTacToe.Text = "Morpion";
             this.btnTicTacToe.UseVisualStyleBackColor = true;
@@ -250,9 +260,10 @@
             // 
             // btnMaze
             // 
-            this.btnMaze.Location = new System.Drawing.Point(6, 60);
+            this.btnMaze.Location = new System.Drawing.Point(7, 75);
+            this.btnMaze.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaze.Name = "btnMaze";
-            this.btnMaze.Size = new System.Drawing.Size(93, 33);
+            this.btnMaze.Size = new System.Drawing.Size(105, 41);
             this.btnMaze.TabIndex = 3;
             this.btnMaze.Text = "Labyrinthe";
             this.btnMaze.UseVisualStyleBackColor = true;
@@ -263,18 +274,21 @@
             this.gbGames.Controls.Add(this.btnDames);
             this.gbGames.Controls.Add(this.btnTicTacToe);
             this.gbGames.Controls.Add(this.btnMaze);
-            this.gbGames.Location = new System.Drawing.Point(12, 315);
+            this.gbGames.Location = new System.Drawing.Point(14, 394);
+            this.gbGames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbGames.Name = "gbGames";
-            this.gbGames.Size = new System.Drawing.Size(200, 140);
+            this.gbGames.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbGames.Size = new System.Drawing.Size(225, 175);
             this.gbGames.TabIndex = 4;
             this.gbGames.TabStop = false;
             this.gbGames.Text = "Jeux";
             // 
             // btnDames
             // 
-            this.btnDames.Location = new System.Drawing.Point(6, 99);
+            this.btnDames.Location = new System.Drawing.Point(7, 124);
+            this.btnDames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDames.Name = "btnDames";
-            this.btnDames.Size = new System.Drawing.Size(93, 33);
+            this.btnDames.Size = new System.Drawing.Size(105, 41);
             this.btnDames.TabIndex = 4;
             this.btnDames.Text = "Dames";
             this.btnDames.UseVisualStyleBackColor = true;
@@ -283,18 +297,20 @@
             // originalImageBox
             // 
             this.originalImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.originalImageBox.Location = new System.Drawing.Point(19, 360);
+            this.originalImageBox.Location = new System.Drawing.Point(21, 338);
+            this.originalImageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.originalImageBox.Name = "originalImageBox";
-            this.originalImageBox.Size = new System.Drawing.Size(510, 263);
+            this.originalImageBox.Size = new System.Drawing.Size(384, 216);
             this.originalImageBox.TabIndex = 2;
             this.originalImageBox.TabStop = false;
             // 
             // detectionImageBox
             // 
             this.detectionImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.detectionImageBox.Location = new System.Drawing.Point(19, 655);
+            this.detectionImageBox.Location = new System.Drawing.Point(21, 608);
+            this.detectionImageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.detectionImageBox.Name = "detectionImageBox";
-            this.detectionImageBox.Size = new System.Drawing.Size(510, 263);
+            this.detectionImageBox.Size = new System.Drawing.Size(384, 216);
             this.detectionImageBox.TabIndex = 5;
             this.detectionImageBox.TabStop = false;
             // 
@@ -309,18 +325,21 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.originalImageBox);
             this.groupBox1.Controls.Add(this.detectionImageBox);
-            this.groupBox1.Location = new System.Drawing.Point(1376, 12);
+            this.groupBox1.Location = new System.Drawing.Point(1415, 43);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(572, 1026);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(442, 846);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detection Image";
             // 
             // btnPrintScreen
             // 
-            this.btnPrintScreen.Location = new System.Drawing.Point(268, 933);
+            this.btnPrintScreen.Location = new System.Drawing.Point(302, 1166);
+            this.btnPrintScreen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPrintScreen.Name = "btnPrintScreen";
-            this.btnPrintScreen.Size = new System.Drawing.Size(227, 48);
+            this.btnPrintScreen.Size = new System.Drawing.Size(255, 60);
             this.btnPrintScreen.TabIndex = 7;
             this.btnPrintScreen.Text = "Print Screen";
             this.btnPrintScreen.UseVisualStyleBackColor = true;
@@ -329,44 +348,45 @@
             // labelInfoDectionImage
             // 
             this.labelInfoDectionImage.AutoSize = true;
-            this.labelInfoDectionImage.Location = new System.Drawing.Point(22, 964);
+            this.labelInfoDectionImage.Location = new System.Drawing.Point(25, 1205);
             this.labelInfoDectionImage.Name = "labelInfoDectionImage";
-            this.labelInfoDectionImage.Size = new System.Drawing.Size(16, 17);
+            this.labelInfoDectionImage.Size = new System.Drawing.Size(18, 20);
             this.labelInfoDectionImage.TabIndex = 9;
             this.labelInfoDectionImage.Text = "0";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 39);
+            this.label4.Location = new System.Drawing.Point(21, 49);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 17);
+            this.label4.Size = new System.Drawing.Size(112, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Flux en directe";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 933);
+            this.label3.Location = new System.Drawing.Point(21, 1166);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 17);
+            this.label3.Size = new System.Drawing.Size(119, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Donnée percue";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 635);
+            this.label2.Location = new System.Drawing.Point(18, 583);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 17);
+            this.label2.Size = new System.Drawing.Size(161, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Detection des formes";
             // 
             // fluxImageBox
             // 
-            this.fluxImageBox.Location = new System.Drawing.Point(19, 59);
+            this.fluxImageBox.Location = new System.Drawing.Point(21, 74);
+            this.fluxImageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.fluxImageBox.Name = "fluxImageBox";
-            this.fluxImageBox.Size = new System.Drawing.Size(510, 263);
+            this.fluxImageBox.Size = new System.Drawing.Size(384, 216);
             this.fluxImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.fluxImageBox.TabIndex = 2;
             this.fluxImageBox.TabStop = false;
@@ -374,9 +394,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 340);
+            this.label1.Location = new System.Drawing.Point(21, 313);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Image recu";
             // 
@@ -386,16 +406,20 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1892, 1084);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1898, 1024);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbInformations.ResumeLayout(false);
             this.gbInformations.PerformLayout();
