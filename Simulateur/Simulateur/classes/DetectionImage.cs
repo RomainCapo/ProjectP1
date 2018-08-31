@@ -225,7 +225,7 @@ namespace Simulateur.classes
         /// permet de prendre une capture avec la caméra et retourne la position de la croix qui a changé
         /// </summary>
         /// <returns>un objet point contenant la position de la croix qui a changé</returns>
-        public Point PrintScreen()
+        public Point PrintScreen(int[,] _board)
         {
             //crop image
             IImage img = fluxImageBox.Image;
@@ -238,7 +238,21 @@ namespace Simulateur.classes
 
             int[,] tmp = PerformShapeDetection(img);
             
-            return getChangeBoard(tmp);
+            return getChangeBoard(_board, tmp);
+        }
+
+        public void debug()
+        {
+            //crop image
+            IImage img = fluxImageBox.Image;
+            Bitmap bmp = img.Bitmap;
+            bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
+            bmp = bmp.Clone(new Rectangle(240, 140, 170, 170), bmp.PixelFormat);
+            img = new Image<Bgr, Byte>(bmp).Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+
+            originalImageBox.Image = img;
+
+            int[,] tmp = PerformShapeDetection(img);
         }
 
         /// <summary>
@@ -246,20 +260,82 @@ namespace Simulateur.classes
         /// </summary>
         /// <param name="tmp">le nouveaux tableau</param>
         /// <returns>un objet point contenant la position du point qui a changé</returns>
-        private Point getChangeBoard(int[,] tmp)
+        /*private Point getChangeBoard(int[,] tmp)
         {
-            for(int i = 0; i <= 2; i++)
+            if((nbCross(tmp) - nbCross(board)) == 1)
             {
-                for(int j = 0; j <=2; j++)
+                for (int i = 0; i <= 2; i++)
                 {
-                    if(board[i,j] != tmp[i,j])
+                    for (int j = 0; j <= 2; j++)
                     {
-                        board = tmp;
-                        return new Point(i, j);
+                        if (board[i, j] != tmp[i, j])
+                        {
+                            board = tmp;
+                            return new Point(i, j);
+                        }
+                    }
+                }
+            }          
+           return Point.Empty;
+        }*/
+
+        private int[,] correctCircle(int[,] circle, int[,] cross)
+        {
+            int[,] board = new int[3, 3];
+
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    int isCross = cross[i, j];
+                    int isRound = circle[i, j];
+
+                    if(isRound == 2 && isCross == 1)
+                    {
+
                     }
                 }
             }
-           return Point.Empty;
+
+            return board;
+        }
+
+        private Point getChangeBoard(int[,] _currentBoard, int[,] _detectedBoard)
+        {
+            int iCompteur = 0;
+            Point temp = Point.Empty;
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    if(_currentBoard[i, j] == 0 && _detectedBoard[i, j] == 1)
+                    {
+                        iCompteur++;
+                        temp = new Point(i, j);
+                    }
+                }
+            }
+
+            if(iCompteur == 1)
+            {
+                return temp;
+            }
+
+            return Point.Empty;
+        }
+
+        private int nbCross(int[,] array)
+        {
+            int cmpt = 0;
+
+            foreach(int val in array)
+            {
+                if(val == 1)
+                {
+                    cmpt++;
+                }
+            }
+            return cmpt;
         }
 
         /// <summary>
