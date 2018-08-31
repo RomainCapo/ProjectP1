@@ -26,6 +26,7 @@ namespace Simulateur.classes
 
         VideoCapture capture;
         Mat frame;
+        Mat frameResize;
 
         int[,] board;
 
@@ -43,11 +44,6 @@ namespace Simulateur.classes
             frame = new Mat();
             capture.Start();
             board = new int[3, 3];
-
-           Image<Bgr, Byte> img =
-                   new Image<Bgr, byte>(@"..\..\alouf.png")
-                   .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-            PerformShapeDetection(img);
         }
 
         /// <summary>

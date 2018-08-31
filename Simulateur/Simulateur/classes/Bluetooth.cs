@@ -13,12 +13,14 @@ namespace Simulateur.classes
         Form1 form;
         Label state;
         BluetoothClient localClient;
+        CheckBox temp;
         bool bEnableBluetooth;
 
         public Bluetooth(Form1 _form)
         {
             form = _form;
-            state = form.Controls.Find("lblBluetooth", true)[0] as Label;
+            state = _form.Controls.Find("lblBluetooth", true)[0] as Label;
+            temp = _form.Controls.Find("cbxUseBluetooth", true)[0] as CheckBox;
             bEnableBluetooth = true;
 
             ConnectRobot();
@@ -121,8 +123,6 @@ namespace Simulateur.classes
 
         private bool SendToRobot(string data)
         {
-            CheckBox temp = (CheckBox)form.Controls.Find("cbxUseBluetooth", true)[0];
-
             if (temp.Checked && bEnableBluetooth)
             {
                 Stream stream = localClient.GetStream();
