@@ -24,6 +24,11 @@ namespace Simulateur.classes
         ImageBox fluxImageBox;
         Label labelInfoDectionImage;
 
+        NumericUpDown numericX;
+        NumericUpDown numericY;
+        NumericUpDown numericWidth;
+        NumericUpDown numericHeight;
+
         VideoCapture capture;
         Mat frame;
 
@@ -37,18 +42,20 @@ namespace Simulateur.classes
             labelInfoDectionImage = form.Controls.Find("labelInfoDectionImage", true).First() as Label;
             fluxImageBox = form.Controls.Find("fluxImageBox", true).First() as ImageBox;
 
+            numericX = form.Controls.Find("numericX", true).First() as NumericUpDown;
+            numericY = form.Controls.Find("numericY", true).First() as NumericUpDown;
+            numericWidth = form.Controls.Find("numericWidth", true).First() as NumericUpDown;
+            numericHeight = form.Controls.Find("numericHeight", true).First() as NumericUpDown;
+
+
             //initialisation des objets
             capture = new VideoCapture();
             capture.ImageGrabbed += ProcessFrame;
             frame = new Mat();
+
+
             capture.Start();
             board = new int[3, 3];
-<<<<<<< HEAD
-=======
-
-            //Image<Bgr, Byte> imag = new Image<Bgr, byte>(@"C:\Users\vincent.moulin1\Desktop\g1\Simulateur\Simulateur\test3.png").Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-            //PerformShapeDetection(imag);
->>>>>>> 230237df109363c8ba49f95c4622730691d40f68
         }
 
         /// <summary>
@@ -58,8 +65,11 @@ namespace Simulateur.classes
         /// <param name="arg"></param>
         private void ProcessFrame(object sender, EventArgs arg)
         {
+            //frameresize = new Mat(frame, new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)));
             capture.Retrieve(frame, 0);
             fluxImageBox.Image = frame;
+
+            //MessageBox.Show(Convert.ToString(frame.Width));
         }
 
         /// <summary>
@@ -68,16 +78,27 @@ namespace Simulateur.classes
         /// <param name="img">objet image de emguCV</param>
         public int[,] PerformShapeDetection(IImage img)
         {
+            //crop image
+            /////
+            Bitmap bmp = img.Bitmap;
+            bmp = bmp.Clone(new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)), bmp.PixelFormat);
+
+            Image<Bgr, Byte> tmp = new Image<Bgr, Byte>(bmp);
+
+            originalImageBox.Image = tmp;
+
+            //////
+          
+
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
-            CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
+            CvInvoke.CvtColor(tmp, uimage, ColorConversion.Bgr2Gray);
 
             //use image pyr to remove noise
             UMat pyrDown = new UMat();
             CvInvoke.PyrDown(uimage, pyrDown);
             CvInvoke.PyrUp(pyrDown, uimage);
 
-            //crop image
 
             #region circle detection
             Stopwatch watch = Stopwatch.StartNew();
@@ -160,29 +181,6 @@ namespace Simulateur.classes
             watch.Stop();
             #endregion
 
-<<<<<<< HEAD
-            Bitmap bmp = img.Bitmap;
-            bmp = bmp.Clone(new Rectangle(300, 300, 100, 100), bmp.PixelFormat);
-
-            Image<Bgr, Byte> tmp = new Image<Bgr, Byte>(bmp);
-
-            originalImageBox.Image = tmp;
-=======
-            // Modifié ////////////////
-
-            Bitmap bmp = img.Bitmap;
-            Rectangle selection = new Rectangle(250, 150, 200, 200);
-
-            Bitmap cropBmp = bmp.Clone(selection, bmp.PixelFormat);
-            Image<Bgr, Byte> myImage = new Image<Bgr, Byte>(cropBmp); 
-
-            ///////////////////////////
-
-           
-
-            originalImageBox.Image = myImage;
->>>>>>> 230237df109363c8ba49f95c4622730691d40f68
-
             #region draw triangles and rectangles
 
             Mat detctionImage = new Mat(img.Size, DepthType.Cv8U, 3);
@@ -246,8 +244,6 @@ namespace Simulateur.classes
         {
             originalImageBox.Image = fluxImageBox.Image;
             int[,] tmp = PerformShapeDetection(originalImageBox.Image);
-
-            Point test = getChangeBoard(tmp);
 
             return getChangeBoard(tmp);
         }

@@ -57,6 +57,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.fluxImageBox = new Emgu.CV.UI.ImageBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.numericX = new System.Windows.Forms.NumericUpDown();
+            this.numericY = new System.Windows.Forms.NumericUpDown();
+            this.numericWidth = new System.Windows.Forms.NumericUpDown();
+            this.numericHeight = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
@@ -65,6 +73,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fluxImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // gbInformations
@@ -379,11 +391,123 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Image recu";
             // 
+            // numericX
+            // 
+            this.numericX.Location = new System.Drawing.Point(1283, 34);
+            this.numericX.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericX.Name = "numericX";
+            this.numericX.Size = new System.Drawing.Size(87, 22);
+            this.numericX.TabIndex = 7;
+            this.numericX.Value = new decimal(new int[] {
+            240,
+            0,
+            0,
+            0});
+            // 
+            // numericY
+            // 
+            this.numericY.Location = new System.Drawing.Point(1283, 62);
+            this.numericY.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericY.Name = "numericY";
+            this.numericY.Size = new System.Drawing.Size(87, 22);
+            this.numericY.TabIndex = 7;
+            this.numericY.Value = new decimal(new int[] {
+            140,
+            0,
+            0,
+            0});
+            // 
+            // numericWidth
+            // 
+            this.numericWidth.Location = new System.Drawing.Point(1283, 90);
+            this.numericWidth.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericWidth.Name = "numericWidth";
+            this.numericWidth.Size = new System.Drawing.Size(87, 22);
+            this.numericWidth.TabIndex = 7;
+            this.numericWidth.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // numericHeight
+            // 
+            this.numericHeight.Location = new System.Drawing.Point(1283, 118);
+            this.numericHeight.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericHeight.Name = "numericHeight";
+            this.numericHeight.Size = new System.Drawing.Size(87, 22);
+            this.numericHeight.TabIndex = 7;
+            this.numericHeight.Value = new decimal(new int[] {
+            170,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1231, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 17);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "X";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1231, 64);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(17, 17);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Y";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(1231, 92);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 17);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Width";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(1231, 120);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 17);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Height";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1892, 1084);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.numericHeight);
+            this.Controls.Add(this.numericWidth);
+            this.Controls.Add(this.numericY);
+            this.Controls.Add(this.numericX);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
@@ -402,7 +526,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fluxImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericHeight)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -435,6 +564,14 @@
         private Emgu.CV.UI.ImageBox fluxImageBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnPrintScreen;
+        private System.Windows.Forms.NumericUpDown numericX;
+        private System.Windows.Forms.NumericUpDown numericY;
+        private System.Windows.Forms.NumericUpDown numericWidth;
+        private System.Windows.Forms.NumericUpDown numericHeight;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
 
