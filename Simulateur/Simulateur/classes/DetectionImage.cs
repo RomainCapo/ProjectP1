@@ -31,7 +31,6 @@ namespace Simulateur.classes
 
         VideoCapture capture;
         Mat frame;
-        Mat frameResize;
 
         int[,] board;
 
@@ -79,21 +78,9 @@ namespace Simulateur.classes
         /// <param name="img">objet image de emguCV</param>
         public int[,] PerformShapeDetection(IImage img)
         {
-            //crop image
-            /////
-            Bitmap bmp = img.Bitmap;
-            bmp = bmp.Clone(new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)), bmp.PixelFormat);
-
-            Image<Bgr, Byte> tmp = new Image<Bgr, Byte>(bmp);
-
-            originalImageBox.Image = tmp;
-
-            //////
-          
-
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
-            CvInvoke.CvtColor(tmp, uimage, ColorConversion.Bgr2Gray);
+            CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
 
             //use image pyr to remove noise
             UMat pyrDown = new UMat();
@@ -261,7 +248,7 @@ namespace Simulateur.classes
             IImage img = fluxImageBox.Image;
             Bitmap bmp = img.Bitmap;
             bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
-            bmp = bmp.Clone(new Rectangle(240, 140, 170, 170), bmp.PixelFormat);
+            bmp = bmp.Clone(new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)), bmp.PixelFormat);
             img = new Image<Bgr, Byte>(bmp).Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
 
             originalImageBox.Image = img;

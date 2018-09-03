@@ -407,6 +407,7 @@
             0,
             0,
             0});
+            this.numericX.ValueChanged += new System.EventHandler(this.numericX_ValueChanged);
             // 
             // numericY
             // 
@@ -424,6 +425,7 @@
             0,
             0,
             0});
+            this.numericY.ValueChanged += new System.EventHandler(this.numericY_ValueChanged);
             // 
             // numericWidth
             // 
@@ -441,6 +443,7 @@
             0,
             0,
             0});
+            this.numericWidth.ValueChanged += new System.EventHandler(this.numericWidth_ValueChanged);
             // 
             // numericHeight
             // 
@@ -458,6 +461,7 @@
             0,
             0,
             0});
+            this.numericHeight.ValueChanged += new System.EventHandler(this.numericHeight_ValueChanged);
             // 
             // label5
             // 

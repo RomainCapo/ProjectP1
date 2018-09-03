@@ -93,6 +93,10 @@ namespace Simulateur.classes.morpion
                 //Affiche que l'IA a gagné
                 return 2;
             }
+            else if(!(totx.Contains("0") || toty.Contains("0") || totd1.Contains("0") || totd2.Contains("0")))
+            {
+                return 3;
+            }
 
             return 0;
         }

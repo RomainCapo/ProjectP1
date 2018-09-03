@@ -81,6 +81,26 @@ namespace Simulateur
             di.debug();
         }
 
+        private void numericX_ValueChanged(object sender, EventArgs e)
+        {
+            di.debug();
+        }
+
+        private void numericY_ValueChanged(object sender, EventArgs e)
+        {
+            di.debug();
+        }
+
+        private void numericWidth_ValueChanged(object sender, EventArgs e)
+        {
+            di.debug();
+        }
+
+        private void numericHeight_ValueChanged(object sender, EventArgs e)
+        {
+            di.debug();
+        }
+
         private void btnAppliquer_Click(object sender, EventArgs e)
         {
             try

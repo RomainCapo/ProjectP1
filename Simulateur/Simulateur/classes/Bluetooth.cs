@@ -115,9 +115,9 @@ namespace Simulateur.classes
                     }
                 }
                 while (!(bIsConnected));
-                
+
+                SendToRobot("G28\n");
                 SendToRobot("M10\n");
-                SendResetPosition();
             }
         }
 
