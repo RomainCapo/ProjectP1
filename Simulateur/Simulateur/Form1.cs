@@ -78,7 +78,7 @@ namespace Simulateur
 
         private void btnPrintScreen_Click(object sender, EventArgs e)
         {
-            di.PrintScreen();
+            di.debug();
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)

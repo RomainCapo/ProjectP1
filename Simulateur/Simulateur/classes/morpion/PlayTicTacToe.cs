@@ -14,6 +14,8 @@ namespace Simulateur.classes.morpion
         GroupBox gbTicTacToe;
         Robot robotXY;
         TicTacToe ticTacToe;
+        Timer timerScreenShot;
+
         Minmax ia;
         readonly double LENGTH;
         readonly double MARGIN;
@@ -39,6 +41,8 @@ namespace Simulateur.classes.morpion
             MARGIN = LENGTH / 3 * 0.1;
 
             DrawGrid();
+
+            //timerScreenShot.Start();
         }
 
         public void Remove()
@@ -51,33 +55,23 @@ namespace Simulateur.classes.morpion
             gbTicTacToe = new GroupBox();
             gbTicTacToe.Name = "gbTicTacToe";
             gbTicTacToe.Text = "TicTacToe";
-            gbTicTacToe.Top = 420;
-            gbTicTacToe.Left = 10;
+            gbTicTacToe.Top = 400;
+            gbTicTacToe.Left = 5;
             gbTicTacToe.Width = 150;
+            gbTicTacToe.Height = 60;
 
-            NumericUpDown numX = new NumericUpDown();
-            numX.Name = "numX";
-            numX.Width = 50;
-            numX.Left = 10;
-            numX.Top = 20;
-            numX.Maximum = 2;
-            gbTicTacToe.Controls.Add(numX);
+            Button btnVerifier = new Button();
+            btnVerifier.Left = 5;
+            btnVerifier.Top = 15;
+            btnVerifier.Height = 33;
+            btnVerifier.Width = 93;
+            btnVerifier.Text = "Detection croix";
+            btnVerifier.Click += new EventHandler(DrawCross);
+            gbTicTacToe.Controls.Add(btnVerifier);
 
-            NumericUpDown numY = new NumericUpDown();
-            numY.Name = "numY";
-            numY.Width = 50;
-            numY.Left = 10;
-            numY.Top = 43;
-            numY.Maximum = 2;
-            gbTicTacToe.Controls.Add(numY);
-
-            Button btn = new Button();
-            btn.Name = "btnPlace";
-            btn.Text = "Placer";
-            btn.Left = 9;
-            btn.Top = 66;
-            btn.Click += new EventHandler(Play);
-            gbTicTacToe.Controls.Add(btn);
+            timerScreenShot = new Timer();
+            timerScreenShot.Tick += new EventHandler(DrawCross);
+            timerScreenShot.Interval = 1000;
 
             form.Controls.Add(gbTicTacToe);
         }
@@ -117,25 +111,29 @@ namespace Simulateur.classes.morpion
             }
         }
 
-        private void Play(Object sender, EventArgs e)
+        private void Play(Point pCross)
         {
-            DrawCross();
-            if (ticTacToe.CheckGrid() == 0)
+            if(pCross != Point.Empty)
             {
-                DrawCircle(ia.Play(ticTacToe.getGrid()));
+                if (ticTacToe.CheckGrid() == 0)
+                {
+                    DrawCircle(ia.Play(ticTacToe.getGrid()));
 
-                if (ticTacToe.CheckGrid() != 0)
-                {
-                    MessageBox.Show("Partie terminée");
-                    Remove();
+                    if (ticTacToe.CheckGrid() != 0)
+                    {
+                        MessageBox.Show("Partie terminée");
+                        //timerScreenShot.Stop();
+                        Remove();
+                    }
                 }
-            }
-            else
-            {
-                if (ticTacToe.CheckGrid() != 0)
+                else
                 {
-                    MessageBox.Show("Partie terminée");
-                    Remove();
+                    if (ticTacToe.CheckGrid() != 0)
+                    {
+                        MessageBox.Show("Partie terminée");
+                        //timerScreenShot.Stop();
+                        Remove();
+                    }
                 }
             }
         }
@@ -153,7 +151,7 @@ namespace Simulateur.classes.morpion
 
                 robotXY.Move(centerX + rayon * Math.Cos(0), centerY + rayon * Math.Sin(0));
                 robotXY.PenDown();
-                for(int angle = 10; angle <= 360; angle += 20)
+                for(int angle = 10; angle <= 360; angle += 17)
                 {
                     robotXY.Move(centerX + rayon * Math.Cos(convert * angle), centerY + rayon * Math.Sin(convert * angle));
                 }
@@ -168,13 +166,15 @@ namespace Simulateur.classes.morpion
             }
         }
 
-        private bool DrawCross()
+        private void DrawCross(Object sender, EventArgs e)
         {
-            try
-            {
-                Point pCell = ticTacToe.PlaceCross();
+            Point pCell = ticTacToe.PlaceCross();
+            //Application.DoEvents();
 
-                /*robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * pCell.Y + MARGIN);
+            if (pCell != Point.Empty)
+            {
+                robotXY.SwitchBluetooth(false);
+                robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * pCell.Y + MARGIN);
                 robotXY.PenDown();
                 robotXY.Move(LENGTH / 3 * (pCell.X + 1) - MARGIN, LENGTH / 3 * (pCell.Y + 1) - MARGIN);
                 robotXY.PenUp();
@@ -184,14 +184,11 @@ namespace Simulateur.classes.morpion
                 robotXY.Move(LENGTH / 3 * pCell.X + MARGIN, LENGTH / 3 * (pCell.Y + 1) - MARGIN);
                 robotXY.PenUp();
 
-                robotXY.ResetPosition();*/
+                robotXY.ResetPosition();
+                robotXY.SwitchBluetooth(true);
+            }
 
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            Play(pCell);
         }
     }
 }

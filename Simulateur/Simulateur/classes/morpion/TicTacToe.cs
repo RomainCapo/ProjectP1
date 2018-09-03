@@ -32,7 +32,12 @@ namespace Simulateur.classes.morpion
 
         public Point PlaceCross()
         {
-            return di.PrintScreen();
+            Point temp = di.PrintScreen(tblGrid);
+            if(temp != Point.Empty)
+            {
+                tblGrid[temp.X, temp.Y] = 1;
+            }
+            return temp;
         }
 
         public void PlaceCicle(Point pCell)

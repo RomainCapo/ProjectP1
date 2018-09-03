@@ -31,6 +31,7 @@ namespace Simulateur.classes
 
         VideoCapture capture;
         Mat frame;
+        Mat frameResize;
 
         int[,] board;
 
@@ -99,11 +100,10 @@ namespace Simulateur.classes
             CvInvoke.PyrDown(uimage, pyrDown);
             CvInvoke.PyrUp(pyrDown, uimage);
 
-
             #region circle detection
             Stopwatch watch = Stopwatch.StartNew();
             double cannyThreshold = 180.0;//180 -> def
-            double circleAccumulatorThreshold = 120;//120->def, 80 -> OK
+            double circleAccumulatorThreshold = 95;//120->def, 80 -> OK
             CircleF[] circles = CvInvoke.HoughCircles(uimage, HoughType.Gradient, 2.0, 20.0, cannyThreshold, circleAccumulatorThreshold, 5);
 
             watch.Stop();
@@ -119,9 +119,9 @@ namespace Simulateur.classes
                 cannyEdges,
                 1, //Distance resolution in pixel-related units 1
                 Math.PI / 45.0, //Angle resolution measured in radians.
-                100, //threshold 20
-                20, //min Line width 30
-                10); //gap between lines 10
+                10, //threshold 20
+                10, //min Line width 30
+                5); //gap between lines 10
 
             watch.Stop();
             #endregion
@@ -181,17 +181,21 @@ namespace Simulateur.classes
             watch.Stop();
             #endregion
 
+            originalImageBox.Image = img;
+
             #region draw triangles and rectangles
 
             Mat detctionImage = new Mat(img.Size, DepthType.Cv8U, 3);
             detctionImage.SetTo(new MCvScalar(0));
 
             boxList = filterSquare(boxList);
+            RotatedRect box = new RotatedRect(new PointF(210, 210), new SizeF(110, 110), 0);
+            CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
 
-            foreach (RotatedRect box in boxList)
+            /*foreach (RotatedRect box in boxList)
             {
                 CvInvoke.Polylines(detctionImage, Array.ConvertAll(box.GetVertices(), Point.Round), true, new Bgr(Color.DarkOrange).MCvScalar, 2);
-            }
+            }*/
 
             #endregion
 
@@ -223,53 +227,119 @@ namespace Simulateur.classes
 
             #endregion
 
-            if (boxList.Count != 0)
-            {
-                int[,] round = BoardRound(boxList[0], circles);
-                int[,] cross = BoardCross(boxList[0], lines);
-                board = BoardComplete(cross, round);
+            //int[,] round = BoardRound(box, circles);
+            int[,] cross = BoardCross(box, lines);
+            //board = BoardComplete(cross, round);
+            drawBoard(cross);
 
-                drawBoard(cross);
-            }
-            //int[,] dames = returnBoardDames(boxList[0], circles);
-
-            return board;
+            return cross;
         }
 
         /// <summary>
         /// permet de prendre une capture avec la caméra et retourne la position de la croix qui a changé
         /// </summary>
         /// <returns>un objet point contenant la position de la croix qui a changé</returns>
-        public Point PrintScreen()
+        public Point PrintScreen(int[,] _board)
         {
-            originalImageBox.Image = fluxImageBox.Image;
-            int[,] tmp = PerformShapeDetection(originalImageBox.Image);
+            //crop image
+            IImage img = fluxImageBox.Image;
+            Bitmap bmp = img.Bitmap;
+            bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
+            bmp = bmp.Clone(new Rectangle(240, 140, 170, 170), bmp.PixelFormat);
+            img = new Image<Bgr, Byte>(bmp).Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
 
-            return getChangeBoard(tmp);
+            originalImageBox.Image = img;
+
+            int[,] tmp = PerformShapeDetection(img);
+            
+            return getChangeBoard(_board, tmp);
+        }
+
+        public void debug()
+        {
+            //crop image
+            IImage img = fluxImageBox.Image;
+            Bitmap bmp = img.Bitmap;
+            bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
+            bmp = bmp.Clone(new Rectangle(240, 140, 170, 170), bmp.PixelFormat);
+            img = new Image<Bgr, Byte>(bmp).Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
+
+            originalImageBox.Image = img;
+
+            int[,] tmp = PerformShapeDetection(img);
+        }
+
+        
+        private int[,] correctCircle(int[,] circle, int[,] cross)
+        {
+            int[,] board = new int[3, 3];
+
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    int isCross = cross[i, j];
+                    int isRound = circle[i, j];
+
+                    if(isRound == 2 && isCross == 1)
+                    {
+                        board[i, j] = 1;
+                    }
+
+                   
+                }
+            }
+
+            return board;
         }
 
         /// <summary>
-        /// test si le tableau analysé est identique, si c'est le cas il ne se passe rien sinon on retourne la coordonnée qui a changé 
+        /// test si le tableau analysé est identique, si c'est le cas retourne un point vide sinon on retourne la coordonnée qui a changé 
         /// </summary>
-        /// <param name="tmp">le nouveaux tableau</param>
-        /// <returns>un objet point contenant la position du point qui a changé</returns>
-        private Point getChangeBoard(int[,] tmp)
+        /// <param name="_currentBoard">tableau 2d du plateau actuel</param>
+        /// <param name="_detectedBoard">tableau 2d du plateau detecté </param>
+        /// <returns>un objet point de la coordonée qui a changé, sinon retourne un point vide</returns>
+        private Point getChangeBoard(int[,] _currentBoard, int[,] _detectedBoard)
         {
-            int[,] board = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 2 } }; ;
-            tmp = new int[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 2, 0, 0 } }; ;
-
-            for(int i = 0; i <= 2; i++)
+            int iCompteur = 0;
+            Point temp = Point.Empty;
+            for (int i = 0; i <= 2; i++)
             {
-                for(int j = 0; j <=2; j++)
+                for (int j = 0; j <= 2; j++)
                 {
-                    if(board[i,j] != tmp[i,j])
+                    if(_currentBoard[i, j] == 0 && _detectedBoard[i, j] == 1)
                     {
-                        board = tmp;
-                        return new Point(i, j);
+                        iCompteur++;
+                        temp = new Point(i, j);
                     }
                 }
             }
-           return Point.Empty;
+
+            if(iCompteur == 1)
+            {
+                return temp;
+            }
+
+            return Point.Empty;
+        }
+
+        /// <summary>
+        /// compte le nombre de croix dans un tableau 2d
+        /// </summary>
+        /// <param name="array">tableau 2 dimension</param>
+        /// <returns>retourne le nombre de croix repéréré</returns>
+        private int nbCross(int[,] array)
+        {
+            int cmpt = 0;
+
+            foreach(int val in array)
+            {
+                if(val == 1)
+                {
+                    cmpt++;
+                }
+            }
+            return cmpt;
         }
 
         /// <summary>
