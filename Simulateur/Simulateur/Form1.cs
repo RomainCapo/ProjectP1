@@ -19,12 +19,12 @@ namespace Simulateur
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
         PlayDames damesGame;
-        DetectionImage di;
+        DetectionImageMorpion di;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-            di = new DetectionImage(this);
+            di = new DetectionImageMorpion(this);
         }
 
         private void btnTicTacToe_Click(object sender, EventArgs e)

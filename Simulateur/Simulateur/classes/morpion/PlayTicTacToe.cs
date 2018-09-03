@@ -20,7 +20,7 @@ namespace Simulateur.classes.morpion
         readonly double LENGTH;
         readonly double MARGIN;
 
-        public PlayTicTacToe(Form1 _form,  Robot _robot, DetectionImage _di, double X, double Y)
+        public PlayTicTacToe(Form1 _form,  Robot _robot, DetectionImageMorpion _di, double X, double Y)
         {
             form = _form;
             ticTacToe = new TicTacToe(_di);

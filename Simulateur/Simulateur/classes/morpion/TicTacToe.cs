@@ -10,9 +10,9 @@ namespace Simulateur.classes.morpion
     class TicTacToe
     {
         int[,] tblGrid = new int[3, 3];
-        DetectionImage di;
+        DetectionImageMorpion di;
 
-        public TicTacToe(DetectionImage _di)
+        public TicTacToe(DetectionImageMorpion _di)
         {
             di = _di;
 

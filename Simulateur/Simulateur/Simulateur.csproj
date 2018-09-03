@@ -70,14 +70,17 @@
   <ItemGroup>
     <Compile Include="classes\Bluetooth.cs" />
     <Compile Include="classes\dames\Dames.cs" />
+    <Compile Include="classes\dames\DetectionImageDames.cs" />
     <Compile Include="classes\dames\Node.cs" />
     <Compile Include="classes\dames\Pion.cs" />
     <Compile Include="classes\dames\PlayDames.cs" />
     <Compile Include="classes\dames\PossibilityForest.cs" />
     <Compile Include="classes\DetectionImage.cs" />
     <Compile Include="classes\maze\Cell.cs" />
+    <Compile Include="classes\maze\DetectionImageMaze.cs" />
     <Compile Include="classes\maze\Maze.cs" />
     <Compile Include="classes\maze\PlayMaze.cs" />
+    <Compile Include="classes\morpion\DetectionImageMorpion.cs" />
     <Compile Include="classes\morpion\Minmax.cs" />
     <Compile Include="classes\Robot.cs" />
     <Compile Include="classes\morpion\PlayTicTacToe.cs" />
