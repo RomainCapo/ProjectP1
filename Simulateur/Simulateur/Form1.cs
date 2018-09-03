@@ -20,23 +20,12 @@ namespace Simulateur
         PlayMaze mazeGame;
         PlayDames damesGame;
         DetectionImage di;
+        public Menu _menu = null;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
             di = new DetectionImage(this);
-        }
-
-        private void btnTicTacToe_Click(object sender, EventArgs e)
-        {
-            Reset();
-            ticTacToeGame = new PlayTicTacToe(this, robotXY, di, iSizeX, iSizeY);
-        }
-
-        private void btnMaze_Click(object sender, EventArgs e)
-        {
-            Reset();
-            mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
         }
 
         private void Reset()
@@ -70,15 +59,16 @@ namespace Simulateur
             robotXY.PenDown();
         }
 
-        private void btnDames_Click(object sender, EventArgs e)
-        {
-            Reset();
-            damesGame = new PlayDames(this, robotXY, iSizeX, iSizeY);
-        }
-
         private void btnPrintScreen_Click(object sender, EventArgs e)
         {
             di.debug();
+        }
+
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            this._menu.Show(); 
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)
@@ -98,5 +88,34 @@ namespace Simulateur
                 lblSizeState.Text = "Erreur ...";
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        public void ChoixJeu(int num)
+        {
+            if(num == 0)
+            {
+                Reset();
+                ticTacToeGame = new PlayTicTacToe(this, robotXY, di, iSizeX, iSizeY);
+                this.Text = "Morpion";
+            }
+            if(num==1)
+            {
+                Reset();
+                mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
+                this.Text = "Labyrinthe";
+
+            }
+            if(num==2)
+            {
+                damesGame = new PlayDames(this, robotXY, iSizeX, iSizeY);
+                this.Text = "Dames";
+            }
+        }
+
+        
     }
 }

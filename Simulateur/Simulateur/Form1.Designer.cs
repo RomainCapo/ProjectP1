@@ -44,10 +44,6 @@
             this.numX = new System.Windows.Forms.NumericUpDown();
             this.lblBluetooth = new System.Windows.Forms.Label();
             this.lblEtiquetteBluetooth = new System.Windows.Forms.Label();
-            this.btnTicTacToe = new System.Windows.Forms.Button();
-            this.btnMaze = new System.Windows.Forms.Button();
-            this.gbGames = new System.Windows.Forms.GroupBox();
-            this.btnDames = new System.Windows.Forms.Button();
             this.originalImageBox = new Emgu.CV.UI.ImageBox();
             this.detectionImageBox = new Emgu.CV.UI.ImageBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -62,7 +58,6 @@
             this.gbInformations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
-            this.gbGames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.originalImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -247,57 +242,10 @@
             this.lblEtiquetteBluetooth.TabIndex = 4;
             this.lblEtiquetteBluetooth.Text = "Status Bluetooth :";
             // 
-            // btnTicTacToe
-            // 
-            this.btnTicTacToe.Location = new System.Drawing.Point(7, 26);
-            this.btnTicTacToe.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTicTacToe.Name = "btnTicTacToe";
-            this.btnTicTacToe.Size = new System.Drawing.Size(105, 41);
-            this.btnTicTacToe.TabIndex = 2;
-            this.btnTicTacToe.Text = "Morpion";
-            this.btnTicTacToe.UseVisualStyleBackColor = true;
-            this.btnTicTacToe.Click += new System.EventHandler(this.btnTicTacToe_Click);
-            // 
-            // btnMaze
-            // 
-            this.btnMaze.Location = new System.Drawing.Point(7, 75);
-            this.btnMaze.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnMaze.Name = "btnMaze";
-            this.btnMaze.Size = new System.Drawing.Size(105, 41);
-            this.btnMaze.TabIndex = 3;
-            this.btnMaze.Text = "Labyrinthe";
-            this.btnMaze.UseVisualStyleBackColor = true;
-            this.btnMaze.Click += new System.EventHandler(this.btnMaze_Click);
-            // 
-            // gbGames
-            // 
-            this.gbGames.Controls.Add(this.btnDames);
-            this.gbGames.Controls.Add(this.btnTicTacToe);
-            this.gbGames.Controls.Add(this.btnMaze);
-            this.gbGames.Location = new System.Drawing.Point(14, 394);
-            this.gbGames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbGames.Name = "gbGames";
-            this.gbGames.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbGames.Size = new System.Drawing.Size(225, 175);
-            this.gbGames.TabIndex = 4;
-            this.gbGames.TabStop = false;
-            this.gbGames.Text = "Jeux";
-            // 
-            // btnDames
-            // 
-            this.btnDames.Location = new System.Drawing.Point(7, 124);
-            this.btnDames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnDames.Name = "btnDames";
-            this.btnDames.Size = new System.Drawing.Size(105, 41);
-            this.btnDames.TabIndex = 4;
-            this.btnDames.Text = "Dames";
-            this.btnDames.UseVisualStyleBackColor = true;
-            this.btnDames.Click += new System.EventHandler(this.btnDames_Click);
-            // 
             // originalImageBox
             // 
             this.originalImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.originalImageBox.Location = new System.Drawing.Point(21, 338);
+            this.originalImageBox.Location = new System.Drawing.Point(431, 74);
             this.originalImageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.originalImageBox.Name = "originalImageBox";
             this.originalImageBox.Size = new System.Drawing.Size(384, 216);
@@ -307,7 +255,7 @@
             // detectionImageBox
             // 
             this.detectionImageBox.BackColor = System.Drawing.SystemColors.Control;
-            this.detectionImageBox.Location = new System.Drawing.Point(21, 608);
+            this.detectionImageBox.Location = new System.Drawing.Point(843, 75);
             this.detectionImageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.detectionImageBox.Name = "detectionImageBox";
             this.detectionImageBox.Size = new System.Drawing.Size(384, 216);
@@ -316,7 +264,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnPrintScreen);
             this.groupBox1.Controls.Add(this.labelInfoDectionImage);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -325,24 +272,25 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.originalImageBox);
             this.groupBox1.Controls.Add(this.detectionImageBox);
-            this.groupBox1.Location = new System.Drawing.Point(1415, 43);
+            this.groupBox1.Location = new System.Drawing.Point(14, 661);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(442, 846);
+            this.groupBox1.Size = new System.Drawing.Size(1241, 313);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detection Image";
             // 
             // btnPrintScreen
             // 
-            this.btnPrintScreen.Location = new System.Drawing.Point(302, 1166);
+            this.btnPrintScreen.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnPrintScreen.Location = new System.Drawing.Point(994, 604);
             this.btnPrintScreen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPrintScreen.Name = "btnPrintScreen";
             this.btnPrintScreen.Size = new System.Drawing.Size(255, 60);
             this.btnPrintScreen.TabIndex = 7;
             this.btnPrintScreen.Text = "Print Screen";
-            this.btnPrintScreen.UseVisualStyleBackColor = true;
+            this.btnPrintScreen.UseVisualStyleBackColor = false;
             this.btnPrintScreen.Click += new System.EventHandler(this.btnPrintScreen_Click);
             // 
             // labelInfoDectionImage
@@ -375,7 +323,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 583);
+            this.label2.Location = new System.Drawing.Point(840, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(161, 20);
             this.label2.TabIndex = 7;
@@ -394,7 +342,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 313);
+            this.label1.Location = new System.Drawing.Point(431, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 6;
@@ -409,23 +357,25 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1898, 1024);
+            this.Controls.Add(this.btnPrintScreen);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gbGames);
             this.Controls.Add(this.gbInformations);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Jeu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbInformations.ResumeLayout(false);
             this.gbInformations.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).EndInit();
-            this.gbGames.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.originalImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detectionImageBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -437,8 +387,6 @@
 
         #endregion
         private System.Windows.Forms.GroupBox gbInformations;
-        private System.Windows.Forms.Button btnTicTacToe;
-        private System.Windows.Forms.Button btnMaze;
         private System.Windows.Forms.Label lblEtiquetteBluetooth;
         private System.Windows.Forms.Label lblBluetooth;
         private System.Windows.Forms.Label lblY;
@@ -452,8 +400,6 @@
         private System.Windows.Forms.Button btnCursorUp;
         private System.Windows.Forms.Button btnCursorDown;
         private System.Windows.Forms.CheckBox cbxUseBluetooth;
-        private System.Windows.Forms.GroupBox gbGames;
-        private System.Windows.Forms.Button btnDames;
         private Emgu.CV.UI.ImageBox originalImageBox;
         private Emgu.CV.UI.ImageBox detectionImageBox;
         private System.Windows.Forms.GroupBox groupBox1;

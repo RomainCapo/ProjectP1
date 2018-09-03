@@ -25,22 +25,30 @@ namespace Simulateur
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 fes = new Form1();
+            fes._menu = this;
             this.Hide();
             fes.Show();
+            fes.ChoixJeu(0);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Form1 fes = new Form1();
+            fes._menu = this;
             this.Hide();
             fes.Show();
+            fes.ChoixJeu(1);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Form1 fes = new Form1();
+            fes._menu = this;
             this.Hide();
             fes.Show();
+            fes.ChoixJeu(2);
+
         }
+
     }
 }

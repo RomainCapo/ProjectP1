@@ -57,8 +57,17 @@ namespace Simulateur.classes
         /// <param name="arg"></param>
         private void ProcessFrame(object sender, EventArgs arg)
         {
+            
             capture.Retrieve(frame, 0);
-            fluxImageBox.Image = frame;
+            try
+            {
+                fluxImageBox.Image = frame;
+            }
+            catch
+            {
+
+            }
+            
         }
 
         /// <summary>
