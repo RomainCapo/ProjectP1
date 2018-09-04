@@ -130,6 +130,7 @@
     <Content Include="Images\bg_p1.png" />
     <Content Include="Images\fond.png" />
     <Content Include="License-LGPL.txt" />
+    <None Include="Resources\Cursor-Move-2-icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
