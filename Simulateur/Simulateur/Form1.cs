@@ -19,18 +19,22 @@ namespace Simulateur
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
         PlayDames damesGame;
-        DetectionImageMorpion di;
+        DetectionImageMaze diMaze;
+        DetectionImageMorpion diMorpion;
+        DetectionImageDames diDames;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-            di = new DetectionImageMorpion(this);
+            diMaze = new DetectionImageMaze(this);
+            diMorpion = new DetectionImageMorpion(this);
+            diDames = new DetectionImageDames(this);
         }
 
         private void btnTicTacToe_Click(object sender, EventArgs e)
         {
             Reset();
-            ticTacToeGame = new PlayTicTacToe(this, robotXY, di, iSizeX, iSizeY);
+            ticTacToeGame = new PlayTicTacToe(this, robotXY, diMorpion, iSizeX, iSizeY);
         }
 
         private void btnMaze_Click(object sender, EventArgs e)
@@ -78,27 +82,27 @@ namespace Simulateur
 
         private void btnPrintScreen_Click(object sender, EventArgs e)
         {
-            di.debug();
+            diMaze.PrintScreen();
         }
 
         private void numericX_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            diMaze.debug();
         }
 
         private void numericY_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            diMaze.debug();
         }
 
         private void numericWidth_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            diMaze.debug();
         }
 
         private void numericHeight_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            diMaze.debug();
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)

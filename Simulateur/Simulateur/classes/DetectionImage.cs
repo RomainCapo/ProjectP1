@@ -65,18 +65,9 @@ namespace Simulateur.classes
         /// <param name="arg"></param>
         private void ProcessFrame(object sender, EventArgs arg)
         {
-            //frameresize = new Mat(frame, new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)));
             capture.Retrieve(frame, 0);
             fluxImageBox.Image = frame;
-
-            //MessageBox.Show(Convert.ToString(frame.Width));
         }
-
-        /// <summary>
-        /// Méthode permettant la détection des carré, croix et ronds sur une image
-        /// </summary>
-        /// <param name="img">objet image de emguCV</param>
-        protected abstract int[,] PerformShapeDetection(IImage img);
 
         public abstract void debug(); 
         
