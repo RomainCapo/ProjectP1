@@ -65,11 +65,15 @@ namespace Simulateur.classes
         /// <param name="arg"></param>
         private void ProcessFrame(object sender, EventArgs arg)
         {
-            //frameresize = new Mat(frame, new Rectangle(Convert.ToInt32(numericX.Value), Convert.ToInt32(numericY.Value), Convert.ToInt32(numericWidth.Value), Convert.ToInt32(numericHeight.Value)));
             capture.Retrieve(frame, 0);
-            fluxImageBox.Image = frame;
+            try
+            {
+                fluxImageBox.Image = frame;
+            }
+            catch
+            {
 
-            //MessageBox.Show(Convert.ToString(frame.Width));
+            }
         }
 
         /// <summary>

@@ -103,7 +103,7 @@ namespace Simulateur.classes.dames
             gbDames = new GroupBox();
             gbDames.Name = "gbDames";
             gbDames.Text = "Dames";
-            gbDames.Top = 420;
+            gbDames.Top = 250;
             gbDames.Left = 10;
             gbDames.Width = 150;
             gbDames.Height = 150;

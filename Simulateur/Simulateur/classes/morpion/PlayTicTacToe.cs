@@ -55,7 +55,7 @@ namespace Simulateur.classes.morpion
             gbTicTacToe = new GroupBox();
             gbTicTacToe.Name = "gbTicTacToe";
             gbTicTacToe.Text = "TicTacToe";
-            gbTicTacToe.Top = 400;
+            gbTicTacToe.Top = 250;
             gbTicTacToe.Left = 5;
             gbTicTacToe.Width = 150;
             gbTicTacToe.Height = 60;

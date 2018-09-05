@@ -45,7 +45,7 @@ namespace Simulateur.classes.maze
             gbMaze = new GroupBox();
             gbMaze.Name = "gbMaze";
             gbMaze.Text = "Labyrinthe";
-            gbMaze.Top = 420;
+            gbMaze.Top = 250;
             gbMaze.Left = 10;
             gbMaze.Width = 150;
 
