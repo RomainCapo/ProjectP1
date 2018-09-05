@@ -151,5 +151,15 @@ namespace Simulateur.classes
             bluetooth.EnableBluetooth(state);
             return true;
         }
+
+        public void DrawPoint(Point _previousLocation, Point _newLocation)
+        {
+            Graphics sheet = Graphics.FromImage(tempSheet);
+            
+            Pen pen = new Pen(Color.Black, 5);
+            sheet.DrawLine(pen, _previousLocation, _newLocation);
+            formGraphics.DrawImageUnscaled(tempSheet, 0, 0);
+            Application.DoEvents();
+        }
     }
 }

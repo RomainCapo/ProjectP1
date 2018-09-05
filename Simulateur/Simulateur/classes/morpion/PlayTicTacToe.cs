@@ -14,19 +14,18 @@ namespace Simulateur.classes.morpion
         GroupBox gbTicTacToe;
         Robot robotXY;
         TicTacToe ticTacToe;
-        Timer timerScreenShot;
 
         Minmax ia;
         readonly double LENGTH;
         readonly double MARGIN;
+
+        bool bCrossFinished;
 
         public PlayTicTacToe(Form1 _form,  Robot _robot, DetectionImageMorpion _di, double X, double Y)
         {
             form = _form;
             ticTacToe = new TicTacToe(_di);
             ia = new Minmax(2, 1);
-
-            AddTicTacToeControls();
 
             robotXY = _robot;
             if(X <= Y)
@@ -42,6 +41,10 @@ namespace Simulateur.classes.morpion
 
             DrawGrid();
 
+            AddTicTacToeControls();
+
+            bCrossFinished = false;
+
             //timerScreenShot.Start();
         }
 
@@ -55,7 +58,7 @@ namespace Simulateur.classes.morpion
             gbTicTacToe = new GroupBox();
             gbTicTacToe.Name = "gbTicTacToe";
             gbTicTacToe.Text = "TicTacToe";
-            gbTicTacToe.Top = 400;
+            gbTicTacToe.Top = 250;
             gbTicTacToe.Left = 5;
             gbTicTacToe.Width = 150;
             gbTicTacToe.Height = 60;
@@ -69,11 +72,58 @@ namespace Simulateur.classes.morpion
             btnVerifier.Click += new EventHandler(DrawCross);
             gbTicTacToe.Controls.Add(btnVerifier);
 
-            timerScreenShot = new Timer();
-            timerScreenShot.Tick += new EventHandler(DrawCross);
-            timerScreenShot.Interval = 1000;
+            form.MouseDown += new MouseEventHandler(mouseDown);
 
             form.Controls.Add(gbTicTacToe);
+        }
+
+        private void mouseDown(Object sender, EventArgs e)
+        {
+            Control control = (Control) sender;
+            Point previousLocation = Point.Empty;
+
+            while(Control.MouseButtons != MouseButtons.None)
+            {
+                Point newLocation = form.PointToClient(Cursor.Position);
+                if(previousLocation != Point.Empty)
+                {
+                    robotXY.DrawPoint(previousLocation, newLocation);
+                }
+                previousLocation = newLocation;
+                Application.DoEvents();
+            }
+
+            if(bCrossFinished)
+            {
+                Point pCellPosition = new Point(-1, -1);
+                for (int y = 0; y < 3; y++)
+                {
+                    for(int x = 0; x < 3; x++)
+                    {
+                        if(previousLocation.X < 200 + ((1 + x) * (LENGTH / 3)) && previousLocation.X > 200 + (x * (LENGTH / 3)) && previousLocation.Y > LENGTH - ((1 + y) * (LENGTH / 3)) && previousLocation.Y < LENGTH - (y * (LENGTH / 3)) && pCellPosition.X == -1)
+                        {
+                            pCellPosition = new Point(x, y);
+                        }
+                    }
+                }
+                if(pCellPosition.X != -1)
+                {
+                    if(ticTacToe.getGrid()[pCellPosition.X, pCellPosition.Y] == 0)
+                    {
+                        ticTacToe.PlaceCross(pCellPosition);
+                        Play(pCellPosition);
+                        bCrossFinished = false;
+                    }
+                }
+                else
+                {
+                    bCrossFinished = false;
+                }
+            }
+            else
+            {
+                bCrossFinished = true;
+            }
         }
 
         private bool DrawGrid()
@@ -168,7 +218,7 @@ namespace Simulateur.classes.morpion
 
         private void DrawCross(Object sender, EventArgs e)
         {
-            Point pCell = ticTacToe.PlaceCross();
+            Point pCell = ticTacToe.GetCross();
             //Application.DoEvents();
 
             if (pCell != Point.Empty)

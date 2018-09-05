@@ -87,7 +87,7 @@ namespace Simulateur.classes.maze
             PerformShapeDetection();
         }
 
-        public override void debug()
+        public override void Debug()
         {
             modifImage();
         }

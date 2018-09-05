@@ -18,29 +18,20 @@ namespace Simulateur
         int iSizeX = 200, iSizeY = 200;
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
+        int jeu = -1;
+
         PlayDames damesGame;
         DetectionImageMaze diMaze;
         DetectionImageMorpion diMorpion;
         DetectionImageDames diDames;
 
+        public Menu _menu = null;
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-            diMaze = new DetectionImageMaze(this);
-            diMorpion = new DetectionImageMorpion(this);
-            diDames = new DetectionImageDames(this);
-        }
-
-        private void btnTicTacToe_Click(object sender, EventArgs e)
-        {
-            Reset();
-            ticTacToeGame = new PlayTicTacToe(this, robotXY, diMorpion, iSizeX, iSizeY);
-        }
-
-        private void btnMaze_Click(object sender, EventArgs e)
-        {
-            Reset();
-            mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
+            //diDames = new DetectionImageDames(this);
         }
 
         private void Reset()
@@ -54,11 +45,6 @@ namespace Simulateur
             {
                 mazeGame.Remove();
                 mazeGame = null;
-            }
-            if (damesGame != null)
-            {
-                damesGame.Remove();
-                damesGame = null;
             }
 
             robotXY.RemoveDrawing();
@@ -74,35 +60,71 @@ namespace Simulateur
             robotXY.PenDown();
         }
 
-        private void btnDames_Click(object sender, EventArgs e)
-        {
-            Reset();
-            damesGame = new PlayDames(this, robotXY, iSizeX, iSizeY);
-        }
-
         private void btnPrintScreen_Click(object sender, EventArgs e)
         {
-            diMaze.PrintScreen();
+            if(jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if(jeu == 1)
+            {
+                diMaze.PrintScreen();
+            }
+        }
+
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            this._menu.Show(); 
         }
 
         private void numericX_ValueChanged(object sender, EventArgs e)
         {
-            diMaze.debug();
+            if(jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if(jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericY_ValueChanged(object sender, EventArgs e)
         {
-            diMaze.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericWidth_ValueChanged(object sender, EventArgs e)
         {
-            diMaze.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericHeight_ValueChanged(object sender, EventArgs e)
         {
-            diMaze.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)
@@ -122,5 +144,29 @@ namespace Simulateur
                 lblSizeState.Text = "Erreur ...";
             }
         }
+
+        public void ChoixJeu(int num)
+        {
+            if(num == 0)
+            {
+                Reset();
+                diMorpion = new DetectionImageMorpion(this);
+                ticTacToeGame = new PlayTicTacToe(this, robotXY, diMorpion, iSizeX, iSizeY);
+                this.Text = "Morpion";
+                
+                jeu = 0;
+            }
+            if(num==1)
+            {
+                Reset();
+                diMaze = new DetectionImageMaze(this);
+                mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
+                this.Text = "Labyrinthe";
+                
+                jeu = 1;
+            }
+        }
+
+        
     }
 }

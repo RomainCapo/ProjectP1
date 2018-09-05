@@ -116,7 +116,7 @@ namespace Simulateur.classes.morpion
             return getChangeBoard(_board, tmp);
         }
 
-        public override void debug()
+        public override void Debug()
         {
             IImage img = modifImage();
 

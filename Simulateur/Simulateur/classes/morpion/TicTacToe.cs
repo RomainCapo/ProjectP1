@@ -30,7 +30,12 @@ namespace Simulateur.classes.morpion
             return tblGrid;
         }
 
-        public Point PlaceCross()
+        public void PlaceCross(Point _crossLocation)
+        {
+            tblGrid[_crossLocation.X, _crossLocation.Y] = 1;
+        }
+
+        public Point GetCross()
         {
             Point temp = di.PrintScreen(tblGrid);
             if(temp != Point.Empty)

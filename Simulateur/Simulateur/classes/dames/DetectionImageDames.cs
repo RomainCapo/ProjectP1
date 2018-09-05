@@ -227,7 +227,7 @@ namespace Simulateur.classes.dames
             return Point.Empty;
         }
 
-        public override void debug()
+        public override void Debug()
         {
             IImage img = modifImage();
 

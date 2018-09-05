@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -8,200 +10,237 @@ using System.Windows.Forms;
 
 namespace Simulateur.classes.dames
 {
-    class PlayDames
+    public partial class PlayDames : Form
     {
-        GroupBox gbDames;
+        public PlayDames()
+        {
+            InitializeComponent();
+        }
+
+        Button[,] board = new Button[10, 10];
         Dames dames;
-        Form1 form;
-        Button[,] pieces;
-        Robot robotXY;
-        const int CELLNUMBER = 10;
-        const int BORDERSTARTX = 200;
-        readonly int iGridSize;
-        readonly int iCellSize;
+        Point pPieceToMove;
+        public Menu _menu;
 
-        public PlayDames(Form1 _form, Robot _robot, double _width, double _height)
+        private void PlayDames_Load(object sender, EventArgs e)
         {
-            form = _form;
-            robotXY = _robot;
             dames = new Dames();
+            pPieceToMove = Point.Empty;
 
-            if(_width <= _height)
+            int size = 600;
+
+            this.Height = size + 39;
+            this.Width = size + 16;
+            for (int y = 0; y < 10; y++)
             {
-                iGridSize = Convert.ToInt32(_width);
-            }
-            else
-            {
-                iGridSize = Convert.ToInt32(_height);
-            }
-            iCellSize = iGridSize / CELLNUMBER;
-
-            CreateInterface();
-            DrawGrid();
-
-            //MessageBox.Show("Veuillez changer la tête du robot et placer les jetons sur les pions", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            PlacePion();
-        }
-
-        private void DrawGrid()
-        {
-            for(int compteur = 0; compteur <= CELLNUMBER; compteur++)
-            {
-                robotXY.Move(0, compteur * iCellSize);
-                robotXY.PenDown();
-                robotXY.Move(iGridSize, compteur * iCellSize);
-                robotXY.PenUp();
-            }
-
-            for (int compteur = 0; compteur <= CELLNUMBER; compteur++)
-            {
-                robotXY.Move(compteur * iCellSize, 0);
-                robotXY.PenDown();
-                robotXY.Move(compteur * iCellSize, iGridSize);
-                robotXY.PenUp();
-            }
-
-            robotXY.ResetPosition();
-        }
-
-        private void PlacePion()
-        {
-            pieces = new Button[CELLNUMBER,CELLNUMBER];
-            Pion[,] board = dames.GetBoard();
-
-            for(int y = 0; y < CELLNUMBER; y++)
-            {
-                for(int x = 0; x < CELLNUMBER; x++)
+                for (int x = 0; x < 10; x++)
                 {
-                    if(board[x, y] != null)
+                    Button cell = new Button();
+                    cell.Height = size / 10; 
+                    cell.Width = cell.Height;
+                    cell.Left = cell.Width * x;
+                    cell.Top = size - (cell.Height * (y + 1));
+                    cell.BackgroundImageLayout = ImageLayout.Stretch;
+                    cell.FlatStyle = FlatStyle.Flat;
+
+                    if ((x + y) % 2 == 0)
                     {
-                        Button temp = new Button();
-                        temp.Height = iCellSize - 1;
-                        temp.Width = temp.Height;
-                        temp.Top = iGridSize + 13 - (y + 1) * iCellSize;
-                        temp.Left = BORDERSTARTX + 13 + x * iCellSize;
+                        cell.BackColor = Color.FromArgb(196, 156, 92);
+                        cell.Click += new EventHandler(Click);
+                    }
+                    else
+                    {
+                        cell.Enabled = false;
+                        cell.BackColor = Color.FromArgb(214, 186, 123);
+                    }
 
+                    this.Controls.Add(cell);
 
-                        if(board[x, y].GetColor())
+                    board[x, y] = cell;
+                }
+            }
+
+            for (int y = 0; y < 10; y++)
+            {
+                for (int x = 0; x < 10; x++)
+                {
+                    if (dames.GetBoard()[x, y] != null)
+                    {
+                        if (dames.GetBoard()[x, y].GetColor())
                         {
-                            temp.BackColor = System.Drawing.Color.White;
+                            board[x, y].BackgroundImage = Image.FromFile(@"..\..\Images\JBlanc.png");
                         }
                         else
                         {
-                            temp.BackColor = System.Drawing.Color.Black;
+                            board[x, y].BackgroundImage = Image.FromFile(@"..\..\Images\JNoir.png");
                         }
-                        pieces[x, y] = temp;
-                        form.Controls.Add(temp);
+                    }
+                }
+            }
+
+            ShowMovablePieces();
+        }
+
+        private void ResetColors()
+        {
+            foreach (Button cell in board)
+            {
+                if (cell.BackColor == Color.White)
+                {
+                    cell.BackColor = Color.FromArgb(196, 156, 92);
+                }
+            }
+        }
+
+        private void ShowMovablePieces()
+        {
+            foreach (Point pieceLocation in dames.GetMovablePieces())
+            {
+                board[pieceLocation.X, pieceLocation.Y].BackColor = Color.White;
+            }
+        }
+
+        private void ShowPieceMoves(Point _location)
+        {
+            Tree selectedPieceTree = dames.GetTree(_location);
+
+            ResetColors();
+            board[_location.X, _location.Y].BackColor = Color.White;
+
+            foreach (Node child in selectedPieceTree.GetChildren())
+            {
+                board[child.GetPosition().X, child.GetPosition().Y].BackColor = Color.White;
+            }
+        }
+
+        private void Click(object sender, EventArgs e)
+        {
+            Button btnClickedButton = sender as Button;
+            Point pClickedLocation = Point.Empty;
+
+            for (int y = 0; y < 10; y++)
+            {
+                for (int x = 0; x < 10; x++)
+                {
+                    if (board[x, y] == btnClickedButton)
+                    {
+                        pClickedLocation = new Point(x, y);
+                    }
+                }
+            }
+
+            if (pClickedLocation != Point.Empty)
+            {
+                if (pPieceToMove == Point.Empty)
+                {
+                    if (PieceCanMove(pClickedLocation))
+                    {
+                        pPieceToMove = pClickedLocation;
+                        ShowPieceMoves(pPieceToMove);
+                    }
+                }
+                else
+                {
+                    if (pPieceToMove == pClickedLocation)
+                    {
+                        pPieceToMove = Point.Empty;
+                        ResetColors();
+                        ShowMovablePieces();
+                    }
+                    else
+                    {
+                        if (dames.MovePlayer(pPieceToMove, pClickedLocation))
+                        {
+                            Move(pPieceToMove, pClickedLocation);
+                            ResetColors();
+                            pPieceToMove = Point.Empty;
+
+                            if (!dames.CanStillEat() && !(Check(true)))
+                            {
+                                IaPlay();
+                            }
+
+                            ShowMovablePieces();
+                        }
                     }
                 }
             }
         }
 
-        private void CreateInterface()
+        private void IaPlay()
         {
-            gbDames = new GroupBox();
-            gbDames.Name = "gbDames";
-            gbDames.Text = "Dames";
-            gbDames.Top = 420;
-            gbDames.Left = 10;
-            gbDames.Width = 150;
-            gbDames.Height = 150;
+            do
+            {
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(500);
+                Point[] move = dames.MoveIA();
 
-            NumericUpDown num = new NumericUpDown();
-            num.Name = "numFromX";
-            num.Width = 50;
-            num.Left = 10;
-            num.Top = 20;
-            num.Maximum = 9;
-            gbDames.Controls.Add(num);
+                Move(move[0], move[1]);
 
-            num = new NumericUpDown();
-            num.Name = "numFromY";
-            num.Width = 50;
-            num.Left = 10;
-            num.Top = 43;
-            num.Maximum = 9;
-            gbDames.Controls.Add(num);
+                Check(false);
 
-            num = new NumericUpDown();
-            num.Name = "numToX";
-            num.Width = 50;
-            num.Left = 10;
-            num.Top = 70;
-            num.Maximum = 9;
-            gbDames.Controls.Add(num);
-
-            num = new NumericUpDown();
-            num.Name = "numToY";
-            num.Width = 50;
-            num.Left = 10;
-            num.Top = 93;
-            num.Maximum = 9;
-            gbDames.Controls.Add(num);
-
-            Button btn = new Button();
-            btn.Name = "btnPlace";
-            btn.Text = "Déplacer";
-            btn.Left = 9;
-            btn.Top = 120;
-            btn.Click += new EventHandler(Place);
-            gbDames.Controls.Add(btn);
-
-            form.Controls.Add(gbDames);
+            }
+            while (dames.CanStillEat());
         }
 
-        private void Place(Object sender, EventArgs e)
+        private bool Check(bool _color)
         {
-            NumericUpDown temp = gbDames.Controls.Find("numFromX", true)[0] as NumericUpDown;
-            int FromX = Convert.ToInt32(temp.Value);
-
-            temp = gbDames.Controls.Find("numFromY", true)[0] as NumericUpDown;
-            int FromY = Convert.ToInt32(temp.Value);
-
-            temp = gbDames.Controls.Find("numToX", true)[0] as NumericUpDown;
-            int ToX = Convert.ToInt32(temp.Value);
-
-            temp = gbDames.Controls.Find("numToY", true)[0] as NumericUpDown;
-            int ToY = Convert.ToInt32(temp.Value);
-
-            if((ToX + ToY) % 2 == 0)
+            Point pUpgradedPiece = dames.CheckTransformation(_color);
+            if (pUpgradedPiece != Point.Empty)
             {
-                if (pieces[FromX, FromY] != null && pieces[ToX, ToY] == null)
+                if (_color)
                 {
-                    MoveButton(FromX, FromY, ToX, ToY);
+                    board[pUpgradedPiece.X, pUpgradedPiece.Y].BackgroundImage = Image.FromFile(@"..\..\Images\JBlancReine.png");
                 }
+                else
+                {
+                    board[pUpgradedPiece.X, pUpgradedPiece.Y].BackgroundImage = Image.FromFile(@"..\..\Images\JNoirReine.png");
+                }
+
+            }
+
+            switch (dames.Check())
+            {
+                case 1:
+                    MessageBox.Show("Le joueur blanc a gagné !", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                    return true;
+                case 2:
+                    MessageBox.Show("Le joueur noir a gagné !", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                    return true;
+                default:
+                    break;
+            }
+            return false;
+        }
+
+        private void Move(Point _location, Point _destination)
+        {
+            board[_destination.X, _destination.Y].BackgroundImage = board[_location.X, _location.Y].BackgroundImage;
+            board[_location.X, _location.Y].BackgroundImage = null;
+
+            if (dames.CanEat())
+            {
+                Point _deadLocation = dames.GetDeadPieceLocation();
+                board[_deadLocation.X, _deadLocation.Y].BackgroundImage = null;
             }
         }
 
-        private void MovePiece(Robot robotXY, int iFromX, int iFromY, int iToX, int iToY)
+        private bool PieceCanMove(Point _location)
         {
-            robotXY.Move(iFromX * iCellSize, iFromY * iCellSize);
-            robotXY.PenDown();
-            robotXY.Move(iToX * iCellSize, iToY * iCellSize);
-
-            MoveButton(iFromX, iFromY, iToX, iToY);
-
-            robotXY.PenUp();
-            robotXY.ResetPosition();
-        }
-
-        private void MoveButton(int iFromX, int iFromY, int iToX, int iToY)
-        {
-
-        }
-
-        public void Remove()
-        {
-            foreach(Button btn in pieces)
+            if (dames.GetMovablePieces().Contains(_location))
             {
-                if(btn != null)
-                {
-                    form.Controls.Remove(btn);
-                }
+                return true;
             }
 
-            form.Controls.Remove(gbDames);
+            return false;
+        }
+
+        private void PlayDames_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            this._menu.Show();
         }
     }
 }
