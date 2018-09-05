@@ -151,9 +151,8 @@ namespace Simulateur.classes.dames
                             Move(pPieceToMove, pClickedLocation);
                             ResetColors();
                             pPieceToMove = Point.Empty;
-                            Check(true);
 
-                            if (!dames.CanStillEat())
+                            if (!dames.CanStillEat() && !(Check(true)))
                             {
                                 IaPlay();
                             }
@@ -202,7 +201,7 @@ namespace Simulateur.classes.dames
                 case 1:
                 case 2:
                     MessageBox.Show("fin de  la partie !!", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Application.Exit();
+                    Close();
                     return true;
                 default:
                     break;
