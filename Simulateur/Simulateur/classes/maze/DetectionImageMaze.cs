@@ -28,12 +28,13 @@ namespace Simulateur.classes.maze
             Mat src = Cv2.ImRead(@"C:\Users\romain.capocasa\Desktop\g1\Simulateur\Simulateur\bin\Debug\lol.png");
 
             Mat bw = new Mat();
+            Mat output = new Mat();
             Cv2.CvtColor(src, bw, ColorConversionCodes.BGR2GRAY);
-            Cv2.Threshold(bw, bw, 10, 255, ThresholdTypes.BinaryInv);
+            Cv2.Threshold(bw, output, 10, 255, ThresholdTypes.BinaryInv | ThresholdTypes.Otsu);
 
             Point[][] contours;
             HierarchyIndex[] a;
-            Cv2.FindContours(bw, out contours, out a, RetrievalModes.External, ContourApproximationModes.ApproxNone);
+            Cv2.FindContours(output, out contours, out a, RetrievalModes.External, ContourApproximationModes.ApproxNone);
 
             if (contours.Length != 2)
             {
