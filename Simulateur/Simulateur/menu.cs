@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulateur.classes.dames;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,12 +43,10 @@ namespace Simulateur
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form1 fes = new Form1();
+            PlayDames fes = new PlayDames();
             fes._menu = this;
             this.Hide();
             fes.Show();
-            fes.ChoixJeu(2);
-
         }
 
     }

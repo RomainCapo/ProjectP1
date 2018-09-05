@@ -7,6 +7,7 @@ namespace Simulateur.classes.dames
     class Node
     {
         Point pPosition;
+        Point pTarget;
         List<Node> Children;
 
         public Node(Point _position)
@@ -14,6 +15,15 @@ namespace Simulateur.classes.dames
             Children = new List<Node>();
 
             pPosition = _position;
+            pTarget = Point.Empty;
+        }
+
+        public Node(Point _position, Point _target)
+        {
+            Children = new List<Node>();
+
+            pPosition = _position;
+            pTarget = _target;
         }
 
         public void AddChild(Node Child)
@@ -29,6 +39,11 @@ namespace Simulateur.classes.dames
         public Point GetPosition()
         {
             return pPosition;
+        }
+
+        public Point GetTarget()
+        {
+            return pTarget;
         }
     }
 }

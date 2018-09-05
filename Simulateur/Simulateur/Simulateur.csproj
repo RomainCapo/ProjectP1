@@ -73,10 +73,14 @@
     <Compile Include="classes\dames\DetectionImageDames.cs" />
     <Compile Include="classes\dames\Node.cs" />
     <Compile Include="classes\dames\Pion.cs" />
-    <Compile Include="classes\dames\PlayDames.cs" />
     <Compile Include="classes\dames\Forest.cs" />
+    <Compile Include="classes\dames\PlayDames.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="classes\dames\PlayDames.Designer.cs">
+      <DependentUpon>PlayDames.cs</DependentUpon>
+    </Compile>
     <Compile Include="classes\dames\Tree.cs" />
-    <Compile Include="classes\dames\PossibilityForest.cs" />
     <Compile Include="classes\DetectionImage.cs" />
     <Compile Include="classes\maze\Cell.cs" />
     <Compile Include="classes\maze\DetectionImageMaze.cs" />
@@ -101,6 +105,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="classes\dames\PlayDames.resx">
+      <DependentUpon>PlayDames.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -135,6 +142,10 @@
   <ItemGroup>
     <Content Include="Images\bg_p1.png" />
     <Content Include="Images\fond.png" />
+    <Content Include="Images\JBlanc.png" />
+    <Content Include="Images\JBlancReine.png" />
+    <Content Include="Images\JNoir.png" />
+    <Content Include="Images\JNoirReine.png" />
     <Content Include="License-LGPL.txt" />
     <None Include="Resources\Cursor-Move-2-icon.png" />
   </ItemGroup>

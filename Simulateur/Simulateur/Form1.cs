@@ -18,7 +18,6 @@ namespace Simulateur
         int iSizeX = 200, iSizeY = 200;
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
-        PlayDames damesGame;
         DetectionImageMorpion di;
         public Menu _menu = null;
 
@@ -39,11 +38,6 @@ namespace Simulateur
             {
                 mazeGame.Remove();
                 mazeGame = null;
-            }
-            if (damesGame != null)
-            {
-                damesGame.Remove();
-                damesGame = null;
             }
 
             robotXY.RemoveDrawing();
@@ -109,11 +103,6 @@ namespace Simulateur
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
         public void ChoixJeu(int num)
         {
             if(num == 0)
@@ -128,11 +117,6 @@ namespace Simulateur
                 mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
                 this.Text = "Labyrinthe";
 
-            }
-            if(num==2)
-            {
-                damesGame = new PlayDames(this, robotXY, iSizeX, iSizeY);
-                this.Text = "Dames";
             }
         }
 

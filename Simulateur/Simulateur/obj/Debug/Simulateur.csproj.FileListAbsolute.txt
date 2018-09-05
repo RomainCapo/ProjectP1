@@ -51,3 +51,4 @@ C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\
 C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\zh-tw\ZedGraph.resources.dll
 C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Menu.resources
 C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CopyComplete
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.classes.dames.PlayDames.resources
