@@ -27,16 +27,19 @@ namespace Simulateur.classes.dames
             dames = new Dames();
             pPieceToMove = Point.Empty;
 
-            int size = 500 / 10;
+            int size = 600;
+
+            this.Height = size + 39;
+            this.Width = size + 16;
             for (int y = 0; y < 10; y++)
             {
                 for (int x = 0; x < 10; x++)
                 {
                     Button cell = new Button();
-                    cell.Height = size;
+                    cell.Height = size / 10; 
                     cell.Width = cell.Height;
                     cell.Left = cell.Width * x;
-                    cell.Top = cell.Height * 10 - cell.Height * y;
+                    cell.Top = size - (cell.Height * (y + 1));
                     cell.BackgroundImageLayout = ImageLayout.Stretch;
                     cell.FlatStyle = FlatStyle.Flat;
 
@@ -199,8 +202,11 @@ namespace Simulateur.classes.dames
             switch (dames.Check())
             {
                 case 1:
+                    MessageBox.Show("Le joueur blanc a gagné !", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                    return true;
                 case 2:
-                    MessageBox.Show("fin de  la partie !!", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Le joueur noir a gagné !", "Fin", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                     return true;
                 default:
