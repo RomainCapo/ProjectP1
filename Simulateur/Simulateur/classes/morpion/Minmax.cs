@@ -1,74 +1,78 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Simulateur.classes.morpion
 {
     class Minmax
     {
-        int idIA, idOpponent, iDepth;
+        int idIA, idOpponent;
 
-        public Minmax(int idIA, int idOpponent)
+        public Minmax(int _idIA, int _idOpponent)
         {
-            this.idIA = idIA;
-            this.idOpponent = idOpponent;
+            this.idIA = _idIA;
+            this.idOpponent = _idOpponent;
         }
 
-        public Point Play(int[,] board)
+        public Point Play(int[,] _board)
         {
             int max = -10000;
-            Point pBestChoice = new Point();
+            List<Point> bestChoices = new List<Point>();
             int tmp;
 
-            for(int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
+            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(_board.Length); iCompteurY++)
             {
-                for(int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
+                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(_board.Length); iCompteurX++)
                 {
-                    if(board[iCompteurX, iCompteurY] == 0)
+                    if (_board[iCompteurX, iCompteurY] == 0)
                     {
-                        board[iCompteurX, iCompteurY] = idIA;
+                        _board[iCompteurX, iCompteurY] = idIA;
 
-                        tmp = OpponentPlay(board);
-                        if(tmp > max)
+                        tmp = OpponentPlay(_board);
+                        if (tmp > max)
                         {
                             max = tmp;
-                            pBestChoice.X = iCompteurX;
-                            pBestChoice.Y = iCompteurY;
+                            bestChoices.Clear();
+                        }
+                        if (tmp == max)
+                        {
+                            bestChoices.Add(new Point(iCompteurX, iCompteurY));
                         }
 
-                        board[iCompteurX, iCompteurY] = 0;
+                        _board[iCompteurX, iCompteurY] = 0;
                     }
                 }
             }
-
-            return pBestChoice;
+            Random random = new Random((int)DateTime.Now.Ticks);
+            return bestChoices[random.Next(bestChoices.Count - 1)];
         }
 
-        private int IaPlay(int[,] board)
+        private int IaPlay(int[,] _board)
         {
-            if (WhoWin(board) != -1)
+            if (WhoWin(_board) != -1)
             {
-                return Evaluation(board);
+                return Evaluation(_board);
             }
 
             int max = -10000;
             int tmp;
 
-            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
+            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(_board.Length); iCompteurY++)
             {
-                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
+                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(_board.Length); iCompteurX++)
                 {
-                    if (board[iCompteurX, iCompteurY] == 0)
+                    if (_board[iCompteurX, iCompteurY] == 0)
                     {
-                        board[iCompteurX, iCompteurY] = idIA;
+                        _board[iCompteurX, iCompteurY] = idIA;
 
-                        tmp = OpponentPlay(board);
+                        tmp = OpponentPlay(_board);
 
                         if (tmp > max)
                         {
                             max = tmp;
                         }
 
-                        board[iCompteurX, iCompteurY] = 0;
+                        _board[iCompteurX, iCompteurY] = 0;
                     }
                 }
             }
@@ -169,6 +173,35 @@ namespace Simulateur.classes.morpion
             return -1;
         }
 
+        private int Evaluation(int[,] _board)
+        {
+            int idWinner = WhoWin(_board);
+            int iNbPieces = 0;
+
+            foreach (int value in _board)
+            {
+                if (value != 0)
+                {
+                    iNbPieces++;
+                }
+            }
+
+            if (idWinner == idIA)
+            {
+                return 1000 - iNbPieces/* + (10 * Serie(idIA, _board))*/;
+            }
+            else if (idWinner == idOpponent)
+            {
+                return -1000 + iNbPieces/* - (10 * Serie(idOpponent, _board))*/;
+            }
+            else if (iNbPieces >= 9)
+            {
+                return 0 + Serie(idIA, _board) - Serie(idOpponent, _board);
+            }
+
+            return Serie(idIA, _board) - Serie(idOpponent, _board);
+        }
+
         private int Serie(int id, int[,] _board)
         {
             string strID = id + "" + id;
@@ -214,34 +247,5 @@ namespace Simulateur.classes.morpion
 
             return suite;
         }
-
-        private int Evaluation(int[,] _board)
-        {
-            int idWinner = WhoWin(_board);
-            int iNbPieces = 0;
-
-            foreach (int value in _board)
-            {
-                if (value != 0)
-                {
-                    iNbPieces++;
-                }
-            }
-
-            if (idWinner == idIA)
-            {
-                return 1000 - iNbPieces/* + (10 * Serie(idIA, _board))*/;
-            }
-            else if (idWinner == idOpponent)
-            {
-                return -1000 + iNbPieces/* - (10 * Serie(idOpponent, _board))*/;
-            }
-            else if (iNbPieces >= 9)
-            {
-                return 0 + Serie(idIA, _board) - Serie(idOpponent, _board);
-            }
-
-            return Serie(idIA, _board) - Serie(idOpponent, _board);
-        }
-    } 
+    }
 }
