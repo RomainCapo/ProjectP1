@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="timerUpdateScreen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>39</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -198,6 +192,6 @@
         /wD///8A////AP///wD///8Agf/8H4H//B+B//wfgf/8H4H//B+B//wfgf/8H4H//B+B//wfgf/8H4E/
         /B+AD/wfgAP8H4AD/B+AAfwfgYH8H4HB/B+BwfwfgcH8H4HB/B+BwfwfgcHgH4HB4B+BgeAfgAHgH4AD
         /B+AB/4fgA/+H/////////////////////8=
-    </value>
+</value>
   </data>
 </root>

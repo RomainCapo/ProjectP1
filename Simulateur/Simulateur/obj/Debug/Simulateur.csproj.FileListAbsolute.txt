@@ -1,0 +1,53 @@
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.exe.config
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\bin\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csprojResolveAssemblyReference.cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.Form1.resources
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.Properties.Resources.resources
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.GenerateResource.Cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CoreCompileInputs.cache
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csprojAssemblyReference.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Form1.resources
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Properties.Resources.resources
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.GenerateResource.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CoreCompileInputs.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.exe.config
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x64\concrt140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x64\cvextern.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x64\msvcp140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x64\opencv_ffmpeg341_64.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x64\vcruntime140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x86\concrt140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x86\cvextern.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x86\msvcp140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x86\opencv_ffmpeg341.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\x86\vcruntime140.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Emgu.CV.UI.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Emgu.CV.World.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\InTheHand.Net.Personal.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\ZedGraph.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Emgu.CV.UI.xml
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Emgu.CV.World.xml
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\InTheHand.Net.Personal.xml
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\ZedGraph.xml
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Menu.resources
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CopyComplete

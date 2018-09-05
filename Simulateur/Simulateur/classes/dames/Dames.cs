@@ -40,7 +40,19 @@ namespace Simulateur.classes.dames
             }
         }
 
+<<<<<<< HEAD
         
+=======
+        /*public List<Stack<Node>>[,] GetWays(bool isWhite)
+        {
+
+        }*/
+
+        public void MovePiece(int _fromX, int _fromY, int _toX, int _toY)
+        {
+
+        }
+>>>>>>> master
 
         //----------------------------------------------------------------
         //Retourne le plateau de jeu

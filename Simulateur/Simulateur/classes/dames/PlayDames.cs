@@ -48,17 +48,17 @@ namespace Simulateur.classes.dames
         {
             for(int compteur = 0; compteur <= CELLNUMBER; compteur++)
             {
-                robotXY.MoveCursor(0, compteur * iCellSize);
+                robotXY.Move(0, compteur * iCellSize);
                 robotXY.PenDown();
-                robotXY.MoveCursor(iGridSize, compteur * iCellSize);
+                robotXY.Move(iGridSize, compteur * iCellSize);
                 robotXY.PenUp();
             }
 
             for (int compteur = 0; compteur <= CELLNUMBER; compteur++)
             {
-                robotXY.MoveCursor(compteur * iCellSize, 0);
+                robotXY.Move(compteur * iCellSize, 0);
                 robotXY.PenDown();
-                robotXY.MoveCursor(compteur * iCellSize, iGridSize);
+                robotXY.Move(compteur * iCellSize, iGridSize);
                 robotXY.PenUp();
             }
 
@@ -103,7 +103,7 @@ namespace Simulateur.classes.dames
             gbDames = new GroupBox();
             gbDames.Name = "gbDames";
             gbDames.Text = "Dames";
-            gbDames.Top = 420;
+            gbDames.Top = 250;
             gbDames.Left = 10;
             gbDames.Width = 150;
             gbDames.Height = 150;
@@ -187,9 +187,9 @@ namespace Simulateur.classes.dames
 
         private void MovePiece(Robot robotXY, int iFromX, int iFromY, int iToX, int iToY)
         {
-            robotXY.MoveCursor(iFromX * iCellSize, iFromY * iCellSize);
+            robotXY.Move(iFromX * iCellSize, iFromY * iCellSize);
             robotXY.PenDown();
-            robotXY.MoveCursor(iToX * iCellSize, iToY * iCellSize);
+            robotXY.Move(iToX * iCellSize, iToY * iCellSize);
 
             MoveButton(iFromX, iFromY, iToX, iToY);
 
@@ -199,17 +199,7 @@ namespace Simulateur.classes.dames
 
         private void MoveButton(int iFromX, int iFromY, int iToX, int iToY)
         {
-            pieces[iFromX, iFromY].Left = BORDERSTARTX + 13 + iToX * iCellSize;
-            pieces[iFromX, iFromY].Top = iGridSize + 13 - (iToY + 1) * iCellSize;
-            pieces[iToX, iToY] = pieces[iFromX, iFromY];
-            pieces[iFromX, iFromY] = null;
 
-            Point temp = dames.MovePiece(iFromX, iFromY, iToX, iToY);
-            if (temp != null)
-            {
-                form.Controls.Remove(pieces[temp.X, temp.Y]);
-                pieces[temp.X, temp.Y] = null;
-            }
         }
 
         public void Remove()
