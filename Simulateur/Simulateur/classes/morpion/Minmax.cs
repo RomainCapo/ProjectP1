@@ -11,7 +11,6 @@ namespace Simulateur.classes.morpion
         {
             this.idIA = idIA;
             this.idOpponent = idOpponent;
-            this.iDepth = 100;
         }
 
         public Point Play(int[,] board)
@@ -19,7 +18,6 @@ namespace Simulateur.classes.morpion
             int max = -10000;
             Point pBestChoice = new Point();
             int tmp;
-            int depth = iDepth;
 
             for(int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
             {
@@ -29,7 +27,7 @@ namespace Simulateur.classes.morpion
                     {
                         board[iCompteurX, iCompteurY] = idIA;
 
-                        tmp = OpponentPlay(board, --depth);
+                        tmp = OpponentPlay(board);
                         if(tmp > max)
                         {
                             max = tmp;
@@ -45,9 +43,9 @@ namespace Simulateur.classes.morpion
             return pBestChoice;
         }
 
-        private int IaPlay(int[,] board, int depth)
+        private int IaPlay(int[,] board)
         {
-            if (depth == 0 || WhoWin(board) != 0)
+            if (WhoWin(board) != -1)
             {
                 return Evaluation(board);
             }
@@ -63,7 +61,7 @@ namespace Simulateur.classes.morpion
                     {
                         board[iCompteurX, iCompteurY] = idIA;
 
-                        tmp = IaPlay(board, --depth);
+                        tmp = OpponentPlay(board);
 
                         if (tmp > max)
                         {
@@ -78,32 +76,32 @@ namespace Simulateur.classes.morpion
             return max;
         }
 
-        private int OpponentPlay(int[,] board, int depth)
+        private int OpponentPlay(int[,] _board)
         {
-            if(depth == 0 || WhoWin(board) != 0)
+            if (WhoWin(_board) != -1)
             {
-                return Evaluation(board);
+                return Evaluation(_board);
             }
 
             int min = 10000;
             int tmp;
 
-            for(int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
+            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(_board.Length); iCompteurY++)
             {
-                for(int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
+                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(_board.Length); iCompteurX++)
                 {
-                    if(board[iCompteurX, iCompteurY] == 0)
+                    if (_board[iCompteurX, iCompteurY] == 0)
                     {
-                        board[iCompteurX, iCompteurY] = idOpponent;
+                        _board[iCompteurX, iCompteurY] = idOpponent;
 
-                        tmp = IaPlay(board, --depth);
+                        tmp = IaPlay(_board);
 
-                        if(tmp < min)
+                        if (tmp < min)
                         {
                             min = tmp;
                         }
 
-                        board[iCompteurX, iCompteurY] = 0;
+                        _board[iCompteurX, iCompteurY] = 0;
                     }
                 }
             }
@@ -111,80 +109,139 @@ namespace Simulateur.classes.morpion
             return min;
         }
 
-        private int WhoWin(int[,] board)
+        private int WhoWin(int[,] _board)
         {
-            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
+            for (int y = 0; y < 3; y++)
             {
-                if (board[0, iCompteurY] == board[1, iCompteurY] && board[1, iCompteurY] == board[2, iCompteurY] && board[0, iCompteurY] != 0)
+                string hor = "";
+                string vert = "";
+
+                for (int x = 0; x < 3; x++)
                 {
-                    return board[0, iCompteurY];
+                    hor += _board[x, y];
+                    vert += _board[y, x];
+                }
+
+                if (hor.Contains("111") || vert.Contains("111"))
+                {
+                    return 1;
+                }
+                if (hor.Contains("222") || vert.Contains("222"))
+                {
+                    return 2;
                 }
             }
 
-            for (int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
+            string diag1 = "";
+            string diag2 = "";
+            for (int compteur = 0; compteur < 3; compteur++)
             {
-                if (board[iCompteurX, 0] == board[iCompteurX, 1] && board[iCompteurX, 1] == board[iCompteurX, 2] && board[iCompteurX, 0] != 0)
+                diag1 += _board[compteur, compteur];
+                diag2 += _board[2 - compteur, 2 - compteur];
+            }
+
+            if (diag1.Contains("111") || diag2.Contains("111"))
+            {
+                return 1;
+            }
+            if (diag1.Contains("222") || diag2.Contains("222"))
+            {
+                return 2;
+            }
+
+            int nbPion = 0;
+            for (int y = 0; y < 3; y++)
+            {
+                for (int x = 0; x < 3; x++)
                 {
-                    return board[iCompteurX, 0];
-                }
-            }
-
-            if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] && board[0, 0] != 0)
-            {
-                return board[0, 0];
-            }
-
-            if (board[2, 0] == board[1, 1] && board[1, 1] == board[0, 2] && board[2, 0] != 0)
-            {
-                return board[2, 0];
-            }
-
-            for (int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
-            {
-                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
-                {
-                    if (board[iCompteurX, iCompteurY] == 0)
+                    if (_board[x, y] != 0)
                     {
-                        return 0;
+                        nbPion++;
                     }
                 }
+            }
+
+            if (nbPion == 9)
+            {
+                return 0;
             }
 
             return -1;
         }
 
-        private int Evaluation(int[,] board)
+        private int Serie(int id, int[,] _board)
         {
-            int idWinner = WhoWin(board);
-            int iNbPionIA = 0, iNbPionOpponent = 0;
+            string strID = id + "" + id;
+            int suite = 0;
 
-            for(int iCompteurY = 0; iCompteurY < Math.Sqrt(board.Length); iCompteurY++)
+            for (int y = 0; y < 3; y++)
             {
-                for (int iCompteurX = 0; iCompteurX < Math.Sqrt(board.Length); iCompteurX++)
+                string hor = "";
+                string vert = "";
+
+                for (int x = 0; x < 3; x++)
                 {
-                    if(board[iCompteurX, iCompteurY] == idIA)
-                    {
-                        iNbPionIA++;
-                    }
-                    if(board[iCompteurX, iCompteurY] == idOpponent)
-                    {
-                        iNbPionOpponent++;
-                    }
+                    hor += _board[x, y];
+                    vert += _board[y, x];
+                }
+
+                if (hor.Contains(strID))
+                {
+                    suite++;
+                }
+                if (vert.Contains(strID))
+                {
+                    suite++;
+                }
+            }
+
+            string diag1 = "";
+            string diag2 = "";
+            for (int compteur = 0; compteur < 3; compteur++)
+            {
+                diag1 += _board[compteur, compteur];
+                diag2 += _board[compteur, 2 - compteur];
+            }
+
+            if (diag1.Contains(strID) && diag1.Contains("0"))
+            {
+                suite++;
+            }
+            if (diag2.Contains(strID) && diag2.Contains("0"))
+            {
+                suite++;
+            }
+
+            return suite;
+        }
+
+        private int Evaluation(int[,] _board)
+        {
+            int idWinner = WhoWin(_board);
+            int iNbPieces = 0;
+
+            foreach (int value in _board)
+            {
+                if (value != 0)
+                {
+                    iNbPieces++;
                 }
             }
 
             if (idWinner == idIA)
             {
-                return 1000 - iNbPionIA;
+                return 1000 - iNbPieces/* + (10 * Serie(idIA, _board))*/;
             }
             else if (idWinner == idOpponent)
             {
-                return -1000 + iNbPionOpponent;
+                return -1000 + iNbPieces/* - (10 * Serie(idOpponent, _board))*/;
             }
-            else
+            else if (iNbPieces >= 9)
             {
-                return 0;
+                return 0 + Serie(idIA, _board) - Serie(idOpponent, _board);
             }
+
+            return Serie(idIA, _board) - Serie(idOpponent, _board);
         }
-    }
+    } 
 }
