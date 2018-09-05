@@ -10,9 +10,12 @@ namespace Simulateur.classes.morpion
     class TicTacToe
     {
         int[,] tblGrid = new int[3, 3];
+        DetectionImageMorpion di;
 
-        public TicTacToe()
+        public TicTacToe(DetectionImageMorpion _di)
         {
+            di = _di;
+
             for(int y = 0; y < 3; y++)
             {
                 for(int x = 0; x < 3; x++)
@@ -27,9 +30,19 @@ namespace Simulateur.classes.morpion
             return tblGrid;
         }
 
-        public void PlaceCross(Point pCell)
+        public void PlaceCross(Point _crossLocation)
         {
-            tblGrid[pCell.X, pCell.Y] = 1;
+            tblGrid[_crossLocation.X, _crossLocation.Y] = 1;
+        }
+
+        public Point GetCross()
+        {
+            Point temp = di.PrintScreen(tblGrid);
+            if(temp != Point.Empty)
+            {
+                tblGrid[temp.X, temp.Y] = 1;
+            }
+            return temp;
         }
 
         public void PlaceCicle(Point pCell)
@@ -84,6 +97,10 @@ namespace Simulateur.classes.morpion
             {
                 //Affiche que l'IA a gagné
                 return 2;
+            }
+            else if(!(totx.Contains("0") || toty.Contains("0") || totd1.Contains("0") || totd2.Contains("0")))
+            {
+                return 3;
             }
 
             return 0;
