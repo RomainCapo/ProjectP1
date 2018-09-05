@@ -108,8 +108,15 @@ namespace Simulateur.classes.morpion
                 }
                 if(pCellPosition.X != -1)
                 {
-                    ticTacToe.PlaceCross(pCellPosition);
-                    Play(pCellPosition);
+                    if(ticTacToe.getGrid()[pCellPosition.X, pCellPosition.Y] == 0)
+                    {
+                        ticTacToe.PlaceCross(pCellPosition);
+                        Play(pCellPosition);
+                        bCrossFinished = false;
+                    }
+                }
+                else
+                {
                     bCrossFinished = false;
                 }
             }
