@@ -8,3 +8,13 @@ C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj
 C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CoreCompileInputs.cache
 C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.exe
 C:\Users\yohann.loison\Desktop\Simulateur\Simulateur\obj\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csprojAssemblyReference.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Form1.resources
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.Properties.Resources.resources
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.GenerateResource.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.csproj.CoreCompileInputs.cache
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\obj\Debug\Simulateur.pdb
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.exe.config
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.exe
+C:\Users\yohann.loison\Desktop\Nouveau dossier (2)\g1\Simulateur\Simulateur\bin\Debug\Simulateur.pdb
