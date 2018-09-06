@@ -111,10 +111,12 @@ namespace Simulateur.classes.maze
 
         private void DrawMaze(Cell[,] cells)
         {
+            robotXY.PenUp();
             robotXY.Move(iCellSize, 0);
             robotXY.PenDown();
             robotXY.Move(MAXLENGTH, 0);
             robotXY.PenUp();
+
             for(int y = 0; y < iCellPerLine; y++)
             {
                 robotXY.Move(0, (y + 1) * iCellSize);
@@ -196,7 +198,6 @@ namespace Simulateur.classes.maze
                     robotXY.PenUp();
                 }
             }
-
             robotXY.ResetPosition();
         }
     }

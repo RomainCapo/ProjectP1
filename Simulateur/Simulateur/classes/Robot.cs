@@ -152,7 +152,7 @@ namespace Simulateur.classes
             return true;
         }
 
-        public void DrawPoint(Point _previousLocation, Point _newLocation)
+        public void DrawLine(Point _previousLocation, Point _newLocation)
         {
             Graphics sheet = Graphics.FromImage(tempSheet);
             

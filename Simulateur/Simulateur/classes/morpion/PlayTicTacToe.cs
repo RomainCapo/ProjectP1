@@ -87,7 +87,7 @@ namespace Simulateur.classes.morpion
                 Point newLocation = form.PointToClient(Cursor.Position);
                 if(previousLocation != Point.Empty)
                 {
-                    robotXY.DrawPoint(previousLocation, newLocation);
+                    robotXY.DrawLine(previousLocation, newLocation);
                 }
                 previousLocation = newLocation;
                 Application.DoEvents();
@@ -100,7 +100,7 @@ namespace Simulateur.classes.morpion
                 {
                     for(int x = 0; x < 3; x++)
                     {
-                        if(previousLocation.X < 200 + ((1 + x) * (LENGTH / 3)) && previousLocation.X > 200 + (x * (LENGTH / 3)) && previousLocation.Y > LENGTH - ((1 + y) * (LENGTH / 3)) && previousLocation.Y < LENGTH - (y * (LENGTH / 3)) && pCellPosition.X == -1)
+                        if(previousLocation.X < 212 + ((1 + x) * ((LENGTH) / 3)) && previousLocation.X > 212 + (x * (LENGTH / 3)) && previousLocation.Y > (LENGTH + 12) - ((1 + y) * (LENGTH / 3)) && previousLocation.Y < (LENGTH + 12) - (y * (LENGTH / 3)) && pCellPosition.X == -1)
                         {
                             pCellPosition = new Point(x, y);
                         }
