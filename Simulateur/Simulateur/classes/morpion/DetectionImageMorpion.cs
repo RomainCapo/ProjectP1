@@ -27,7 +27,7 @@ namespace Simulateur.classes.morpion
         /// Méthode permettant la détection des carré, croix et ronds sur une image
         /// </summary>
         /// <param name="img">objet image de emguCV</param>
-        protected override int[,] PerformShapeDetection(IImage img)
+        protected int[,] PerformShapeDetection(IImage img)
         {
             //Convert the image to grayscale and filter out the noise
             UMat uimage = new UMat();
@@ -116,7 +116,7 @@ namespace Simulateur.classes.morpion
             return getChangeBoard(_board, tmp);
         }
 
-        public override void debug()
+        public override void Debug()
         {
             IImage img = modifImage();
 

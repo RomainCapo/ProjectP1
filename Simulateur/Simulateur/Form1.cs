@@ -18,13 +18,20 @@ namespace Simulateur
         int iSizeX = 200, iSizeY = 200;
         PlayTicTacToe ticTacToeGame;
         PlayMaze mazeGame;
-        DetectionImageMorpion di;
+        int jeu = -1;
+
+        PlayDames damesGame;
+        DetectionImageMaze diMaze;
+        DetectionImageMorpion diMorpion;
+        DetectionImageDames diDames;
+
         public Menu _menu = null;
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             robotXY = new Robot(this, iSizeX, iSizeY);
-            di = new DetectionImageMorpion(this);
+            //diDames = new DetectionImageDames(this);
         }
 
         private void Reset()
@@ -55,7 +62,14 @@ namespace Simulateur
 
         private void btnPrintScreen_Click(object sender, EventArgs e)
         {
-            di.debug();
+            if(jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if(jeu == 1)
+            {
+                diMaze.PrintScreen();
+            }
         }
 
 
@@ -67,22 +81,50 @@ namespace Simulateur
 
         private void numericX_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            if(jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if(jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericY_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericWidth_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void numericHeight_ValueChanged(object sender, EventArgs e)
         {
-            di.debug();
+            if (jeu == 0)
+            {
+                diMorpion.Debug();
+            }
+            if (jeu == 1)
+            {
+                diMaze.Debug();
+            }
         }
 
         private void btnAppliquer_Click(object sender, EventArgs e)
@@ -108,15 +150,20 @@ namespace Simulateur
             if(num == 0)
             {
                 Reset();
-                ticTacToeGame = new PlayTicTacToe(this, robotXY, di, iSizeX, iSizeY);
+                diMorpion = new DetectionImageMorpion(this);
+                ticTacToeGame = new PlayTicTacToe(this, robotXY, diMorpion, iSizeX, iSizeY);
                 this.Text = "Morpion";
+                
+                jeu = 0;
             }
             if(num==1)
             {
                 Reset();
+                diMaze = new DetectionImageMaze(this);
                 mazeGame = new PlayMaze(this, robotXY, iSizeX, iSizeY);
                 this.Text = "Labyrinthe";
-
+                
+                jeu = 1;
             }
         }
 

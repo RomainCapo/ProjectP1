@@ -70,19 +70,10 @@ namespace Simulateur.classes
             {
                 fluxImageBox.Image = frame;
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
-        /// <summary>
-        /// Méthode permettant la détection des carré, croix et ronds sur une image
-        /// </summary>
-        /// <param name="img">objet image de emguCV</param>
-        protected abstract int[,] PerformShapeDetection(IImage img);
-
-        public abstract void debug(); 
+        public abstract void Debug(); 
         
         public IImage modifImage()
         {
