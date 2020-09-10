@@ -1,6 +1,6 @@
 # ProjectP1
 
-Resolution of a Tic-tac-toe, a Draughts game or a maze drawn on paper with a camera in C#.
+Resolution of Tic-tac-toe, Draughts game or a maze drawn on paper with a camera in C#.
 
 ## Context
 
